@@ -2,7 +2,7 @@
 layout: post
 title:  "About This Substudy Group"
 date:   2015-04-26 11:27:29
-categories: jekyll update
+categories: other
 ---
 
 # 2015年度 機械学習分科会
