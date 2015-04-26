@@ -6,6 +6,8 @@ permalink: /about/
 
 [東京大学理論科学グループ(TSG)](http://tsg.ne.jp/) 2015年度 機械学習分科会のページです。
 
+[2014年度 機械学習分科会](https://github.com/levelfour/machine-learning-2014/wiki)を改良して提供する予定です。
+
 ## Organizer
 
 東京大学理学部情報科学科3年 [@levelfour\_](https://twitter.com/levelfour_)
