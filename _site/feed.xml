@@ -6,8 +6,8 @@
 </description>
     <link>http://sig.tsg.ne.jp/ml2015/</link>
     <atom:link href="http://sig.tsg.ne.jp/ml2015/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 27 Apr 2015 00:31:20 +0900</pubDate>
-    <lastBuildDate>Mon, 27 Apr 2015 00:31:20 +0900</lastBuildDate>
+    <pubDate>Mon, 27 Apr 2015 00:36:45 +0900</pubDate>
+    <lastBuildDate>Mon, 27 Apr 2015 00:36:45 +0900</lastBuildDate>
     <generator>Jekyll v2.5.3</generator>
     
       <item>
@@ -252,53 +252,6 @@ levelfourは数学が苦手なので、4章くらいまでしかまだ読んで�
         
         
         <category>ml</category>
-        
-      </item>
-    
-      <item>
-        <title>About This Substudy Group</title>
-        <description>&lt;h1 id=&quot;section&quot;&gt;2015年度 機械学習分科会&lt;/h1&gt;
-
-&lt;h2 id=&quot;organizer&quot;&gt;Organizer&lt;/h2&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://twitter.com/levelfour_&quot;&gt;@levelfour_&lt;/a&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;section-1&quot;&gt;目標&lt;/h2&gt;
-&lt;ul&gt;
-  &lt;li&gt;機械学習、Python初心者でも機械学習の基本的な考え方を理解できることを目指す&lt;/li&gt;
-  &lt;li&gt;Kaggleでデータ分析の練習をしたい&lt;/li&gt;
-  &lt;li&gt;何らかしらの認識エンジンを作成したい&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;section-2&quot;&gt;予定&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;4/28 第1回 環境構築と機械学習の考え方&lt;/li&gt;
-  &lt;li&gt;5/12 第2回 多変数解析と確率統計の基礎&lt;/li&gt;
-  &lt;li&gt;5/19 第3回 線形識別モデルと回帰分析&lt;/li&gt;
-  &lt;li&gt;5/26 第4回 ベイズ回帰分析&lt;/li&gt;
-  &lt;li&gt;6/2 第5回 ニューラルネットワークの基礎&lt;/li&gt;
-  &lt;li&gt;6/9 (予備)&lt;/li&gt;
-  &lt;li&gt;6/16 第6回 Support Vector Machine&lt;/li&gt;
-  &lt;li&gt;6/23 第7回 識別器の組み合わせ(Adaboost)&lt;/li&gt;
-  &lt;li&gt;6/30 第8回 深層学習&lt;/li&gt;
-  &lt;li&gt;7/7 (予備)&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;section-3&quot;&gt;必要なもの&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;個人PC(推奨)&lt;/li&gt;
-  &lt;li&gt;折れない心&lt;/li&gt;
-&lt;/ul&gt;
-
-</description>
-        <pubDate>Sun, 26 Apr 2015 20:27:29 +0900</pubDate>
-        <link>http://sig.tsg.ne.jp/ml2015/other/2015/04/26/welcome-to-jekyll.html</link>
-        <guid isPermaLink="true">http://sig.tsg.ne.jp/ml2015/other/2015/04/26/welcome-to-jekyll.html</guid>
-        
-        
-        <category>other</category>
         
       </item>
     
