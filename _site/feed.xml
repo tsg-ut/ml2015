@@ -4,10 +4,10 @@
     <title>TSG Machine Learning</title>
     <description>TSG Machine Learning Substudy Group in 2015
 </description>
-    <link>http://tsg.ne.jp//</link>
-    <atom:link href="http://tsg.ne.jp//feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 26 Apr 2015 11:37:47 +0900</pubDate>
-    <lastBuildDate>Sun, 26 Apr 2015 11:37:47 +0900</lastBuildDate>
+    <link>http://sig.tsg.ne.jp/ml2015/</link>
+    <atom:link href="http://sig.tsg.ne.jp/ml2015/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Sun, 26 Apr 2015 19:40:56 +0900</pubDate>
+    <lastBuildDate>Sun, 26 Apr 2015 19:40:56 +0900</lastBuildDate>
     <generator>Jekyll v2.5.3</generator>
     
       <item>
@@ -49,8 +49,8 @@
 
 </description>
         <pubDate>Sun, 26 Apr 2015 20:27:29 +0900</pubDate>
-        <link>http://tsg.ne.jp//jekyll/update/2015/04/26/welcome-to-jekyll.html</link>
-        <guid isPermaLink="true">http://tsg.ne.jp//jekyll/update/2015/04/26/welcome-to-jekyll.html</guid>
+        <link>http://sig.tsg.ne.jp/ml2015/jekyll/update/2015/04/26/welcome-to-jekyll.html</link>
+        <guid isPermaLink="true">http://sig.tsg.ne.jp/ml2015/jekyll/update/2015/04/26/welcome-to-jekyll.html</guid>
         
         
         <category>jekyll</category>
