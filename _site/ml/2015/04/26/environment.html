@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <title>#02 環境構築</title>
-  <meta name="description" content="">
+  <meta name="description" content="統計解析とプログラミング">
 
   <link rel="stylesheet" href="/ml2015/css/main.css">
   <link rel="canonical" href="http://sig.tsg.ne.jp/ml2015/ml/2015/04/26/environment.html">
@@ -65,7 +65,46 @@
   </header>
 
   <article class="post-content">
-    
+    <h2 id="section">統計解析とプログラミング</h2>
+
+<p>統計処理とプログラミングは切っても切り離せない関係にある。
+プログラミングと言っても、この分野ではGUIで華やかなアプリケーションを作る技術やアセンブリをバリバリ読むということは勿論無く、単純に計算したい数式を記述するツールとして用いられることがほとんどだ。
+そのため、プログラミング初心者の人も臆する必要はない（むしろプログラミングの観点から見れば難易度は低いので、プログラミングの勉強としても良いはずだ）。</p>
+
+<p>統計解析によく用いられるプログラミング言語・ツールには以下のようなものがある（levelfourのバイアスがかかっている）。</p>
+
+<ul>
+  <li>Excel: 言わずもがな。<s>方眼紙として使わなければ最強なんだけどなあ</s></li>
+  <li>MatLab: 数値計算の王道ソフトウェア。ライセンスも高いので研究室向け。</li>
+  <li>R: GNU発のフリーの数値解析ソフトウェア。フリーなのに高機能。</li>
+  <li>Python: 汎用プログラミング言語だが、数値計算ライブラリが充実。</li>
+  <li>(Julia: 2012年に初公開された、LLVMベースの高速数値計算向け汎用プログラミング言語)</li>
+</ul>
+
+<p>この分科会ではPythonを用いることにする。統計解析だけに絞るのであれば確かにR言語の方が（特に検定回りで）ライブラリが充実しているのだが、Pythonの方が汎用プログラミング言語ともあって、他のツールの助力を借りること無くファイルアクセスしたりWeb公開できるのが強みだ。
+世界的に見てもこの流れがあるようで、最近はR言語を始めるならPythonをやろうとよく言われる。</p>
+
+<h2 id="python">Pythonの統計解析用環境</h2>
+
+<p>一般的に以下のようなライブラリ群が用いられる。</p>
+
+<ul>
+  <li>numpy: 行列計算</li>
+  <li>scipy: 科学計算（フィッティング、連立方程式、特殊関数、微分積分など）</li>
+  <li>matplotlib: グラフプロットツール</li>
+  <li>pandas: データの読み書き、表の作成（Pythonで動くExcelのような感じ）</li>
+  <li>scikit-learn: 機械学習</li>
+  <li>IPython(Jupyter): 高機能インタラクティブPythonシェル</li>
+</ul>
+
+<p>この回では、Python自体の処理系のインストールと、上記ライブラリのインストールを目指す。</p>
+
+<h2 id="pyenv">pyenvのインストール</h2>
+
+<h2 id="anaconda">Anacondaのインストール</h2>
+
+<h2 id="python-1">Pythonの基礎知識</h2>
+
 
   </article>
 

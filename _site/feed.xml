@@ -6,13 +6,52 @@
 </description>
     <link>http://sig.tsg.ne.jp/ml2015/</link>
     <atom:link href="http://sig.tsg.ne.jp/ml2015/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 27 Apr 2015 00:36:45 +0900</pubDate>
-    <lastBuildDate>Mon, 27 Apr 2015 00:36:45 +0900</lastBuildDate>
+    <pubDate>Mon, 27 Apr 2015 09:42:05 +0900</pubDate>
+    <lastBuildDate>Mon, 27 Apr 2015 09:42:05 +0900</lastBuildDate>
     <generator>Jekyll v2.5.3</generator>
     
       <item>
         <title>#02 環境構築</title>
-        <description>
+        <description>&lt;h2 id=&quot;section&quot;&gt;統計解析とプログラミング&lt;/h2&gt;
+
+&lt;p&gt;統計処理とプログラミングは切っても切り離せない関係にある。
+プログラミングと言っても、この分野ではGUIで華やかなアプリケーションを作る技術やアセンブリをバリバリ読むということは勿論無く、単純に計算したい数式を記述するツールとして用いられることがほとんどだ。
+そのため、プログラミング初心者の人も臆する必要はない（むしろプログラミングの観点から見れば難易度は低いので、プログラミングの勉強としても良いはずだ）。&lt;/p&gt;
+
+&lt;p&gt;統計解析によく用いられるプログラミング言語・ツールには以下のようなものがある（levelfourのバイアスがかかっている）。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Excel: 言わずもがな。&lt;s&gt;方眼紙として使わなければ最強なんだけどなあ&lt;/s&gt;&lt;/li&gt;
+  &lt;li&gt;MatLab: 数値計算の王道ソフトウェア。ライセンスも高いので研究室向け。&lt;/li&gt;
+  &lt;li&gt;R: GNU発のフリーの数値解析ソフトウェア。フリーなのに高機能。&lt;/li&gt;
+  &lt;li&gt;Python: 汎用プログラミング言語だが、数値計算ライブラリが充実。&lt;/li&gt;
+  &lt;li&gt;(Julia: 2012年に初公開された、LLVMベースの高速数値計算向け汎用プログラミング言語)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;この分科会ではPythonを用いることにする。統計解析だけに絞るのであれば確かにR言語の方が（特に検定回りで）ライブラリが充実しているのだが、Pythonの方が汎用プログラミング言語ともあって、他のツールの助力を借りること無くファイルアクセスしたりWeb公開できるのが強みだ。
+世界的に見てもこの流れがあるようで、最近はR言語を始めるならPythonをやろうとよく言われる。&lt;/p&gt;
+
+&lt;h2 id=&quot;python&quot;&gt;Pythonの統計解析用環境&lt;/h2&gt;
+
+&lt;p&gt;一般的に以下のようなライブラリ群が用いられる。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;numpy: 行列計算&lt;/li&gt;
+  &lt;li&gt;scipy: 科学計算（フィッティング、連立方程式、特殊関数、微分積分など）&lt;/li&gt;
+  &lt;li&gt;matplotlib: グラフプロットツール&lt;/li&gt;
+  &lt;li&gt;pandas: データの読み書き、表の作成（Pythonで動くExcelのような感じ）&lt;/li&gt;
+  &lt;li&gt;scikit-learn: 機械学習&lt;/li&gt;
+  &lt;li&gt;IPython(Jupyter): 高機能インタラクティブPythonシェル&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;この回では、Python自体の処理系のインストールと、上記ライブラリのインストールを目指す。&lt;/p&gt;
+
+&lt;h2 id=&quot;pyenv&quot;&gt;pyenvのインストール&lt;/h2&gt;
+
+&lt;h2 id=&quot;anaconda&quot;&gt;Anacondaのインストール&lt;/h2&gt;
+
+&lt;h2 id=&quot;python-1&quot;&gt;Pythonの基礎知識&lt;/h2&gt;
+
 </description>
         <pubDate>Sun, 26 Apr 2015 21:07:00 +0900</pubDate>
         <link>http://sig.tsg.ne.jp/ml2015/ml/2015/04/26/environment.html</link>
