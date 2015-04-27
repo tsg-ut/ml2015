@@ -1,0 +1,11 @@
+title: TSG Machine Learning
+email: levelfourslv@gmail.com
+description: >
+  TSG Machine Learning Substudy Group in 2015
+baseurl: "/ml2015"
+url: "http://sig.tsg.ne.jp"
+twitter_username: tsg_ut
+github_username:  tsg-ut
+
+markdown: redcarpet
+exclude: ["README.md"]
