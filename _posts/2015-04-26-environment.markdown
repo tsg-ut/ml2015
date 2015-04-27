@@ -203,4 +203,7 @@ if __name__ == '__main__':
     plt.show()
 ```
 
+上記のスクリプトを保存してpythonで実行すると、以下のような結果が得られる。
+sin関数のフィッティングである。
 
+![sin関数のフィッティング]({{ site.baseurl }}/images/02/sin.png)
