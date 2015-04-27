@@ -6,8 +6,8 @@
 </description>
     <link>http://sig.tsg.ne.jp/ml2015/</link>
     <atom:link href="http://sig.tsg.ne.jp/ml2015/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Tue, 28 Apr 2015 00:20:50 +0900</pubDate>
-    <lastBuildDate>Tue, 28 Apr 2015 00:20:50 +0900</lastBuildDate>
+    <pubDate>Tue, 28 Apr 2015 01:01:02 +0900</pubDate>
+    <lastBuildDate>Tue, 28 Apr 2015 01:01:02 +0900</lastBuildDate>
     <generator>Jekyll v2.5.3</generator>
     
       <item>
@@ -130,6 +130,39 @@ pyenvがインストールされていれば、Anacondaのインストールは�
 &lt;p&gt;&lt;a href=&quot;http://continuum.io/downloads#all&quot;&gt;Anacondaのサポートページ&lt;/a&gt;からAnaconda installerをダウンロードしてインストールするのが簡単だと思われる。&lt;/p&gt;
 
 &lt;h2&gt;Pythonの基礎知識&lt;/h2&gt;
+
+&lt;p&gt;Pythonは汎用プログラミング言語の一つで、（多くの場合）インタプリタ上で動作する動的型付けスクリプト言語である。
+Pythonの大きな特徴としては&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;インデントで関数等のブロックを表現する&lt;/li&gt;
+&lt;li&gt;柔軟な動的型付け&lt;/li&gt;
+&lt;li&gt;内包表記による簡潔で高速なコード&lt;/li&gt;
+&lt;li&gt;関数型プログラミングも可能&lt;/li&gt;
+&lt;li&gt;豊富な標準ライブラリ、活発な海外コミュニティ&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;逆にデメリットとしては&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;インデントに縛られる&lt;/li&gt;
+&lt;li&gt;lambda式が書きにくい&lt;/li&gt;
+&lt;li&gt;正規表現が使いにくい&lt;/li&gt;
+&lt;li&gt;オブジェクト指向にもかかわらずメソッドチェーンが書きにくい&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;あたりだろうか（個人の感想）。&lt;/p&gt;
+
+&lt;h3&gt;バージョン&lt;/h3&gt;
+
+&lt;p&gt;Pythonは現在2.xから3.xへの移行期を向かえている。3.xでは2.xの後方互換性を切り捨てる形で、新たな機能を取り入れることを目指している。
+（Pythonコミュニティとしては「今までよりもPythonicなコード」を目指しているようだ）&lt;/p&gt;
+
+&lt;p&gt;そのため、3.xのコードは2.xの処理系では動かないし、その逆もまた然りだ。
+昨年度の分科会では2.7の処理系を用いて説明を行ったが、3.xに対する環境も整備しつつあるこの時期が3.xへの移行タイミングと見極め、本分科会では3.xを対象として説明を行う。&lt;/p&gt;
+
+&lt;p&gt;ちなみに、上でAnacondaをインストールしてもらった際にanaconda3-2.1.0というパッケージをインストールしてもらった。
+これは2015年4月末時点の最新バージョンで、付属しているPython処理系のバージョンは3.4.1である。&lt;/p&gt;
 </description>
         <pubDate>Sun, 26 Apr 2015 21:07:00 +0900</pubDate>
         <link>http://sig.tsg.ne.jp/ml2015/ml/2015/04/26/environment.html</link>
