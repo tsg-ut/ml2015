@@ -180,7 +180,7 @@ Pythonは現在2.xから3.xへの移行期を向かえている。3.xでは2.x�
 ### サンプルスクリプト
 
 ```python
-#!/usr/bin/env pytho
+#!/usr/bin/env python
 # coding: utf-8
 
 import numpy as np
