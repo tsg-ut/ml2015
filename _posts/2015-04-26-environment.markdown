@@ -37,6 +37,68 @@ categories: ml
 
 ## pyenvのインストール
 
+`pyenv`を入れておくとよい。仮想環境を使うと
+
++ 任意のバージョンのPythonを簡単に入れられる
++ システムのPythonを破壊せずにとっておける
++ Sandbox環境を簡単に作成&破棄できる
++ 後述のAnacondaもあっという間にインストール
++ Ma OS Xだと`brew install pyenv`で入れられるっぽい
+
+といった風にメリットづくしなので、オススメする。ちなみに同じバージョンのPythonを複数入れたいという需要があるかもしれないが、そんなときには`virtualenv`を用いる。
+
+以下OSごとのインストール方法を説明する。levelfourはMac OS 10.9, 10.10, Ubuntu 14.04でのインストールを確認した。
+また、2014年度の分科会で他のメンバーによりWindowsでのインストールも確認された。
+
+#### Windows
+
+Cygwinで以下のページの通りに作業するとインストールできることを確認。
+
+[pyenvとvirtualenvのインストールと使い方 - Qiita](http://qiita.com/la_luna_azul/items/3f64016feaad1722805c)
+
+ただし、Windowsだと**pyenvからanacondaをうまくインストールできない**ようなので、後述のAnaconda Installerを使用するとよい。
+
+#### Mac OS X
+
+```
+$ brew install pyenv
+```
+
+#### Linux
+
+[pyenv-installer](https://github.com/yyuu/pyenv-installer)を用いるとインストールできる。
+（Ubuntu 14.04で確認）
+
+### pyenvの使い方（概略）
+
+#### インストール可能バージョンを見る
+
+```
+$ pyenv install -l
+```
+
+#### インストールする
+
+```
+$ pyenv install [what-you-want]
+```
+
+#### インストール済バージョン一覧を参照
+
+```
+$ pyenv versions
+```
+
+#### 環境の切り替え
+
+```
+$ pyenv global [environment]
+```
+
+ちなみに`global`でシステム全体で使用するPythonのバージョン、`local`で**そのディレクトリより下層**で使用するPythonのバージョンを設定することが出来る。
+
+【参考】[pyenvとvirtualenvのインストールと使い方 - Qiita](http://qiita.com/la_luna_azul/items/3f64016feaad1722805c)
+
 ## Anacondaのインストール
 
 ## Pythonの基礎知識

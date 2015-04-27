@@ -6,8 +6,8 @@
 </description>
     <link>http://sig.tsg.ne.jp/ml2015/</link>
     <atom:link href="http://sig.tsg.ne.jp/ml2015/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 27 Apr 2015 09:42:05 +0900</pubDate>
-    <lastBuildDate>Mon, 27 Apr 2015 09:42:05 +0900</lastBuildDate>
+    <pubDate>Mon, 27 Apr 2015 13:03:23 +0900</pubDate>
+    <lastBuildDate>Mon, 27 Apr 2015 13:03:23 +0900</lastBuildDate>
     <generator>Jekyll v2.5.3</generator>
     
       <item>
@@ -47,6 +47,70 @@
 &lt;p&gt;この回では、Python自体の処理系のインストールと、上記ライブラリのインストールを目指す。&lt;/p&gt;
 
 &lt;h2 id=&quot;pyenv&quot;&gt;pyenvのインストール&lt;/h2&gt;
+
+&lt;p&gt;&lt;code&gt;pyenv&lt;/code&gt;を入れておくとよい。仮想環境を使うと&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;任意のバージョンのPythonを簡単に入れられる&lt;/li&gt;
+  &lt;li&gt;システムのPythonを破壊せずにとっておける&lt;/li&gt;
+  &lt;li&gt;Sandbox環境を簡単に作成&amp;amp;破棄できる&lt;/li&gt;
+  &lt;li&gt;後述のAnacondaもあっという間にインストール&lt;/li&gt;
+  &lt;li&gt;Ma OS Xだと&lt;code&gt;brew install pyenv&lt;/code&gt;で入れられるっぽい&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;といった風にメリットづくしなので、オススメする。ちなみに同じバージョンのPythonを複数入れたいという需要があるかもしれないが、そんなときには&lt;code&gt;virtualenv&lt;/code&gt;を用いる。&lt;/p&gt;
+
+&lt;p&gt;以下OSごとのインストール方法を説明する。levelfourはMac OS 10.9, 10.10, Ubuntu 14.04でのインストールを確認した。
+また、2014年度の分科会で他のメンバーによりWindowsでのインストールも確認された。&lt;/p&gt;
+
+&lt;h4 id=&quot;windows&quot;&gt;Windows&lt;/h4&gt;
+
+&lt;p&gt;Cygwinで以下のページの通りに作業するとインストールできることを確認。&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://qiita.com/la_luna_azul/items/3f64016feaad1722805c&quot;&gt;pyenvとvirtualenvのインストールと使い方 - Qiita&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;ただし、Windowsだと&lt;strong&gt;pyenvからanacondaをうまくインストールできない&lt;/strong&gt;ようなので、後述のAnaconda Installerを使用するとよい。&lt;/p&gt;
+
+&lt;h4 id=&quot;mac-os-x&quot;&gt;Mac OS X&lt;/h4&gt;
+
+&lt;p&gt;&lt;code&gt;
+$ brew install pyenv
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;linux&quot;&gt;Linux&lt;/h4&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/yyuu/pyenv-installer&quot;&gt;pyenv-installer&lt;/a&gt;を用いるとインストールできる。
+（Ubuntu 14.04で確認）&lt;/p&gt;
+
+&lt;h3 id=&quot;pyenv-1&quot;&gt;pyenvの使い方（概略）&lt;/h3&gt;
+
+&lt;h4 id=&quot;section-1&quot;&gt;インストール可能バージョンを見る&lt;/h4&gt;
+
+&lt;p&gt;&lt;code&gt;
+$ pyenv install -l
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;section-2&quot;&gt;インストールする&lt;/h4&gt;
+
+&lt;p&gt;&lt;code&gt;
+$ pyenv install [what-you-want]
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;section-3&quot;&gt;インストール済バージョン一覧を参照&lt;/h4&gt;
+
+&lt;p&gt;&lt;code&gt;
+$ pyenv versions
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;section-4&quot;&gt;環境の切り替え&lt;/h4&gt;
+
+&lt;p&gt;&lt;code&gt;
+$ pyenv global [environment]
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;ちなみに&lt;code&gt;global&lt;/code&gt;でシステム全体で使用するPythonのバージョン、&lt;code&gt;local&lt;/code&gt;で&lt;strong&gt;そのディレクトリより下層&lt;/strong&gt;で使用するPythonのバージョンを設定することが出来る。&lt;/p&gt;
+
+&lt;p&gt;【参考】&lt;a href=&quot;http://qiita.com/la_luna_azul/items/3f64016feaad1722805c&quot;&gt;pyenvとvirtualenvのインストールと使い方 - Qiita&lt;/a&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;anaconda&quot;&gt;Anacondaのインストール&lt;/h2&gt;
 

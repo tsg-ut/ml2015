@@ -101,6 +101,70 @@
 
 <h2 id="pyenv">pyenvのインストール</h2>
 
+<p><code>pyenv</code>を入れておくとよい。仮想環境を使うと</p>
+
+<ul>
+  <li>任意のバージョンのPythonを簡単に入れられる</li>
+  <li>システムのPythonを破壊せずにとっておける</li>
+  <li>Sandbox環境を簡単に作成&amp;破棄できる</li>
+  <li>後述のAnacondaもあっという間にインストール</li>
+  <li>Ma OS Xだと<code>brew install pyenv</code>で入れられるっぽい</li>
+</ul>
+
+<p>といった風にメリットづくしなので、オススメする。ちなみに同じバージョンのPythonを複数入れたいという需要があるかもしれないが、そんなときには<code>virtualenv</code>を用いる。</p>
+
+<p>以下OSごとのインストール方法を説明する。levelfourはMac OS 10.9, 10.10, Ubuntu 14.04でのインストールを確認した。
+また、2014年度の分科会で他のメンバーによりWindowsでのインストールも確認された。</p>
+
+<h4 id="windows">Windows</h4>
+
+<p>Cygwinで以下のページの通りに作業するとインストールできることを確認。</p>
+
+<p><a href="http://qiita.com/la_luna_azul/items/3f64016feaad1722805c">pyenvとvirtualenvのインストールと使い方 - Qiita</a></p>
+
+<p>ただし、Windowsだと<strong>pyenvからanacondaをうまくインストールできない</strong>ようなので、後述のAnaconda Installerを使用するとよい。</p>
+
+<h4 id="mac-os-x">Mac OS X</h4>
+
+<p><code>
+$ brew install pyenv
+</code></p>
+
+<h4 id="linux">Linux</h4>
+
+<p><a href="https://github.com/yyuu/pyenv-installer">pyenv-installer</a>を用いるとインストールできる。
+（Ubuntu 14.04で確認）</p>
+
+<h3 id="pyenv-1">pyenvの使い方（概略）</h3>
+
+<h4 id="section-1">インストール可能バージョンを見る</h4>
+
+<p><code>
+$ pyenv install -l
+</code></p>
+
+<h4 id="section-2">インストールする</h4>
+
+<p><code>
+$ pyenv install [what-you-want]
+</code></p>
+
+<h4 id="section-3">インストール済バージョン一覧を参照</h4>
+
+<p><code>
+$ pyenv versions
+</code></p>
+
+<h4 id="section-4">環境の切り替え</h4>
+
+<p><code>
+$ pyenv global [environment]
+</code></p>
+
+<p>ちなみに<code>global</code>でシステム全体で使用するPythonのバージョン、<code>local</code>で<strong>そのディレクトリより下層</strong>で使用するPythonのバージョンを設定することが出来る。</p>
+
+<p>【参考】<a href="http://qiita.com/la_luna_azul/items/3f64016feaad1722805c">pyenvとvirtualenvのインストールと使い方 - Qiita</a></p>
+
 <h2 id="anaconda">Anacondaのインストール</h2>
 
 <h2 id="python-1">Pythonの基礎知識</h2>
