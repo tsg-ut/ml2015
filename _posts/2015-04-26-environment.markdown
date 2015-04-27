@@ -71,6 +71,8 @@ $ brew install pyenv
 
 ### pyenvの使い方（概略）
 
+インストール終了後に標準出力に.bashrcに環境変数設定を追記するように促されていると思うので、その通りに従う。
+
 #### インストール可能バージョンを見る
 
 ```
@@ -100,6 +102,49 @@ $ pyenv global [environment]
 【参考】[pyenvとvirtualenvのインストールと使い方 - Qiita](http://qiita.com/la_luna_azul/items/3f64016feaad1722805c)
 
 ## Anacondaのインストール
+
+pyenvをインストールできたところで、次は上で挙げた数値計算ライブラリ群をインストールする。
+しかし、これらライブラリのインストールには非常に手間がかかり、ビルドエラーが起こって解決が困難になることも多い。
+そこで、Pythonの処理系と有用なライブラリ群をまとめたパッケージである[Anaconda](http://continuum.io/downloads#all)を利用する。
+pyenvがインストールされていれば、Anacondaのインストールは非常に簡単である。
+
+```
+$ pyenv install anaconda3-2.1.0
+```
+
+このインストールには20分〜30分程度の時間を要するので注意すること。
+インストールの確認には
+
+```
+$ pyenv versions
+```
+
+を実行した際にanaconda3-2.1.0が表示されるかを確認すればよい。
+各種ライブラリ群が正常動作していることを確認するために、Anaconda環境に切り替える。
+
+```
+$ pyenv global anaconda3-2.1.0
+```
+
+そしてPythonを立ち上げる。
+
+```
+$ python
+```
+
+以下の行を一行ずつ入力し、エラーが起こらなければ成功である。
+
+```python
+import numpy
+import scipy
+import matplotlib
+import pandas
+import sklearn
+```
+
+### Windows等pyenvが正常に動作しない環境の場合
+
+[Anacondaのサポートページ](http://continuum.io/downloads#all)からAnaconda installerをダウンロードしてインストールするのが簡単だと思われる。
 
 ## Pythonの基礎知識
 

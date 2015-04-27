@@ -6,8 +6,8 @@
 </description>
     <link>http://sig.tsg.ne.jp/ml2015/</link>
     <atom:link href="http://sig.tsg.ne.jp/ml2015/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 27 Apr 2015 13:03:23 +0900</pubDate>
-    <lastBuildDate>Mon, 27 Apr 2015 13:03:23 +0900</lastBuildDate>
+    <pubDate>Tue, 28 Apr 2015 00:17:03 +0900</pubDate>
+    <lastBuildDate>Tue, 28 Apr 2015 00:17:03 +0900</lastBuildDate>
     <generator>Jekyll v2.5.3</generator>
     
       <item>
@@ -84,6 +84,8 @@ $ brew install pyenv
 
 &lt;h3 id=&quot;pyenv-1&quot;&gt;pyenvの使い方（概略）&lt;/h3&gt;
 
+&lt;p&gt;インストール終了後に標準出力に.bashrcに環境変数設定を追記するように促されていると思うので、その通りに従う。&lt;/p&gt;
+
 &lt;h4 id=&quot;section-1&quot;&gt;インストール可能バージョンを見る&lt;/h4&gt;
 
 &lt;p&gt;&lt;code&gt;
@@ -113,6 +115,49 @@ $ pyenv global [environment]
 &lt;p&gt;【参考】&lt;a href=&quot;http://qiita.com/la_luna_azul/items/3f64016feaad1722805c&quot;&gt;pyenvとvirtualenvのインストールと使い方 - Qiita&lt;/a&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;anaconda&quot;&gt;Anacondaのインストール&lt;/h2&gt;
+
+&lt;p&gt;pyenvをインストールできたところで、次は上で挙げた数値計算ライブラリ群をインストールする。
+しかし、これらライブラリのインストールには非常に手間がかかり、ビルドエラーが起こって解決が困難になることも多い。
+そこで、Pythonの処理系と有用なライブラリ群をまとめたパッケージである&lt;a href=&quot;http://continuum.io/downloads#all&quot;&gt;Anaconda&lt;/a&gt;を利用する。
+pyenvがインストールされていれば、Anacondaのインストールは非常に簡単である。&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;
+$ pyenv install anaconda3-2.1.0
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;このインストールには20分〜30分程度の時間を要するので注意すること。
+インストールの確認には&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;
+$ pyenv versions
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;を実行した際にanaconda3-2.1.0が表示されるかを確認すればよい。
+各種ライブラリ群が正常動作していることを確認するために、Anaconda環境に切り替える。&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;
+$ pyenv global anaconda3-2.1.0
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;そしてPythonを立ち上げる。&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;
+$ python
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;以下の行を一行ずつ入力し、エラーが起こらなければ成功である。&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;python
+import numpy
+import scipy
+import matplotlib
+import pandas
+import sklearn
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;windowspyenv&quot;&gt;Windows等pyenvが正常に動作しない環境の場合&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://continuum.io/downloads#all&quot;&gt;Anacondaのサポートページ&lt;/a&gt;からAnaconda installerをダウンロードしてインストールするのが簡単だと思われる。&lt;/p&gt;
 
 &lt;h2 id=&quot;python-1&quot;&gt;Pythonの基礎知識&lt;/h2&gt;
 
