@@ -6,13 +6,13 @@
 </description>
     <link>http://sig.tsg.ne.jp/ml2015/</link>
     <atom:link href="http://sig.tsg.ne.jp/ml2015/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Tue, 28 Apr 2015 00:17:03 +0900</pubDate>
-    <lastBuildDate>Tue, 28 Apr 2015 00:17:03 +0900</lastBuildDate>
+    <pubDate>Tue, 28 Apr 2015 00:20:50 +0900</pubDate>
+    <lastBuildDate>Tue, 28 Apr 2015 00:20:50 +0900</lastBuildDate>
     <generator>Jekyll v2.5.3</generator>
     
       <item>
         <title>#02 環境構築</title>
-        <description>&lt;h2 id=&quot;section&quot;&gt;統計解析とプログラミング&lt;/h2&gt;
+        <description>&lt;h2&gt;統計解析とプログラミング&lt;/h2&gt;
 
 &lt;p&gt;統計処理とプログラミングは切っても切り離せない関係にある。
 プログラミングと言っても、この分野ではGUIで華やかなアプリケーションを作る技術やアセンブリをバリバリ読むということは勿論無く、単純に計算したい数式を記述するツールとして用いられることがほとんどだ。
@@ -21,41 +21,41 @@
 &lt;p&gt;統計解析によく用いられるプログラミング言語・ツールには以下のようなものがある（levelfourのバイアスがかかっている）。&lt;/p&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;Excel: 言わずもがな。&lt;s&gt;方眼紙として使わなければ最強なんだけどなあ&lt;/s&gt;&lt;/li&gt;
-  &lt;li&gt;MatLab: 数値計算の王道ソフトウェア。ライセンスも高いので研究室向け。&lt;/li&gt;
-  &lt;li&gt;R: GNU発のフリーの数値解析ソフトウェア。フリーなのに高機能。&lt;/li&gt;
-  &lt;li&gt;Python: 汎用プログラミング言語だが、数値計算ライブラリが充実。&lt;/li&gt;
-  &lt;li&gt;(Julia: 2012年に初公開された、LLVMベースの高速数値計算向け汎用プログラミング言語)&lt;/li&gt;
+&lt;li&gt;Excel: 言わずもがな。&lt;s&gt;方眼紙として使わなければ最強なんだけどなあ&lt;/s&gt;&lt;/li&gt;
+&lt;li&gt;MatLab: 数値計算の王道ソフトウェア。ライセンスも高いので研究室向け。&lt;/li&gt;
+&lt;li&gt;R: GNU発のフリーの数値解析ソフトウェア。フリーなのに高機能。&lt;/li&gt;
+&lt;li&gt;Python: 汎用プログラミング言語だが、数値計算ライブラリが充実。&lt;/li&gt;
+&lt;li&gt;(Julia: 2012年に初公開された、LLVMベースの高速数値計算向け汎用プログラミング言語)&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;この分科会ではPythonを用いることにする。統計解析だけに絞るのであれば確かにR言語の方が（特に検定回りで）ライブラリが充実しているのだが、Pythonの方が汎用プログラミング言語ともあって、他のツールの助力を借りること無くファイルアクセスしたりWeb公開できるのが強みだ。
 世界的に見てもこの流れがあるようで、最近はR言語を始めるならPythonをやろうとよく言われる。&lt;/p&gt;
 
-&lt;h2 id=&quot;python&quot;&gt;Pythonの統計解析用環境&lt;/h2&gt;
+&lt;h2&gt;Pythonの統計解析用環境&lt;/h2&gt;
 
 &lt;p&gt;一般的に以下のようなライブラリ群が用いられる。&lt;/p&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;numpy: 行列計算&lt;/li&gt;
-  &lt;li&gt;scipy: 科学計算（フィッティング、連立方程式、特殊関数、微分積分など）&lt;/li&gt;
-  &lt;li&gt;matplotlib: グラフプロットツール&lt;/li&gt;
-  &lt;li&gt;pandas: データの読み書き、表の作成（Pythonで動くExcelのような感じ）&lt;/li&gt;
-  &lt;li&gt;scikit-learn: 機械学習&lt;/li&gt;
-  &lt;li&gt;IPython(Jupyter): 高機能インタラクティブPythonシェル&lt;/li&gt;
+&lt;li&gt;numpy: 行列計算&lt;/li&gt;
+&lt;li&gt;scipy: 科学計算（フィッティング、連立方程式、特殊関数、微分積分など）&lt;/li&gt;
+&lt;li&gt;matplotlib: グラフプロットツール&lt;/li&gt;
+&lt;li&gt;pandas: データの読み書き、表の作成（Pythonで動くExcelのような感じ）&lt;/li&gt;
+&lt;li&gt;scikit-learn: 機械学習&lt;/li&gt;
+&lt;li&gt;IPython(Jupyter): 高機能インタラクティブPythonシェル&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;この回では、Python自体の処理系のインストールと、上記ライブラリのインストールを目指す。&lt;/p&gt;
 
-&lt;h2 id=&quot;pyenv&quot;&gt;pyenvのインストール&lt;/h2&gt;
+&lt;h2&gt;pyenvのインストール&lt;/h2&gt;
 
 &lt;p&gt;&lt;code&gt;pyenv&lt;/code&gt;を入れておくとよい。仮想環境を使うと&lt;/p&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;任意のバージョンのPythonを簡単に入れられる&lt;/li&gt;
-  &lt;li&gt;システムのPythonを破壊せずにとっておける&lt;/li&gt;
-  &lt;li&gt;Sandbox環境を簡単に作成&amp;amp;破棄できる&lt;/li&gt;
-  &lt;li&gt;後述のAnacondaもあっという間にインストール&lt;/li&gt;
-  &lt;li&gt;Ma OS Xだと&lt;code&gt;brew install pyenv&lt;/code&gt;で入れられるっぽい&lt;/li&gt;
+&lt;li&gt;任意のバージョンのPythonを簡単に入れられる&lt;/li&gt;
+&lt;li&gt;システムのPythonを破壊せずにとっておける&lt;/li&gt;
+&lt;li&gt;Sandbox環境を簡単に作成&amp;amp;破棄できる&lt;/li&gt;
+&lt;li&gt;後述のAnacondaもあっという間にインストール&lt;/li&gt;
+&lt;li&gt;Ma OS Xだと&lt;code&gt;brew install pyenv&lt;/code&gt;で入れられるっぽい&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;といった風にメリットづくしなので、オススメする。ちなみに同じバージョンのPythonを複数入れたいという需要があるかもしれないが、そんなときには&lt;code&gt;virtualenv&lt;/code&gt;を用いる。&lt;/p&gt;
@@ -63,7 +63,7 @@
 &lt;p&gt;以下OSごとのインストール方法を説明する。levelfourはMac OS 10.9, 10.10, Ubuntu 14.04でのインストールを確認した。
 また、2014年度の分科会で他のメンバーによりWindowsでのインストールも確認された。&lt;/p&gt;
 
-&lt;h4 id=&quot;windows&quot;&gt;Windows&lt;/h4&gt;
+&lt;h4&gt;Windows&lt;/h4&gt;
 
 &lt;p&gt;Cygwinで以下のページの通りに作業するとインストールできることを確認。&lt;/p&gt;
 
@@ -71,96 +71,65 @@
 
 &lt;p&gt;ただし、Windowsだと&lt;strong&gt;pyenvからanacondaをうまくインストールできない&lt;/strong&gt;ようなので、後述のAnaconda Installerを使用するとよい。&lt;/p&gt;
 
-&lt;h4 id=&quot;mac-os-x&quot;&gt;Mac OS X&lt;/h4&gt;
-
-&lt;p&gt;&lt;code&gt;
-$ brew install pyenv
-&lt;/code&gt;&lt;/p&gt;
-
-&lt;h4 id=&quot;linux&quot;&gt;Linux&lt;/h4&gt;
+&lt;h4&gt;Mac OS X&lt;/h4&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;$ brew install pyenv
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h4&gt;Linux&lt;/h4&gt;
 
 &lt;p&gt;&lt;a href=&quot;https://github.com/yyuu/pyenv-installer&quot;&gt;pyenv-installer&lt;/a&gt;を用いるとインストールできる。
 （Ubuntu 14.04で確認）&lt;/p&gt;
 
-&lt;h3 id=&quot;pyenv-1&quot;&gt;pyenvの使い方（概略）&lt;/h3&gt;
+&lt;h3&gt;pyenvの使い方（概略）&lt;/h3&gt;
 
 &lt;p&gt;インストール終了後に標準出力に.bashrcに環境変数設定を追記するように促されていると思うので、その通りに従う。&lt;/p&gt;
 
-&lt;h4 id=&quot;section-1&quot;&gt;インストール可能バージョンを見る&lt;/h4&gt;
-
-&lt;p&gt;&lt;code&gt;
-$ pyenv install -l
-&lt;/code&gt;&lt;/p&gt;
-
-&lt;h4 id=&quot;section-2&quot;&gt;インストールする&lt;/h4&gt;
-
-&lt;p&gt;&lt;code&gt;
-$ pyenv install [what-you-want]
-&lt;/code&gt;&lt;/p&gt;
-
-&lt;h4 id=&quot;section-3&quot;&gt;インストール済バージョン一覧を参照&lt;/h4&gt;
-
-&lt;p&gt;&lt;code&gt;
-$ pyenv versions
-&lt;/code&gt;&lt;/p&gt;
-
-&lt;h4 id=&quot;section-4&quot;&gt;環境の切り替え&lt;/h4&gt;
-
-&lt;p&gt;&lt;code&gt;
-$ pyenv global [environment]
-&lt;/code&gt;&lt;/p&gt;
-
+&lt;h4&gt;インストール可能バージョンを見る&lt;/h4&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;$ pyenv install -l
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h4&gt;インストールする&lt;/h4&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;$ pyenv install [what-you-want]
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h4&gt;インストール済バージョン一覧を参照&lt;/h4&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;$ pyenv versions
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h4&gt;環境の切り替え&lt;/h4&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;$ pyenv global [environment]
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;ちなみに&lt;code&gt;global&lt;/code&gt;でシステム全体で使用するPythonのバージョン、&lt;code&gt;local&lt;/code&gt;で&lt;strong&gt;そのディレクトリより下層&lt;/strong&gt;で使用するPythonのバージョンを設定することが出来る。&lt;/p&gt;
 
 &lt;p&gt;【参考】&lt;a href=&quot;http://qiita.com/la_luna_azul/items/3f64016feaad1722805c&quot;&gt;pyenvとvirtualenvのインストールと使い方 - Qiita&lt;/a&gt;&lt;/p&gt;
 
-&lt;h2 id=&quot;anaconda&quot;&gt;Anacondaのインストール&lt;/h2&gt;
+&lt;h2&gt;Anacondaのインストール&lt;/h2&gt;
 
 &lt;p&gt;pyenvをインストールできたところで、次は上で挙げた数値計算ライブラリ群をインストールする。
 しかし、これらライブラリのインストールには非常に手間がかかり、ビルドエラーが起こって解決が困難になることも多い。
 そこで、Pythonの処理系と有用なライブラリ群をまとめたパッケージである&lt;a href=&quot;http://continuum.io/downloads#all&quot;&gt;Anaconda&lt;/a&gt;を利用する。
 pyenvがインストールされていれば、Anacondaのインストールは非常に簡単である。&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;
-$ pyenv install anaconda3-2.1.0
-&lt;/code&gt;&lt;/p&gt;
-
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;$ pyenv install anaconda3-2.1.0
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;このインストールには20分〜30分程度の時間を要するので注意すること。
 インストールの確認には&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;
-$ pyenv versions
-&lt;/code&gt;&lt;/p&gt;
-
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;$ pyenv versions
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;を実行した際にanaconda3-2.1.0が表示されるかを確認すればよい。
 各種ライブラリ群が正常動作していることを確認するために、Anaconda環境に切り替える。&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;
-$ pyenv global anaconda3-2.1.0
-&lt;/code&gt;&lt;/p&gt;
-
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;$ pyenv global anaconda3-2.1.0
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;そしてPythonを立ち上げる。&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;
-$ python
-&lt;/code&gt;&lt;/p&gt;
-
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;$ python
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;以下の行を一行ずつ入力し、エラーが起こらなければ成功である。&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;python
-import numpy
-import scipy
-import matplotlib
-import pandas
-import sklearn
-&lt;/code&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;windowspyenv&quot;&gt;Windows等pyenvが正常に動作しない環境の場合&lt;/h3&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;numpy&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;scipy&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;matplotlib&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;pandas&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;sklearn&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3&gt;Windows等pyenvが正常に動作しない環境の場合&lt;/h3&gt;
 
 &lt;p&gt;&lt;a href=&quot;http://continuum.io/downloads#all&quot;&gt;Anacondaのサポートページ&lt;/a&gt;からAnaconda installerをダウンロードしてインストールするのが簡単だと思われる。&lt;/p&gt;
 
-&lt;h2 id=&quot;python-1&quot;&gt;Pythonの基礎知識&lt;/h2&gt;
-
+&lt;h2&gt;Pythonの基礎知識&lt;/h2&gt;
 </description>
         <pubDate>Sun, 26 Apr 2015 21:07:00 +0900</pubDate>
         <link>http://sig.tsg.ne.jp/ml2015/ml/2015/04/26/environment.html</link>
@@ -173,7 +142,7 @@ import sklearn
     
       <item>
         <title>#01 機械学習の基礎</title>
-        <description>&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+        <description>&lt;h2&gt;Introduction&lt;/h2&gt;
 
 &lt;p&gt;（釈迦に説法になる話も多分に含まれるが、限りなく前提知識を0に近づけたいのでご容赦願いたい）&lt;/p&gt;
 
@@ -181,16 +150,16 @@ import sklearn
 &lt;a href=&quot;http://ja.wikipedia.org/wiki/%E6%A9%9F%E6%A2%B0%E5%AD%A6%E7%BF%92&quot;&gt;Wikipedia&lt;/a&gt;から引用してみる。&lt;/p&gt;
 
 &lt;blockquote&gt;
-  &lt;p&gt;機械学習（きかいがくしゅう、英: machine learning）とは、人工知能における研究課題の一つで、人間が自然に行っている学習能力と同様の機能をコンピュータで実現しようとする技術・手法のことである。&lt;/p&gt;
+&lt;p&gt;機械学習（きかいがくしゅう、英: machine learning）とは、人工知能における研究課題の一つで、人間が自然に行っている学習能力と同様の機能をコンピュータで実現しようとする技術・手法のことである。&lt;/p&gt;
 &lt;/blockquote&gt;
 
 &lt;p&gt;ここで問題になるのは、どのような手法・アルゴリズムを用いれば計算機で学習を実現できるかということである。
 元々人工知能に関する研究は1940年代の頃から始まっており、今日に至るまでの長い道のりの過程で工学的応用を得たのが機械学習と呼ばれる分野である。
 まずは人工知能の歴史を軽く追って見ることにする。&lt;/p&gt;
 
-&lt;h2 id=&quot;section&quot;&gt;人工知能の歴史&lt;/h2&gt;
+&lt;h2&gt;人工知能の歴史&lt;/h2&gt;
 
-&lt;h3 id=&quot;rule-based-ai&quot;&gt;Rule-based AI&lt;/h3&gt;
+&lt;h3&gt;Rule-based AI&lt;/h3&gt;
 
 &lt;p&gt;人工知能というキーワードは1956年のダートマス大学における学会で初めて使われたという。
 この頃から人工知能は盛んに研究されており、Alan Turingが有名な&lt;a href=&quot;http://ja.wikipedia.org/wiki/%E3%83%81%E3%83%A5%E3%83%BC%E3%83%AA%E3%83%B3%E3%82%B0%E3%83%BB%E3%83%86%E3%82%B9%E3%83%88&quot;&gt;チューリングテスト&lt;/a&gt;を発表したのも1950年のことだった。
@@ -199,9 +168,9 @@ import sklearn
 
 &lt;p&gt;ELIZAが実際に行った会話の記録は多く残っているし、今でもEmacsにはdoctorというELIZAのbuilt-in実装が入っている（emacsを起動してEsc - Xでdoctorを実行）。
 確かにELIZAの会話は一見人間の精神科医のものかと思ってしまう。
-しかし、実際にはパターンマッチングでそれらしい単語（例えば”anxiety”とか”headache”とか）にマッチした場合は用意された回答をし、マッチケースがなければオウム返しをするという、非常にシンプルな作りになっている。&lt;/p&gt;
+しかし、実際にはパターンマッチングでそれらしい単語（例えば&amp;quot;anxiety&amp;quot;とか&amp;quot;headache&amp;quot;とか）にマッチした場合は用意された回答をし、マッチケースがなければオウム返しをするという、非常にシンプルな作りになっている。&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/ml2015/images/01/eliza.png&quot; alt=&quot;ELIZAとの会話の様子&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/ml2015/images/01/eliza.png&quot; alt=&quot;ELIZAとの会話の様子&quot;&gt;&lt;/p&gt;
 
 &lt;p&gt;この時期の人工知能は、ELIZAに限らず多くはパターンマッチング（if-then-elseをひたすら連ねたもの）を基本とした&lt;b&gt;rule-based&lt;/b&gt;なAIだった。
 Rule-basedなAIでは、より高度な知能に見せるためにはマッチケースをひたすら増やすしかない。&lt;/p&gt;
@@ -209,17 +178,17 @@ Rule-basedなAIでは、より高度な知能に見せるためにはマッチ�
 &lt;p&gt;余談だが、「Lispが人工知能研究で用いられた」と言われることがあるが、これは当時まともにパターンマッチングができる言語がLispくらいしかなかったがために、Lispが用いられてきたという歴史的経緯があるようだ。
 ELIZAも初期の段階でLisp実装がなされている。&lt;/p&gt;
 
-&lt;h3 id=&quot;neural-network&quot;&gt;Neural Network&lt;/h3&gt;
+&lt;h3&gt;Neural Network&lt;/h3&gt;
 
 &lt;p&gt;同じ頃、1958年にアメリカの心理学者Frank RosenblattがPerceptronを発表した。
 「人工知能を作るなら脳のニューロンの機構を模せばいいではないか」という発想のもと生まれたのが、Perceptronを始めとしたNeural Networkというモデルである。&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/ml2015/images/01/perceptron.png&quot; alt=&quot;パーセプトロンのモデル&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/ml2015/images/01/perceptron.png&quot; alt=&quot;パーセプトロンのモデル&quot;&gt;&lt;/p&gt;
 
 &lt;p&gt;図中の\(x_1 \cdots x_n\)及び\(z\)がニューロンを形式化したもので、左側のニューロンから右側のニューロンへ信号が伝えられている様子をモデル化している。
 各入力に\(w_1 \cdots w_n\)という重みをつけて、&lt;/p&gt;
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;z = \sum_{i=1}^n x_i w_i&lt;/script&gt;
+&lt;p&gt;$$z = \sum&lt;em&gt;{i=1}^n x&lt;/em&gt;i w_i$$&lt;/p&gt;
 
 &lt;p&gt;という入力を与える。&lt;/p&gt;
 
@@ -228,7 +197,7 @@ ELIZAも初期の段階でLisp実装がなされている。&lt;/p&gt;
 
 &lt;p&gt;Neural Network自体は後に扱うので、この辺りで出た不明な単語は気にしなくて良い。&lt;/p&gt;
 
-&lt;h3 id=&quot;ai&quot;&gt;AIの冬&lt;/h3&gt;
+&lt;h3&gt;AIの冬&lt;/h3&gt;
 
 &lt;p&gt;このように少し複雑な問題になると解けなくなってしまうことから人工知能研究への期待は薄れ、国や企業の投資も減っていった。
 そのため多くの研究者は人間らしい知能を実現する人工知能(強いAI)の研究を諦め、それまでの研究を実用的なアプリケーション(弱いAI)に活かすことを考えた。
@@ -237,7 +206,7 @@ ELIZAも初期の段階でLisp実装がなされている。&lt;/p&gt;
 しかし、実用化されるほどの認識精度にまでは至らなかった。
 その大きな理由はデータ不足である。&lt;/p&gt;
 
-&lt;h3 id=&quot;section-1&quot;&gt;ビッグデータ時代の幕開け&lt;/h3&gt;
+&lt;h3&gt;ビッグデータ時代の幕開け&lt;/h3&gt;
 
 &lt;p&gt;この状況を打開する出来事が1993年に起こった。
 CERNによるWorld Wide Webの一般開放、すなわちインターネットの始まりである。
@@ -247,13 +216,13 @@ CERNによるWorld Wide Webの一般開放、すなわちインターネット�
 &lt;p&gt;さらに、&lt;a href=&quot;http://ja.wikipedia.org/wiki/%E3%83%A0%E3%83%BC%E3%82%A2%E3%81%AE%E6%B3%95%E5%89%87&quot;&gt;ムーアの法則&lt;/a&gt;に代表されるようにコンピュータの性能が指数関数的に向上し、大量のデータを高速に処理できるようになった。
 あたかもコンピュータが大量のデータを読み込んで学習し、文字や音声を認識しているようにみえることから、機械学習と呼ばれるようになった。&lt;/p&gt;
 
-&lt;p&gt;2006年、イギリスのコンピュータ科学者Geoffrey HintonがAuto EncoderとDeep Belief Networkを考案し、これが昨今注目を集めている”Deep Learning”の先駆けとなった。
+&lt;p&gt;2006年、イギリスのコンピュータ科学者Geoffrey HintonがAuto EncoderとDeep Belief Networkを考案し、これが昨今注目を集めている&amp;quot;Deep Learning&amp;quot;の先駆けとなった。
 さらに2011年、Stanford大学のAndrew NgらがGoogleと共同で研究を行った結果、コンピュータクラスタが自力でYouTubeの動画データから猫の概念を認識できるようになったと報告された。
 この研究報告によって世界中に衝撃が走り、今日ではDeep Learningをはじめ機械学習の研究が世界中のコンピュータサイエンティストによって行われている。&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/ml2015/images/01/cat.jpg&quot; alt=&quot;Googleの猫&quot; style=&quot;width:50%&quot; /&gt;&lt;/p&gt;
 
-&lt;h2 id=&quot;section-2&quot;&gt;統計と機械学習&lt;/h2&gt;
+&lt;h2&gt;統計と機械学習&lt;/h2&gt;
 
 &lt;p&gt;先程パーセプトロンに触れた際に、&lt;b&gt;「あの数式のどこが脳の機構を模しているんだ」&lt;/b&gt;と感じた人も少なく無いと思う。
 実際のところ、パーセプトロンを始めたNeural Networkは、ネットワーク構造を持ち、各素子がしきい値を持っていること以外はほとんど脳の機構と関係がない。
@@ -266,15 +235,15 @@ CERNによるWorld Wide Webの一般開放、すなわちインターネット�
 その際には&lt;/p&gt;
 
 &lt;ol&gt;
-  &lt;li&gt;予め答えのわかっているデータを&lt;b&gt;学習&lt;/b&gt;する&lt;/li&gt;
-  &lt;li&gt;未知のデータがどのクラスに分類されるのか&lt;b&gt;推定&lt;/b&gt;する&lt;/li&gt;
+&lt;li&gt;予め答えのわかっているデータを&lt;b&gt;学習&lt;/b&gt;する&lt;/li&gt;
+&lt;li&gt;未知のデータがどのクラスに分類されるのか&lt;b&gt;推定&lt;/b&gt;する&lt;/li&gt;
 &lt;/ol&gt;
 
 &lt;p&gt;という2段階にわかれている。&lt;/p&gt;
 
-&lt;h3 id=&quot;section-3&quot;&gt;学習&lt;/h3&gt;
+&lt;h3&gt;学習&lt;/h3&gt;
 
-&lt;p&gt;&lt;img src=&quot;/ml2015/images/01/feature_extraction.png&quot; alt=&quot;特徴抽出の例&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/ml2015/images/01/feature_extraction.png&quot; alt=&quot;特徴抽出の例&quot;&gt;&lt;/p&gt;
 
 &lt;p&gt;例えば上のような元画像が与えられたとき、この画像が「れ」というひらがなであると認識するにはどうすればよいか。
 先程も述べたように、結局コンピュータには数字しか扱うことができないから、なんとかしてコンピュータの扱えるような数値データとしてデータの特徴を捉え直す必要がある。
@@ -282,25 +251,25 @@ CERNによるWorld Wide Webの一般開放、すなわちインターネット�
 
 &lt;p&gt;一例だが、例えば文字画像を20×20で格子状に区切って各格子で平均をとり、合計400個の濃淡データとして扱う方法がある。
 こうすると、例えば「れ」なら「左から30%のあたりに濃度が大きいデータが縦に並んでいる」といった特徴になるわけである。
-このデータを400次元空間にmappingすれば、「”れ”は400次元空間のこのあたりに来やすい」みたいな計算をコンピュータで行うことができる。&lt;/p&gt;
+このデータを400次元空間にmappingすれば、「&amp;quot;れ&amp;quot;は400次元空間のこのあたりに来やすい」みたいな計算をコンピュータで行うことができる。&lt;/p&gt;
 
-&lt;h3 id=&quot;section-4&quot;&gt;推定&lt;/h3&gt;
+&lt;h3&gt;推定&lt;/h3&gt;
 
 &lt;p&gt;未知のデータが与えられたときも同じように特徴抽出を行い、既に学習したデータと照らし合わせればクラスに分類することができる。
 このときにコンピュータが行っているのも、単純に「このデータは今までのどのデータにより近いのか」という類似度（距離）計算にすぎない（勿論類似度以外で分類するアルゴリズムもある）。&lt;/p&gt;
 
-&lt;h2 id=&quot;section-5&quot;&gt;機械学習の学習&lt;/h2&gt;
+&lt;h2&gt;機械学習の学習&lt;/h2&gt;
 
-&lt;h3 id=&quot;section-6&quot;&gt;当分科会の進め方&lt;/h3&gt;
+&lt;h3&gt;当分科会の進め方&lt;/h3&gt;
 
 &lt;p&gt;ご察しの通り、機械学習ではそれなりに高度な数学（主に解析学、線形代数、確率統計）が要求される。
 そのため、この分科会ではおおまかに次のような流れで進めていく。&lt;/p&gt;
 
 &lt;ol&gt;
-  &lt;li&gt;基礎的な確率統計&lt;/li&gt;
-  &lt;li&gt;数理統計モデル&lt;/li&gt;
-  &lt;li&gt;機械学習の基本的なアルゴリズム&lt;/li&gt;
-  &lt;li&gt;最新のトピック（主にDeep Learning）&lt;/li&gt;
+&lt;li&gt;基礎的な確率統計&lt;/li&gt;
+&lt;li&gt;数理統計モデル&lt;/li&gt;
+&lt;li&gt;機械学習の基本的なアルゴリズム&lt;/li&gt;
+&lt;li&gt;最新のトピック（主にDeep Learning）&lt;/li&gt;
 &lt;/ol&gt;
 
 &lt;p&gt;1年生にとっては難しいこともあると思うが、可能な限り高校レベルの数学で理解可能な丁寧な解説を心がけるし、わからない点があれば遠慮なく質問してほしい
@@ -311,62 +280,66 @@ CERNによるWorld Wide Webの一般開放、すなわちインターネット�
 &lt;p&gt;この分科会の最終目標として、&lt;/p&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;KaggleのcompetitionにTSGの有志で参加したい&lt;/li&gt;
-  &lt;li&gt;機械学習を使って何らかしらの認識エンジンを作りたい&lt;/li&gt;
+&lt;li&gt;KaggleのcompetitionにTSGの有志で参加したい&lt;/li&gt;
+&lt;li&gt;機械学習を使って何らかしらの認識エンジンを作りたい&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;という2つを据えておく（希望）。&lt;/p&gt;
 
 &lt;p&gt;ちなみに、&lt;a href=&quot;https://www.kaggle.com/&quot;&gt;Kaggle&lt;/a&gt;というのは統計解析のコンペティションで、様々な企業が「このデータを解析して欲しい！」といって賞金をつけ、世界中の企業や団体や個人が解析してスコアを競いあうサイトである。&lt;/p&gt;
 
-&lt;h3 id=&quot;section-7&quot;&gt;本&lt;/h3&gt;
+&lt;h3&gt;本&lt;/h3&gt;
 
 &lt;p&gt;参考書というか、僕が読んだ本・読みかけの本で良かったと思う本を挙げておく。
 順番に意味はない。&lt;/p&gt;
 
-&lt;h4 id=&quot;section-8&quot;&gt;自然科学の統計学&lt;/h4&gt;
+&lt;h4&gt;自然科学の統計学&lt;/h4&gt;
 
-&lt;iframe src=&quot;http://rcm-fe.amazon-adsystem.com/e/cm?lt1=_blank&amp;amp;bc1=000000&amp;amp;IS2=1&amp;amp;bg1=FFFFFF&amp;amp;fc1=000000&amp;amp;lc1=0000FF&amp;amp;t=levelfour-22&amp;amp;o=9&amp;amp;p=8&amp;amp;l=as4&amp;amp;m=amazon&amp;amp;f=ifr&amp;amp;ref=ss_til&amp;amp;asins=4130420674&quot; style=&quot;width:120px;height:240px;&quot; scrolling=&quot;no&quot; marginwidth=&quot;0&quot; marginheight=&quot;0&quot; frameborder=&quot;0&quot;&gt;&lt;/iframe&gt;
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;s&gt;最初から積読化されている本を挙げるのもどうかと思ったが&lt;/s&gt;
-&lt;p&gt;多方面から良書であるとのレビューを聞いている。
+&lt;iframe src=&quot;http://rcm-fe.amazon-adsystem.com/e/cm?lt1=_blank&amp;bc1=000000&amp;IS2=1&amp;bg1=FFFFFF&amp;fc1=000000&amp;lc1=0000FF&amp;t=levelfour-22&amp;o=9&amp;p=8&amp;l=as4&amp;m=amazon&amp;f=ifr&amp;ref=ss_til&amp;asins=4130420674&quot; style=&quot;width:120px;height:240px;&quot; scrolling=&quot;no&quot; marginwidth=&quot;0&quot; marginheight=&quot;0&quot; frameborder=&quot;0&quot;&gt;&lt;/iframe&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;s&gt;最初から積読化されている本を挙げるのもどうかと思ったが&lt;/s&gt;多方面から良書であるとのレビューを聞いている。
 教養の「基礎統計」からのつなぎに最適（基礎統計で使われる教科書の続編でもあるし）。&lt;/p&gt;
 
-&lt;h4 id=&quot;section-9&quot;&gt;はじめてのパターン認識&lt;/h4&gt;
+&lt;h4&gt;はじめてのパターン認識&lt;/h4&gt;
 
-&lt;iframe src=&quot;http://rcm-fe.amazon-adsystem.com/e/cm?lt1=_blank&amp;amp;bc1=000000&amp;amp;IS2=1&amp;amp;bg1=FFFFFF&amp;amp;fc1=000000&amp;amp;lc1=0000FF&amp;amp;t=levelfour-22&amp;amp;o=9&amp;amp;p=8&amp;amp;l=as4&amp;amp;m=amazon&amp;amp;f=ifr&amp;amp;ref=ss_til&amp;amp;asins=4627849710&quot; style=&quot;width:120px;height:240px;&quot; scrolling=&quot;no&quot; marginwidth=&quot;0&quot; marginheight=&quot;0&quot; frameborder=&quot;0&quot;&gt;&lt;/iframe&gt;
+&lt;iframe src=&quot;http://rcm-fe.amazon-adsystem.com/e/cm?lt1=_blank&amp;bc1=000000&amp;IS2=1&amp;bg1=FFFFFF&amp;fc1=000000&amp;lc1=0000FF&amp;t=levelfour-22&amp;o=9&amp;p=8&amp;l=as4&amp;m=amazon&amp;f=ifr&amp;ref=ss_til&amp;asins=4627849710&quot; style=&quot;width:120px;height:240px;&quot; scrolling=&quot;no&quot; marginwidth=&quot;0&quot; marginheight=&quot;0&quot; frameborder=&quot;0&quot;&gt;&lt;/iframe&gt;
+
 &lt;p&gt;&lt;br /&gt;
 一覧性に優れた本で、某書と違ってカバンに入れて持ち運ぶのにはとても適している良書。
 説明もわかりやすい。&lt;/p&gt;
 
-&lt;h4 id=&quot;section-10&quot;&gt;パターン認識と機械学習&lt;/h4&gt;
+&lt;h4&gt;パターン認識と機械学習&lt;/h4&gt;
 
-&lt;iframe src=&quot;http://rcm-fe.amazon-adsystem.com/e/cm?lt1=_blank&amp;amp;bc1=000000&amp;amp;IS2=1&amp;amp;bg1=FFFFFF&amp;amp;fc1=000000&amp;amp;lc1=0000FF&amp;amp;t=levelfour-22&amp;amp;o=9&amp;amp;p=8&amp;amp;l=as4&amp;amp;m=amazon&amp;amp;f=ifr&amp;amp;ref=ss_til&amp;amp;asins=4621061224&quot; style=&quot;width:120px;height:240px;&quot; scrolling=&quot;no&quot; marginwidth=&quot;0&quot; marginheight=&quot;0&quot; frameborder=&quot;0&quot;&gt;&lt;/iframe&gt;
-&lt;iframe src=&quot;http://rcm-fe.amazon-adsystem.com/e/cm?lt1=_blank&amp;amp;bc1=000000&amp;amp;IS2=1&amp;amp;bg1=FFFFFF&amp;amp;fc1=000000&amp;amp;lc1=0000FF&amp;amp;t=levelfour-22&amp;amp;o=9&amp;amp;p=8&amp;amp;l=as4&amp;amp;m=amazon&amp;amp;f=ifr&amp;amp;ref=ss_til&amp;amp;asins=4621061240&quot; style=&quot;width:120px;height:240px;&quot; scrolling=&quot;no&quot; marginwidth=&quot;0&quot; marginheight=&quot;0&quot; frameborder=&quot;0&quot;&gt;&lt;/iframe&gt;
+&lt;iframe src=&quot;http://rcm-fe.amazon-adsystem.com/e/cm?lt1=_blank&amp;bc1=000000&amp;IS2=1&amp;bg1=FFFFFF&amp;fc1=000000&amp;lc1=0000FF&amp;t=levelfour-22&amp;o=9&amp;p=8&amp;l=as4&amp;m=amazon&amp;f=ifr&amp;ref=ss_til&amp;asins=4621061224&quot; style=&quot;width:120px;height:240px;&quot; scrolling=&quot;no&quot; marginwidth=&quot;0&quot; marginheight=&quot;0&quot; frameborder=&quot;0&quot;&gt;&lt;/iframe&gt;
+
+&lt;iframe src=&quot;http://rcm-fe.amazon-adsystem.com/e/cm?lt1=_blank&amp;bc1=000000&amp;IS2=1&amp;bg1=FFFFFF&amp;fc1=000000&amp;lc1=0000FF&amp;t=levelfour-22&amp;o=9&amp;p=8&amp;l=as4&amp;m=amazon&amp;f=ifr&amp;ref=ss_til&amp;asins=4621061240&quot; style=&quot;width:120px;height:240px;&quot; scrolling=&quot;no&quot; marginwidth=&quot;0&quot; marginheight=&quot;0&quot; frameborder=&quot;0&quot;&gt;&lt;/iframe&gt;
+
 &lt;p&gt;&lt;br /&gt;
 鉄板。だが難しい。避けては通れない一冊。
 levelfourは数学が苦手なので、4章くらいまでしかまだ読んでないです。&lt;/p&gt;
 
-&lt;h4 id=&quot;ai-1&quot;&gt;AIの衝撃&lt;/h4&gt;
+&lt;h4&gt;AIの衝撃&lt;/h4&gt;
 
-&lt;iframe src=&quot;http://rcm-fe.amazon-adsystem.com/e/cm?lt1=_blank&amp;amp;bc1=000000&amp;amp;IS2=1&amp;amp;bg1=FFFFFF&amp;amp;fc1=000000&amp;amp;lc1=0000FF&amp;amp;t=levelfour-22&amp;amp;o=9&amp;amp;p=8&amp;amp;l=as4&amp;amp;m=amazon&amp;amp;f=ifr&amp;amp;ref=ss_til&amp;amp;asins=4062883074&quot; style=&quot;width:120px;height:240px;&quot; scrolling=&quot;no&quot; marginwidth=&quot;0&quot; marginheight=&quot;0&quot; frameborder=&quot;0&quot;&gt;&lt;/iframe&gt;
+&lt;iframe src=&quot;http://rcm-fe.amazon-adsystem.com/e/cm?lt1=_blank&amp;bc1=000000&amp;IS2=1&amp;bg1=FFFFFF&amp;fc1=000000&amp;lc1=0000FF&amp;t=levelfour-22&amp;o=9&amp;p=8&amp;l=as4&amp;m=amazon&amp;f=ifr&amp;ref=ss_til&amp;asins=4062883074&quot; style=&quot;width:120px;height:240px;&quot; scrolling=&quot;no&quot; marginwidth=&quot;0&quot; marginheight=&quot;0&quot; frameborder=&quot;0&quot;&gt;&lt;/iframe&gt;
+
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
 &lt;p&gt;今度は理論書ではなくて普通の新書。機械学習のバックグラウンドやこの先の展望が読みやすく書かれていて面白い。
 機械学習を勉強する前に読めばよかったなあと思ってたり。ちなみに2015年3月刊行です。&lt;/p&gt;
 
-&lt;h3 id=&quot;section-11&quot;&gt;研究室&lt;/h3&gt;
+&lt;h3&gt;研究室&lt;/h3&gt;
 
 &lt;p&gt;折角東大にいるのだから、最先端の研究室に行って教授に話を聞いてみるとよい。というか本当にオススメ。&lt;/p&gt;
 
-&lt;h4 id=&quot;section-12&quot;&gt;山西先生&lt;/h4&gt;
+&lt;h4&gt;山西先生&lt;/h4&gt;
 
 &lt;p&gt;計数工学科の先生。アルゴリズム寄りの研究者で、最近の興味は「潜在情報の抽出」だとか。
 つまり、機械学習で得られたパラメータはコンピュータの計算したただの数字でしかないけど、その数字には具体的にどういう意味付けができるか、ということ。&lt;/p&gt;
 
 &lt;p&gt;URL: &lt;a href=&quot;http://ibis.t.u-tokyo.ac.jp/yamanishiken/&quot;&gt;http://ibis.t.u-tokyo.ac.jp/yamanishiken/&lt;/a&gt;&lt;/p&gt;
 
-&lt;h4 id=&quot;section-13&quot;&gt;杉山先生&lt;/h4&gt;
+&lt;h4&gt;杉山先生&lt;/h4&gt;
 
 &lt;p&gt;情報科学科の先生。去年までは東工大にいらっしゃった。
 研究自体はアルゴリズム寄り。「機械学習のアルゴリズムは様々なアプローチからおおよそ研究し尽くされたから、一段上のレイヤから抽象的にアルゴリズムを俯瞰する（要約、曲解あり）」ことを考えているそう。
@@ -374,20 +347,20 @@ levelfourは数学が苦手なので、4章くらいまでしかまだ読んで�
 
 &lt;p&gt;URL: &lt;a href=&quot;http://www.ms.k.u-tokyo.ac.jp/index-jp.html&quot;&gt;http://www.ms.k.u-tokyo.ac.jp/index-jp.html&lt;/a&gt;&lt;/p&gt;
 
-&lt;h4 id=&quot;section-14&quot;&gt;中山先生&lt;/h4&gt;
+&lt;h4&gt;中山先生&lt;/h4&gt;
 
 &lt;p&gt;情報理工学研究科の創造情報学の先生。画像認識・物体認識が専門で、世界的な画像認識のアカデミックコンペに毎年参加されているそうです。&lt;/p&gt;
 
 &lt;p&gt;URL: &lt;a href=&quot;http://www.nlab.ci.i.u-tokyo.ac.jp/&quot;&gt;http://www.nlab.ci.i.u-tokyo.ac.jp/&lt;/a&gt;&lt;/p&gt;
 
-&lt;h4 id=&quot;section-15&quot;&gt;中川先生&lt;/h4&gt;
+&lt;h4&gt;中川先生&lt;/h4&gt;
 
 &lt;p&gt;情報理工学研究科の数理情報学の先生。最近はプライバシー保護データマイニング(PPDM)がメイン。
 「ビッグデータ使って統計するのはいいけど、データに紐付いた個人情報を上手く匿名化しないとマズイよね」的な話。&lt;/p&gt;
 
 &lt;p&gt;URL: &lt;a href=&quot;http://www.r.dl.itc.u-tokyo.ac.jp/&quot;&gt;http://www.r.dl.itc.u-tokyo.ac.jp/&lt;/a&gt;&lt;/p&gt;
 
-&lt;h4 id=&quot;section-16&quot;&gt;松尾先生&lt;/h4&gt;
+&lt;h4&gt;松尾先生&lt;/h4&gt;
 
 &lt;p&gt;ウェブマイニング、人工知能の専門家。
 最近メディアにもよく顔を出して本もたくさん執筆なさっています。書籍部にも平積みにしてあるはずなので読むと良いかも。&lt;/p&gt;

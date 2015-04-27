@@ -65,7 +65,7 @@
   </header>
 
   <article class="post-content">
-    <h2 id="section">統計解析とプログラミング</h2>
+    <h2>統計解析とプログラミング</h2>
 
 <p>統計処理とプログラミングは切っても切り離せない関係にある。
 プログラミングと言っても、この分野ではGUIで華やかなアプリケーションを作る技術やアセンブリをバリバリ読むということは勿論無く、単純に計算したい数式を記述するツールとして用いられることがほとんどだ。
@@ -74,41 +74,41 @@
 <p>統計解析によく用いられるプログラミング言語・ツールには以下のようなものがある（levelfourのバイアスがかかっている）。</p>
 
 <ul>
-  <li>Excel: 言わずもがな。<s>方眼紙として使わなければ最強なんだけどなあ</s></li>
-  <li>MatLab: 数値計算の王道ソフトウェア。ライセンスも高いので研究室向け。</li>
-  <li>R: GNU発のフリーの数値解析ソフトウェア。フリーなのに高機能。</li>
-  <li>Python: 汎用プログラミング言語だが、数値計算ライブラリが充実。</li>
-  <li>(Julia: 2012年に初公開された、LLVMベースの高速数値計算向け汎用プログラミング言語)</li>
+<li>Excel: 言わずもがな。<s>方眼紙として使わなければ最強なんだけどなあ</s></li>
+<li>MatLab: 数値計算の王道ソフトウェア。ライセンスも高いので研究室向け。</li>
+<li>R: GNU発のフリーの数値解析ソフトウェア。フリーなのに高機能。</li>
+<li>Python: 汎用プログラミング言語だが、数値計算ライブラリが充実。</li>
+<li>(Julia: 2012年に初公開された、LLVMベースの高速数値計算向け汎用プログラミング言語)</li>
 </ul>
 
 <p>この分科会ではPythonを用いることにする。統計解析だけに絞るのであれば確かにR言語の方が（特に検定回りで）ライブラリが充実しているのだが、Pythonの方が汎用プログラミング言語ともあって、他のツールの助力を借りること無くファイルアクセスしたりWeb公開できるのが強みだ。
 世界的に見てもこの流れがあるようで、最近はR言語を始めるならPythonをやろうとよく言われる。</p>
 
-<h2 id="python">Pythonの統計解析用環境</h2>
+<h2>Pythonの統計解析用環境</h2>
 
 <p>一般的に以下のようなライブラリ群が用いられる。</p>
 
 <ul>
-  <li>numpy: 行列計算</li>
-  <li>scipy: 科学計算（フィッティング、連立方程式、特殊関数、微分積分など）</li>
-  <li>matplotlib: グラフプロットツール</li>
-  <li>pandas: データの読み書き、表の作成（Pythonで動くExcelのような感じ）</li>
-  <li>scikit-learn: 機械学習</li>
-  <li>IPython(Jupyter): 高機能インタラクティブPythonシェル</li>
+<li>numpy: 行列計算</li>
+<li>scipy: 科学計算（フィッティング、連立方程式、特殊関数、微分積分など）</li>
+<li>matplotlib: グラフプロットツール</li>
+<li>pandas: データの読み書き、表の作成（Pythonで動くExcelのような感じ）</li>
+<li>scikit-learn: 機械学習</li>
+<li>IPython(Jupyter): 高機能インタラクティブPythonシェル</li>
 </ul>
 
 <p>この回では、Python自体の処理系のインストールと、上記ライブラリのインストールを目指す。</p>
 
-<h2 id="pyenv">pyenvのインストール</h2>
+<h2>pyenvのインストール</h2>
 
 <p><code>pyenv</code>を入れておくとよい。仮想環境を使うと</p>
 
 <ul>
-  <li>任意のバージョンのPythonを簡単に入れられる</li>
-  <li>システムのPythonを破壊せずにとっておける</li>
-  <li>Sandbox環境を簡単に作成&amp;破棄できる</li>
-  <li>後述のAnacondaもあっという間にインストール</li>
-  <li>Ma OS Xだと<code>brew install pyenv</code>で入れられるっぽい</li>
+<li>任意のバージョンのPythonを簡単に入れられる</li>
+<li>システムのPythonを破壊せずにとっておける</li>
+<li>Sandbox環境を簡単に作成&amp;破棄できる</li>
+<li>後述のAnacondaもあっという間にインストール</li>
+<li>Ma OS Xだと<code>brew install pyenv</code>で入れられるっぽい</li>
 </ul>
 
 <p>といった風にメリットづくしなので、オススメする。ちなみに同じバージョンのPythonを複数入れたいという需要があるかもしれないが、そんなときには<code>virtualenv</code>を用いる。</p>
@@ -116,7 +116,7 @@
 <p>以下OSごとのインストール方法を説明する。levelfourはMac OS 10.9, 10.10, Ubuntu 14.04でのインストールを確認した。
 また、2014年度の分科会で他のメンバーによりWindowsでのインストールも確認された。</p>
 
-<h4 id="windows">Windows</h4>
+<h4>Windows</h4>
 
 <p>Cygwinで以下のページの通りに作業するとインストールできることを確認。</p>
 
@@ -124,96 +124,65 @@
 
 <p>ただし、Windowsだと<strong>pyenvからanacondaをうまくインストールできない</strong>ようなので、後述のAnaconda Installerを使用するとよい。</p>
 
-<h4 id="mac-os-x">Mac OS X</h4>
-
-<p><code>
-$ brew install pyenv
-</code></p>
-
-<h4 id="linux">Linux</h4>
+<h4>Mac OS X</h4>
+<div class="highlight"><pre><code class="language-text" data-lang="text">$ brew install pyenv
+</code></pre></div>
+<h4>Linux</h4>
 
 <p><a href="https://github.com/yyuu/pyenv-installer">pyenv-installer</a>を用いるとインストールできる。
 （Ubuntu 14.04で確認）</p>
 
-<h3 id="pyenv-1">pyenvの使い方（概略）</h3>
+<h3>pyenvの使い方（概略）</h3>
 
 <p>インストール終了後に標準出力に.bashrcに環境変数設定を追記するように促されていると思うので、その通りに従う。</p>
 
-<h4 id="section-1">インストール可能バージョンを見る</h4>
-
-<p><code>
-$ pyenv install -l
-</code></p>
-
-<h4 id="section-2">インストールする</h4>
-
-<p><code>
-$ pyenv install [what-you-want]
-</code></p>
-
-<h4 id="section-3">インストール済バージョン一覧を参照</h4>
-
-<p><code>
-$ pyenv versions
-</code></p>
-
-<h4 id="section-4">環境の切り替え</h4>
-
-<p><code>
-$ pyenv global [environment]
-</code></p>
-
+<h4>インストール可能バージョンを見る</h4>
+<div class="highlight"><pre><code class="language-text" data-lang="text">$ pyenv install -l
+</code></pre></div>
+<h4>インストールする</h4>
+<div class="highlight"><pre><code class="language-text" data-lang="text">$ pyenv install [what-you-want]
+</code></pre></div>
+<h4>インストール済バージョン一覧を参照</h4>
+<div class="highlight"><pre><code class="language-text" data-lang="text">$ pyenv versions
+</code></pre></div>
+<h4>環境の切り替え</h4>
+<div class="highlight"><pre><code class="language-text" data-lang="text">$ pyenv global [environment]
+</code></pre></div>
 <p>ちなみに<code>global</code>でシステム全体で使用するPythonのバージョン、<code>local</code>で<strong>そのディレクトリより下層</strong>で使用するPythonのバージョンを設定することが出来る。</p>
 
 <p>【参考】<a href="http://qiita.com/la_luna_azul/items/3f64016feaad1722805c">pyenvとvirtualenvのインストールと使い方 - Qiita</a></p>
 
-<h2 id="anaconda">Anacondaのインストール</h2>
+<h2>Anacondaのインストール</h2>
 
 <p>pyenvをインストールできたところで、次は上で挙げた数値計算ライブラリ群をインストールする。
 しかし、これらライブラリのインストールには非常に手間がかかり、ビルドエラーが起こって解決が困難になることも多い。
 そこで、Pythonの処理系と有用なライブラリ群をまとめたパッケージである<a href="http://continuum.io/downloads#all">Anaconda</a>を利用する。
 pyenvがインストールされていれば、Anacondaのインストールは非常に簡単である。</p>
-
-<p><code>
-$ pyenv install anaconda3-2.1.0
-</code></p>
-
+<div class="highlight"><pre><code class="language-text" data-lang="text">$ pyenv install anaconda3-2.1.0
+</code></pre></div>
 <p>このインストールには20分〜30分程度の時間を要するので注意すること。
 インストールの確認には</p>
-
-<p><code>
-$ pyenv versions
-</code></p>
-
+<div class="highlight"><pre><code class="language-text" data-lang="text">$ pyenv versions
+</code></pre></div>
 <p>を実行した際にanaconda3-2.1.0が表示されるかを確認すればよい。
 各種ライブラリ群が正常動作していることを確認するために、Anaconda環境に切り替える。</p>
-
-<p><code>
-$ pyenv global anaconda3-2.1.0
-</code></p>
-
+<div class="highlight"><pre><code class="language-text" data-lang="text">$ pyenv global anaconda3-2.1.0
+</code></pre></div>
 <p>そしてPythonを立ち上げる。</p>
-
-<p><code>
-$ python
-</code></p>
-
+<div class="highlight"><pre><code class="language-text" data-lang="text">$ python
+</code></pre></div>
 <p>以下の行を一行ずつ入力し、エラーが起こらなければ成功である。</p>
-
-<p><code>python
-import numpy
-import scipy
-import matplotlib
-import pandas
-import sklearn
-</code></p>
-
-<h3 id="windowspyenv">Windows等pyenvが正常に動作しない環境の場合</h3>
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">numpy</span>
+<span class="kn">import</span> <span class="nn">scipy</span>
+<span class="kn">import</span> <span class="nn">matplotlib</span>
+<span class="kn">import</span> <span class="nn">pandas</span>
+<span class="kn">import</span> <span class="nn">sklearn</span>
+</code></pre></div>
+<h3>Windows等pyenvが正常に動作しない環境の場合</h3>
 
 <p><a href="http://continuum.io/downloads#all">Anacondaのサポートページ</a>からAnaconda installerをダウンロードしてインストールするのが簡単だと思われる。</p>
 
-<h2 id="python-1">Pythonの基礎知識</h2>
-
+<h2>Pythonの基礎知識</h2>
 
   </article>
 

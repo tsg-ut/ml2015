@@ -7,5 +7,5 @@ url: "http://sig.tsg.ne.jp"
 twitter_username: tsg_ut
 github_username:  tsg-ut
 
-markdown: kramdown
+markdown: redcarpet
 exclude: ["README.md"]
