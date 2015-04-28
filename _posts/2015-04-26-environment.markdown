@@ -52,11 +52,11 @@ categories: ml
 
 #### Windows
 
-Cygwinで以下のページの通りに作業するとインストールできることを確認。
+<s>Cygwinで以下のページの通りに作業するとインストールできることを確認。</s>
 
-[pyenvとvirtualenvのインストールと使い方 - Qiita](http://qiita.com/la_luna_azul/items/3f64016feaad1722805c)
+<s>[pyenvとvirtualenvのインストールと使い方 - Qiita](http://qiita.com/la_luna_azul/items/3f64016feaad1722805c)</s>
 
-ただし、Windowsだと**pyenvからanacondaをうまくインストールできない**ようなので、後述のAnaconda Installerを使用するとよい。
+Windowsだと**pyenvからanacondaをうまくインストールできない**ようなので、後述のAnaconda Installerを使用するとよい。
 
 #### Mac OS X
 

@@ -118,11 +118,11 @@
 
 <h4>Windows</h4>
 
-<p>Cygwinで以下のページの通りに作業するとインストールできることを確認。</p>
+<p><s>Cygwinで以下のページの通りに作業するとインストールできることを確認。</s></p>
 
-<p><a href="http://qiita.com/la_luna_azul/items/3f64016feaad1722805c">pyenvとvirtualenvのインストールと使い方 - Qiita</a></p>
+<p><s><a href="http://qiita.com/la_luna_azul/items/3f64016feaad1722805c">pyenvとvirtualenvのインストールと使い方 - Qiita</a></s></p>
 
-<p>ただし、Windowsだと<strong>pyenvからanacondaをうまくインストールできない</strong>ようなので、後述のAnaconda Installerを使用するとよい。</p>
+<p>Windowsだと<strong>pyenvからanacondaをうまくインストールできない</strong>ようなので、後述のAnaconda Installerを使用するとよい。</p>
 
 <h4>Mac OS X</h4>
 <div class="highlight"><pre><code class="language-text" data-lang="text">$ brew install pyenv
@@ -216,6 +216,34 @@ Pythonの大きな特徴としては</p>
 
 <p>ちなみに、上でAnacondaをインストールしてもらった際にanaconda3-2.1.0というパッケージをインストールしてもらった。
 これは2015年4月末時点の最新バージョンで、付属しているPython処理系のバージョンは3.4.1である。</p>
+
+<h3>サンプルスクリプト</h3>
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="c">#!/usr/bin/env python</span>
+<span class="c"># coding: utf-8</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">scipy</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="c"># 定義域は(-3,3)</span>
+    <span class="n">xs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">)</span>
+    <span class="c"># sinカーブに正規分布ノイズをのせる</span>
+    <span class="n">ys</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mf">0.1</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">xs</span><span class="p">])</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">ys</span><span class="p">,</span> <span class="s">&#39;o&#39;</span><span class="p">)</span>
+
+    <span class="c"># 3次関数フィッティング</span>
+    <span class="n">param</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">polyfit</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">ys</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">full</span><span class="o">=</span><span class="bp">True</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">f</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">poly1d</span><span class="p">(</span><span class="n">param</span><span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">f</span><span class="p">(</span><span class="n">xs</span><span class="p">))</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+<p>上記のスクリプトを保存してpythonで実行すると、以下のような結果が得られる。
+sin関数のフィッティングである。</p>
+
+<p><img src="/ml2015/images/02/sin.png" alt="sin関数のフィッティング"></p>
 
   </article>
 
