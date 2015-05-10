@@ -6,13 +6,35 @@
 </description>
     <link>http://sig.tsg.ne.jp/ml2015/</link>
     <atom:link href="http://sig.tsg.ne.jp/ml2015/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 10 May 2015 23:22:33 +0900</pubDate>
-    <lastBuildDate>Sun, 10 May 2015 23:22:33 +0900</lastBuildDate>
+    <pubDate>Mon, 11 May 2015 08:56:29 +0900</pubDate>
+    <lastBuildDate>Mon, 11 May 2015 08:56:29 +0900</lastBuildDate>
     <generator>Jekyll v2.5.3</generator>
     
       <item>
-        <title>#04 Lagrangeの未定乗数法</title>
-        <description>&lt;p&gt;1変数関数の制約条件付き最大値・最小値を求める際は，導関数の零点から極値をとる値を求め，実際に極値同士の値を比較して最大値・最小値を求めていた．&lt;/p&gt;
+        <title>#04 最適化手法</title>
+        <description>&lt;p&gt;最適化とは簡単に言うと関数の最大値・最小値を求めることである．
+コンピュータサイエンスの応用分野では最適化手法が幅広く用いられている．
+機械学習の例で説明すると，例えばデータを学習して&amp;quot;最適な&amp;quot;パラメータを決定するというのは，結局データを引数として取る評価関数を最大化することに他ならない．&lt;/p&gt;
+
+&lt;p&gt;しかし，コンピュータで最大値・最小値を計算するのは思ったほど簡単なことではない．
+例えば人間なら導関数の零点を見つける際は単純に方程式を解くだけだが，コンピュータに方程式をただ投げても適切なアルゴリズムがなければ解は返ってこない．&lt;/p&gt;
+
+&lt;p&gt;この節では，以下の2つのアルゴリズムを説明する．&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Lagrangeの未定乗数法&lt;/p&gt;
+
+&lt;p&gt;制約条件付きの最適化問題を解く，数理解析的アルゴリズム．
+コンピュータが直接的に扱うのは難しいが，様々な最適化アルゴリズムのベースになっている．&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;最急降下法&lt;/p&gt;
+
+&lt;p&gt;関数の最大値・最小値を，その導関数を用いて探索的に求めるアルゴリズム．
+コンピュータにとって扱いやすく，アルゴリズム自体もシンプル（故に問題点も多い）．&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2&gt;Lagrangeの未定乗数法&lt;/h2&gt;
+
+&lt;p&gt;1変数関数の制約条件付き最大値・最小値を求める際は，導関数の零点から極値をとる値を求め，実際に極値同士の値を比較して最大値・最小値を求めていた．&lt;/p&gt;
 
 &lt;p&gt;多変数関数の場合は，&lt;/p&gt;
 
@@ -36,7 +58,7 @@
 
 &lt;p&gt;このような多変数関数の制約条件付き最大最小問題を解くにはLagrangeの未定乗数法が用いられる．&lt;/p&gt;
 
-&lt;h2&gt;Lagrangeの未定乗数法&lt;/h2&gt;
+&lt;h3&gt;Algorithm&lt;/h3&gt;
 
 &lt;p&gt;制約条件\(g(\boldsymbol{x})=0\)の下で多変数関数\(f(x)\)の極値を与える\(\boldsymbol{x}\)は，次のような関数（Lagrange関数という）&lt;/p&gt;
 
@@ -55,9 +77,11 @@
 \end{align}
 &lt;/div&gt;
 
-&lt;p&gt;&lt;hr /&gt;&lt;/p&gt;
+&lt;h3&gt;例1&lt;/h3&gt;
 
-&lt;h4&gt;例1 maximize \(f(x,y)=2x+3y\) s.t. \(x^2+y^2=1\)&lt;/h4&gt;
+&lt;blockquote&gt;
+&lt;p&gt;maximize \(f(x,y)=2x+3y\) s.t. \(x^2+y^2=1\)&lt;/p&gt;
+&lt;/blockquote&gt;
 
 &lt;p&gt;次のようなLagrange関数を作る．&lt;/p&gt;
 
@@ -93,17 +117,154 @@
 
 &lt;p&gt;&lt;img src=&quot;/ml2015/images/04/lagrange.png&quot; alt=&quot;未定乗数法の例&quot; style=&quot;width: 60%&quot; /&gt;&lt;/p&gt;
 
-&lt;h4&gt;練習1 例1のプロットをPythonを使って作成してみよ．&lt;/h4&gt;
+&lt;h3&gt;練習1&lt;/h3&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;例1のプロットをPythonを使って作成してみよ．&lt;/p&gt;
+&lt;/blockquote&gt;
 
 &lt;p&gt;&lt;a href=&quot;/ml2015/ml/2015/05/10/multivariate-analysis.html&quot;&gt;#03&lt;/a&gt;や&lt;a href=&quot;http://matplotlib.org/mpl_toolkits/mplot3d/tutorial.html&quot;&gt;matplotlibのチュートリアル&lt;/a&gt;を参考にするとよい．
 3D空間で線を描画するには&lt;code&gt;Axes3D.plot&lt;/code&gt;，点(散布図)を描画するには&lt;code&gt;Axes3D.scatter&lt;/code&gt;を用いる．&lt;/p&gt;
+
+&lt;p&gt;（スクリプト例: &lt;a href=&quot;https://github.com/tsg-ut/ml2015/blob/master/04/ex1.py&quot;&gt;ex1.py&lt;/a&gt;）&lt;/p&gt;
+
+&lt;h3&gt;練習2&lt;/h3&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;半径1の球に内接する直方体の体積の最大値を求めよ．&lt;/p&gt;
+&lt;/blockquote&gt;
 
 &lt;h3&gt;Lagrangeの未定乗数法の原理&lt;/h3&gt;
 
 &lt;p&gt;厳密な証明は難しく，この分科会の内容から少々逸脱してしまうので，ここでは割愛する．
 イメージを掴みたい人は，&lt;a href=&quot;https://github.com/levelfour/machine-learning-2014/wiki/%E7%AC%AC4%E5%9B%9E---Lagrange%E3%81%AE%E6%9C%AA%E5%AE%9A%E4%B9%97%E6%95%B0%E6%B3%95#%E8%A8%BC%E6%98%8E&quot;&gt;昨年の分科会の資料&lt;/a&gt;を参考にするとよい．&lt;/p&gt;
 
+&lt;h3&gt;複数制約条件の場合&lt;/h3&gt;
+
+&lt;p&gt;ここでは制約条件が1つの場合のみについて述べたが，制約条件が\(M\)個（\(\{g_m(\boldsymbol{x})=0\}_{m=1}^M\)）ある場合は&lt;/p&gt;
+
+&lt;div&gt;
+\[
+    \tilde{f}(\boldsymbol{x},\boldsymbol{\lambda}) = f(\boldsymbol{x})+\sum_{m=1}^M\lambda_mg_m(\boldsymbol{x})
+\]
+&lt;/div&gt;
+
+&lt;p&gt;というLagrange関数をつくり，以下の連立方程式を解く．&lt;/p&gt;
+
+&lt;div&gt;
+\begin{align}
+    \frac{\partial \tilde{f}}{\partial\boldsymbol{x}} &amp;= 0 \\
+    \frac{\partial \tilde{f}}{\partial\boldsymbol{\lambda}} &amp;= 0
+\end{align}
+&lt;/div&gt;
+
+&lt;h3&gt;不等式制約条件の場合&lt;/h3&gt;
+
+&lt;p&gt;ここで述べたのは制約条件が等式の場合のみであった．制約条件が不等式になっているケースも実用上は多く登場する．
+その場合は少しだけ複雑になる（Karush-Kuhn-Tucker条件の導入）ので，実際に用いる際に説明する．&lt;/p&gt;
+
+&lt;p&gt;&lt;hr /&gt;&lt;/p&gt;
+
 &lt;h2&gt;最急降下法&lt;/h2&gt;
+
+&lt;p&gt;最急降下法は，関数の導関数の値を用いて逐次的に関数値を最大にする解を更新するアルゴリズムである．&lt;/p&gt;
+
+&lt;p&gt;関数\(f(\boldsymbol{x})\)に対して初期値\(x^{(0)}\)を与えて，&lt;/p&gt;
+
+&lt;div&gt;
+\[
+    \boldsymbol{x}^{(n+1)}=\boldsymbol{x}^{(n)}+\eta\frac{\partial f(\boldsymbol{x}^{(n)})}{\partial\boldsymbol{x}}
+\]
+&lt;/div&gt;
+
+&lt;p&gt;で\(\boldsymbol{x}\)の値を逐次的に更新し，収束した点が最大になっている．
+導関数の値が0になったら収束だが，実際にちょうど0になる時点まで探索し続けると収束が非常に遅くなるので，導関数値が十分に小さくなったら収束と見なす．
+イメージとしては，関数値が増大する向き（＝導関数が正）に山を登ることになる．&lt;/p&gt;
+
+&lt;p&gt;\(\eta(&amp;gt;)0\)は学習率で，収束の仕方を決めるパラメータである（大きいほど収束が速いわけではない）．&lt;/p&gt;
+
+&lt;p&gt;最急降下法の更新の過程の様子は以下のアニメーションを参考にしてほしい．&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/ml2015/images/04/descent.gif&quot; alt=&quot;最急降下法&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;最急降下法で最小値を求める際は，更新式を以下のように変更すればよい．&lt;/p&gt;
+
+&lt;div&gt;
+\[
+    \boldsymbol{x}_{n+1}=\boldsymbol{x}_n-\eta\frac{\partial f(\boldsymbol{x}^{(n)})}{\partial\boldsymbol{x}}
+\]
+&lt;/div&gt;
+
+&lt;h3&gt;最急降下法の問題点&lt;/h3&gt;
+
+&lt;h4&gt;初期値依存性&lt;/h4&gt;
+
+&lt;p&gt;&lt;img src=&quot;/ml2015/images/04/overfit.png&quot; alt=&quot;初期値依存性&quot; style=&quot;width: 60%&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;上に示す図のように，最急降下法では初期値の取り方によって収束先が変わり得る．
+それは，最急降下法は大域的な最大値を求めているのではなく，局所的最大値（すなわち極大値）を求めているからにすぎない．
+そのため，実際には解析対象となる関数の特性を把握しつつ初期値を選択したり，複数の初期値に対して試行する必要がある．&lt;/p&gt;
+
+&lt;h4&gt;収束速度&lt;/h4&gt;
+
+&lt;p&gt;最急降下法は原理がシンプルな反面，収束速度が遅いことで知られる．
+学習率\(\eta\)の選び方で収束速度は制御できるが，あまり大きな値にしすぎると見当違いな値に収束することもあり，あまり小さな値にしすぎると収束精度は向上するが収束速度は遅くなるといった問題がある．&lt;/p&gt;
+
+&lt;h3&gt;例2&lt;/h3&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;#03の例1でプロットした下の関数の最大値を最急降下法で求める．&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;div&gt;
+\[
+    f(\boldsymbol{x}) = \exp\left(-\frac{(x-0.5)^2+(y-0.2)^2}{2}\right)
+\]
+&lt;/div&gt;
+
+&lt;p&gt;この関数を微分すると以下のようになる．&lt;/p&gt;
+
+&lt;div&gt;
+\[
+    \frac{\partial f}{\partial\boldsymbol{x}}
+    = \left(\begin{array}{c}
+        0.5-x \\
+        0.2-y
+    \end{array}\right) f(\boldsymbol{x})
+\]
+&lt;/div&gt;
+
+&lt;p&gt;最大値を求めるPythonコードは以下のように書ける．&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;c&quot;&gt;# coding: utf-8&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;numpy&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;np&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# 学習率&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;eta&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.1&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# 反復回数&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;N&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;200&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# 初期値ベクトル&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;ini&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;array&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt;  &lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;exp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;**&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;**&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;f_&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;array&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.5&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]])&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;__name__&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;__main__&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ini&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;x({}) = {}&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;eta&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f_&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3&gt;練習3&lt;/h3&gt;
+
+&lt;p&gt;例2のスクリプトを実際に動かしてみよ．また，学習率，反復回数，初期値ベクトルを変化させると収束先の値がどのように変化するか，いろいろ試してみよ．&lt;/p&gt;
+
+&lt;h3&gt;練習4&lt;/h3&gt;
+
+&lt;p&gt;例2で，収束するまでの反復回数が最も少なくなるような学習率を探索せよ．0から2の間で試せば十分である．&lt;/p&gt;
 </description>
         <pubDate>Mon, 11 May 2015 21:11:00 +0900</pubDate>
         <link>http://sig.tsg.ne.jp/ml2015/ml/2015/05/11/lagrange-multiplier.html</link>
