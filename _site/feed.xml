@@ -6,9 +6,224 @@
 </description>
     <link>http://sig.tsg.ne.jp/ml2015/</link>
     <atom:link href="http://sig.tsg.ne.jp/ml2015/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Tue, 28 Apr 2015 19:23:18 +0900</pubDate>
-    <lastBuildDate>Tue, 28 Apr 2015 19:23:18 +0900</lastBuildDate>
+    <pubDate>Sun, 10 May 2015 23:22:33 +0900</pubDate>
+    <lastBuildDate>Sun, 10 May 2015 23:22:33 +0900</lastBuildDate>
     <generator>Jekyll v2.5.3</generator>
+    
+      <item>
+        <title>#04 Lagrangeの未定乗数法</title>
+        <description>&lt;p&gt;1変数関数の制約条件付き最大値・最小値を求める際は，導関数の零点から極値をとる値を求め，実際に極値同士の値を比較して最大値・最小値を求めていた．&lt;/p&gt;
+
+&lt;p&gt;多変数関数の場合は，&lt;/p&gt;
+
+&lt;div&gt;
+\[
+    \frac{\partial f(\boldsymbol{a})}{\partial x_1} = 0,\cdots,\frac{\partial f(\boldsymbol{a})}{\partial x_n} = 0
+\]
+&lt;/div&gt;
+
+&lt;p&gt;だからといって\(f(\boldsymbol{a})\)が極値になっているとは限らない．&lt;/p&gt;
+
+&lt;p&gt;例えば\(f(x,y)=x^2+y^3\)のグラフをプロットすると次のようになる．&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/ml2015/images/04/critical_point.png&quot; alt=&quot;臨界点&quot; style=&quot;width: 60%&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;この関数の\((x,y)=(0,0)\)では，\(x,y\)ともに偏導関数は\(0\)になっているが，極値にはなっていない．
+（極値であるかどうかに関わらず，偏導関数がすべて\(0\)になるような点を停留点，または臨界点という）&lt;/p&gt;
+
+&lt;p&gt;1変数の場合でも極値にならない停留点は存在する（例えば\(f(x)=x^3\)の\(x=0\)）が，1変数関数の場合は増減表を書いて確かめることができる．
+しかし多変数関数では増減表が書けない．ここに制約条件が付いてくると更に複雑になる．&lt;/p&gt;
+
+&lt;p&gt;このような多変数関数の制約条件付き最大最小問題を解くにはLagrangeの未定乗数法が用いられる．&lt;/p&gt;
+
+&lt;h2&gt;Lagrangeの未定乗数法&lt;/h2&gt;
+
+&lt;p&gt;制約条件\(g(\boldsymbol{x})=0\)の下で多変数関数\(f(x)\)の極値を与える\(\boldsymbol{x}\)は，次のような関数（Lagrange関数という）&lt;/p&gt;
+
+&lt;div&gt;
+\[
+    \tilde{f}(\boldsymbol{x},\lambda) = f(\boldsymbol{x})+\lambda g(\boldsymbol{x})
+\]
+&lt;/div&gt;
+
+&lt;p&gt;に対して，以下の連立方程式の解として与えられる．&lt;/p&gt;
+
+&lt;div&gt;
+\begin{align}
+    \frac{\partial \tilde{f}}{\partial\boldsymbol{x}} &amp;= 0 \\
+    \frac{\partial \tilde{f}}{\partial\lambda} &amp;= 0
+\end{align}
+&lt;/div&gt;
+
+&lt;p&gt;&lt;hr /&gt;&lt;/p&gt;
+
+&lt;h4&gt;例1 maximize \(f(x,y)=2x+3y\) s.t. \(x^2+y^2=1\)&lt;/h4&gt;
+
+&lt;p&gt;次のようなLagrange関数を作る．&lt;/p&gt;
+
+&lt;div&gt;
+\[
+    \tilde{f}(x,y,\lambda)=2x+3y+\lambda(x^2+y^2-1)
+\]
+&lt;/div&gt;
+
+&lt;p&gt;続いて\(\tilde{f}\)を\(x,y,\lambda\)でそれぞれ偏微分して「=0」とする．&lt;/p&gt;
+
+&lt;div&gt;
+\begin{align}
+    \frac{\partial\tilde{f}}{\partial x} &amp;= 2+2\lambda x = 0 \\
+    \frac{\partial\tilde{f}}{\partial y} &amp;= 3+2\lambda y = 0 \\
+    \frac{\partial\tilde{f}}{\partial\lambda} &amp;= x^2+y^2-1 = 0 \\
+\end{align}
+&lt;/div&gt;
+
+&lt;p&gt;この方程式から\(\lambda\)を消去すると&lt;/p&gt;
+
+&lt;div&gt;
+\[
+    (x,y) = (\pm\frac{2}{\sqrt{13}},\pm\frac{3}{\sqrt{13}})
+\]
+&lt;/div&gt;
+
+&lt;p&gt;という解が得られる．これらの組は最大値を与える変数の候補になっている．
+実際に\(f(x,y)\)に代入してみると，\((x,y)=(\frac{2}{\sqrt{13}},\frac{3}{\sqrt{13}}\)のときに最大値\(\sqrt{13}\)をとり，
+\((x,y)=(-\frac{2}{\sqrt{13}},-\frac{3}{\sqrt{13}}\)のときに最小値\(\sqrt{13}\)をとることがわかる．&lt;/p&gt;
+
+&lt;p&gt;実際にグラフをプロットしてみると以下のようになる．&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/ml2015/images/04/lagrange.png&quot; alt=&quot;未定乗数法の例&quot; style=&quot;width: 60%&quot; /&gt;&lt;/p&gt;
+
+&lt;h4&gt;練習1 例1のプロットをPythonを使って作成してみよ．&lt;/h4&gt;
+
+&lt;p&gt;&lt;a href=&quot;/ml2015/ml/2015/05/10/multivariate-analysis.html&quot;&gt;#03&lt;/a&gt;や&lt;a href=&quot;http://matplotlib.org/mpl_toolkits/mplot3d/tutorial.html&quot;&gt;matplotlibのチュートリアル&lt;/a&gt;を参考にするとよい．
+3D空間で線を描画するには&lt;code&gt;Axes3D.plot&lt;/code&gt;，点(散布図)を描画するには&lt;code&gt;Axes3D.scatter&lt;/code&gt;を用いる．&lt;/p&gt;
+
+&lt;h3&gt;Lagrangeの未定乗数法の原理&lt;/h3&gt;
+
+&lt;p&gt;厳密な証明は難しく，この分科会の内容から少々逸脱してしまうので，ここでは割愛する．
+イメージを掴みたい人は，&lt;a href=&quot;https://github.com/levelfour/machine-learning-2014/wiki/%E7%AC%AC4%E5%9B%9E---Lagrange%E3%81%AE%E6%9C%AA%E5%AE%9A%E4%B9%97%E6%95%B0%E6%B3%95#%E8%A8%BC%E6%98%8E&quot;&gt;昨年の分科会の資料&lt;/a&gt;を参考にするとよい．&lt;/p&gt;
+
+&lt;h2&gt;最急降下法&lt;/h2&gt;
+</description>
+        <pubDate>Mon, 11 May 2015 21:11:00 +0900</pubDate>
+        <link>http://sig.tsg.ne.jp/ml2015/ml/2015/05/11/lagrange-multiplier.html</link>
+        <guid isPermaLink="true">http://sig.tsg.ne.jp/ml2015/ml/2015/05/11/lagrange-multiplier.html</guid>
+        
+        
+        <category>ml</category>
+        
+      </item>
+    
+      <item>
+        <title>#03 多変数解析</title>
+        <description>&lt;h2&gt;多変数関数&lt;/h2&gt;
+
+&lt;p&gt;1変数関数は\(x\)に対して\(y\)を一意に対応付ける関係のことであった．この関係を\(y=f(x)\)等と書いた．&lt;/p&gt;
+
+&lt;p&gt;多変数関数は，\(n\)個の変数\(x_1,x_2,\cdots,x_n\)を\(y\)に対応づける関係のことであり，
+これを\(y=f(x_1,x_2,\cdots,x_n)\)，または\(y=f(\boldsymbol{x})\)と書いたりする．&lt;/p&gt;
+
+&lt;div&gt;
+\[
+    \boldsymbol{x} = (x_1 x_2 \cdots x_n)^{\mathrm{T}} \longmapsto f(\boldsymbol{x})
+\]
+&lt;/div&gt;
+
+&lt;p&gt;というようにベクトル\(\boldsymbol{x}\)と\(f(\boldsymbol{x})\)の対応付けとして見ることもできる．
+こちらの見方の方が後々微分等で直感的に理解しやすいという利点がある．&lt;/p&gt;
+
+&lt;h4&gt;例1&lt;/h4&gt;
+
+&lt;p&gt;多変数関数&lt;/p&gt;
+
+&lt;div&gt;
+\[
+    f(\boldsymbol{x}) = \exp\left(-\frac{(x-0.5)^2+(y-0.2)^2}{2}\right)
+\]
+&lt;/div&gt;
+
+&lt;p&gt;をプロットする．&lt;code&gt;matplotlib&lt;/code&gt;を用いると，以下のようなコードでプロットできる．&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;numpy&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;np&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;matplotlib.pyplot&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;plt&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;mpl_toolkits.mplot3d&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Axes3D&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;meshgrid&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;arange&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;arange&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;z&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;exp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;**&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;**&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;fig&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;figure&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;ax&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Axes3D&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fig&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;ax&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;plot_wireframe&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;z&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;xlabel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;x&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ylabel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;y&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;show&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;/ml2015/images/03/gaussian.png&quot; alt=&quot;例1&quot; style=&quot;width: 60%&quot; /&gt;&lt;/p&gt;
+
+&lt;h2&gt;偏微分&lt;/h2&gt;
+
+&lt;p&gt;1変数関数と同様に多変数関数でも微分を行うが，多変数関数では引数が複数個あるので，どの変数で微分するかで導関数が変化する．&lt;/p&gt;
+
+&lt;p&gt;関数\(f(x_1,\cdots,x_n)\)の引数のうち\(x_i\)以外を固定（定数と見なす）し，\(x_i\)で微分したときの導関数を&lt;/p&gt;
+
+&lt;div&gt;
+\[
+    \frac{\partial f}{\partial x_i}
+\]
+&lt;/div&gt;
+
+&lt;p&gt;と書き，偏導関数という．&lt;/p&gt;
+
+&lt;h2&gt;ベクトルによる微分&lt;/h2&gt;
+
+&lt;p&gt;多変量解析では&lt;/p&gt;
+
+&lt;div&gt;
+\[
+    \frac{\partial(\boldsymbol{a}^{\mathrm{T}}\boldsymbol{x})}{\partial\boldsymbol{x}}
+\]
+&lt;/div&gt;
+
+&lt;p&gt;のようにベクトルで微分を行う操作が式変形の過程で登場することがある．
+これは以下の略記である．&lt;/p&gt;
+
+&lt;div&gt;
+\begin{align}   
+    \frac{\partial(\boldsymbol{a}^{\mathrm{T}}\boldsymbol{x})}{\partial\boldsymbol{x}}
+    &amp;= \frac{\partial(a_1x_1+\cdots+a_nx_n)}{\partial \left(\begin{array}{c} x_1 \\ : \\ x_n \end{array}\right)} \\
+    &amp;= \left(\begin{array}{c} \frac{\partial}{\partial x_1}(a_1x_1+\cdots+a_nx_n) \\ : \\ \frac{\partial}{\partial x_n}(a_1x_1+\cdots+a_nx_n) \end{array}\right) \\
+    &amp;= \left(\begin{array}{c} a_1 \\ : \\ a_n \end{array}\right) \\
+    &amp;= \boldsymbol{a}
+\end{align}
+&lt;/div&gt;
+
+&lt;p&gt;このように，ベクトルで微分する場合も結果はスカラーの場合から連想される直感的な結果になる．&lt;/p&gt;
+
+&lt;p&gt;2次形式&lt;/p&gt;
+
+&lt;div&gt;
+\[
+    \boldsymbol{x}^{\mathrm{T}}\boldsymbol{Bx}=\sum_{i=1}^n\sum_{j=1}^n b_{ij}x_ix_j
+\]
+&lt;/div&gt;
+
+&lt;p&gt;の微分も頻出なので，結果のみ示しておく．興味のある人は手を動かして計算してみるとよい．&lt;/p&gt;
+
+&lt;div&gt;
+\begin{align}
+    \frac{\partial\boldsymbol{x}^{\mathrm{T}}\boldsymbol{Bx}}{\partial\boldsymbol{x}}
+    &amp;= (\boldsymbol{B}+\boldsymbol{B}^{\mathrm{T}})\boldsymbol{x} \\
+    &amp;= 2\boldsymbol{Bx}^{\mathrm{T}} \; (\boldsymbol{B}:\mathrm{symmetric\,matrix})
+\end{align}
+&lt;/div&gt;
+</description>
+        <pubDate>Sun, 10 May 2015 00:47:00 +0900</pubDate>
+        <link>http://sig.tsg.ne.jp/ml2015/ml/2015/05/10/multivariate-analysis.html</link>
+        <guid isPermaLink="true">http://sig.tsg.ne.jp/ml2015/ml/2015/05/10/multivariate-analysis.html</guid>
+        
+        
+        <category>ml</category>
+        
+      </item>
     
       <item>
         <title>#02 環境構築</title>
@@ -249,7 +464,9 @@ ELIZAも初期の段階でLisp実装がなされている。&lt;/p&gt;
 &lt;p&gt;図中の\(x_1 \cdots x_n\)及び\(z\)がニューロンを形式化したもので、左側のニューロンから右側のニューロンへ信号が伝えられている様子をモデル化している。
 各入力に\(w_1 \cdots w_n\)という重みをつけて、&lt;/p&gt;
 
-&lt;p&gt;$$z = \sum&lt;em&gt;{i=1}^n x&lt;/em&gt;i w_i$$&lt;/p&gt;
+&lt;p&gt;\[
+  z = \sum_{i=1}^n x_i w_i
+\]&lt;/p&gt;
 
 &lt;p&gt;という入力を与える。&lt;/p&gt;
 
