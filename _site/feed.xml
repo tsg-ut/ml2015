@@ -6,8 +6,8 @@
 </description>
     <link>http://sig.tsg.ne.jp/ml2015/</link>
     <atom:link href="http://sig.tsg.ne.jp/ml2015/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 11 May 2015 08:56:29 +0900</pubDate>
-    <lastBuildDate>Mon, 11 May 2015 08:56:29 +0900</lastBuildDate>
+    <pubDate>Mon, 11 May 2015 09:26:07 +0900</pubDate>
+    <lastBuildDate>Mon, 11 May 2015 09:26:07 +0900</lastBuildDate>
     <generator>Jekyll v2.5.3</generator>
     
       <item>
@@ -133,6 +133,8 @@
 &lt;blockquote&gt;
 &lt;p&gt;半径1の球に内接する直方体の体積の最大値を求めよ．&lt;/p&gt;
 &lt;/blockquote&gt;
+
+&lt;p&gt;解答は&lt;a href=&quot;https://github.com/tsg-ut/ml2015/blob/master/04/ex2.md&quot;&gt;ex2.md&lt;/a&gt;に示す．&lt;/p&gt;
 
 &lt;h3&gt;Lagrangeの未定乗数法の原理&lt;/h3&gt;
 
@@ -265,6 +267,8 @@
 &lt;h3&gt;練習4&lt;/h3&gt;
 
 &lt;p&gt;例2で，収束するまでの反復回数が最も少なくなるような学習率を探索せよ．0から2の間で試せば十分である．&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/tsg-ut/ml2015/blob/master/04/ex4.py&quot;&gt;ex4.py&lt;/a&gt;にスクリプト例を示す．&lt;/p&gt;
 </description>
         <pubDate>Mon, 11 May 2015 21:11:00 +0900</pubDate>
         <link>http://sig.tsg.ne.jp/ml2015/ml/2015/05/11/lagrange-multiplier.html</link>
