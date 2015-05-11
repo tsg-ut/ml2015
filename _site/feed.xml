@@ -6,8 +6,8 @@
 </description>
     <link>http://sig.tsg.ne.jp/ml2015/</link>
     <atom:link href="http://sig.tsg.ne.jp/ml2015/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 11 May 2015 09:29:55 +0900</pubDate>
-    <lastBuildDate>Mon, 11 May 2015 09:29:55 +0900</lastBuildDate>
+    <pubDate>Mon, 11 May 2015 12:25:06 +0900</pubDate>
+    <lastBuildDate>Mon, 11 May 2015 12:25:06 +0900</lastBuildDate>
     <generator>Jekyll v2.5.3</generator>
     
       <item>
@@ -110,8 +110,8 @@
 &lt;/div&gt;
 
 &lt;p&gt;という解が得られる．これらの組は最大値を与える変数の候補になっている．
-実際に\(f(x,y)\)に代入してみると，\((x,y)=(\frac{2}{\sqrt{13}},\frac{3}{\sqrt{13}}\)のときに最大値\(\sqrt{13}\)をとり，
-\((x,y)=(-\frac{2}{\sqrt{13}},-\frac{3}{\sqrt{13}}\)のときに最小値\(\sqrt{13}\)をとることがわかる．&lt;/p&gt;
+実際に\(f(x,y)\)に代入してみると，\((x,y)=(\frac{2}{\sqrt{13}},\frac{3}{\sqrt{13}})\)のときに最大値\(\sqrt{13}\)をとり，
+\((x,y)=(-\frac{2}{\sqrt{13}},-\frac{3}{\sqrt{13}})\)のときに最小値\(\sqrt{13}\)をとることがわかる．&lt;/p&gt;
 
 &lt;p&gt;実際にグラフをプロットしてみると以下のようになる．&lt;/p&gt;
 
