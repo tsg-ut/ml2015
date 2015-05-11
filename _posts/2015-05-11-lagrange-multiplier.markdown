@@ -237,7 +237,7 @@ def f(x):
     return  np.exp(-((x[0]-0.5)**2+(x[1]-0.2)**2)/2)
 
 def f_(x):
-    return np.array([0.5-x[0], 0.2-x[1]]) * s(x)
+    return np.array([0.5-x[0], 0.2-x[1]]) * f(x)
 
 if __name__ == '__main__':
     x = ini
