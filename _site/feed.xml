@@ -6,9 +6,168 @@
 </description>
     <link>http://sig.tsg.ne.jp/ml2015/</link>
     <atom:link href="http://sig.tsg.ne.jp/ml2015/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 11 May 2015 09:29:55 +0900</pubDate>
-    <lastBuildDate>Mon, 11 May 2015 09:29:55 +0900</lastBuildDate>
+    <pubDate>Wed, 13 May 2015 01:11:14 +0900</pubDate>
+    <lastBuildDate>Wed, 13 May 2015 01:11:14 +0900</lastBuildDate>
     <generator>Jekyll v2.5.3</generator>
+    
+      <item>
+        <title>#05 確率分布の基礎</title>
+        <description>&lt;p&gt;確率は統計解析と密接に関係している．
+例えば，株価のトレードデータから数日後の株価を予測する際，過去の統計データをもとに確率的に最もありえる株価でもって予測したりする．
+また，患者の状態を観測してそこから医者が&amp;quot;最も取るべき行動&amp;quot;を推論し，医療に応用するといったこともなされる．&lt;/p&gt;
+
+&lt;p&gt;本節では，確率解析のベースとなる確率分布の基礎を説明する．&lt;/p&gt;
+
+&lt;h2&gt;二項分布&lt;/h2&gt;
+
+&lt;p&gt;確率分布の最も単純な例として，コイン投げを考える．
+確率\(p=\frac{1}{2}\)で表，\(q=1-p=\frac{1}{2}\)で裏が出るようなコインを考える．
+確率変数\(x\)に対して「表が出る」事象を1，「裏が出る」事象を0とする．
+コインを\(n\)回投げるとき，表が出る回数が\(k\)回になる確率は以下のように表される．&lt;/p&gt;
+
+&lt;div&gt;
+\[
+    P(x=k) = {}_nC_k p^k(1-p)^{n-k} = \frac{n!}{k!(n-k)!} p^k(1-p)^{n-k}
+\]
+&lt;/div&gt;
+
+&lt;p&gt;（高校で学ぶ反復事象の確率そのものである）&lt;/p&gt;
+
+&lt;p&gt;このような確率変数\(x\)の分布はパラメータ\(n,p\)で決定されるため，二項分布\(B(n,p)\)に従うといい\(x\sim B(n,p)\)と書く．&lt;/p&gt;
+
+&lt;p&gt;二項分布をとるのは，試行がベルヌーイ試行（試行の結果が二値）であり，互いに独立であるような場合である．
+上の例ではコイントスが試行であり，コイントス自体は表と裏の二値で，一回前のトスの結果は次のトスには影響しない．&lt;/p&gt;
+
+&lt;h3&gt;例1&lt;/h3&gt;
+
+&lt;p&gt;以下のスクリプトは二項分布に従って確率変数をランダムに生成している．&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;scipy.stats&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;binom&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;binom&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rvs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;20&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;コイントスの例で言えば，「表裏が出る確率の等しい(p=0.5)コインを20回(=n)投げる」という試行を10回行っている．
+実行例は以下のとおり．&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;array([12, 11,  9,  9,  7, 10, 10, 10,  9, 11])
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;このように，だいたい10回前後表が出ていることがわかる．&lt;/p&gt;
+
+&lt;p&gt;&lt;hr /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;scipy.stats&lt;/code&gt;には他にも様々な確率分布に関するモジュールが提供されている．
+また，各々のモジュールは統一的なインターフェースで提供されている（例えば，他の確率分布に従って確率変数をランダム生成する場合も&lt;code&gt;rvs&lt;/code&gt;を使う）．
+一度&lt;a href=&quot;http://docs.scipy.org/doc/scipy-0.15.1/reference/generated/scipy.stats.binom.html&quot;&gt;scipy.stats.binom&lt;/a&gt;のドキュメントのMethodsの欄に目を通してみるといいかもしれない．&lt;/p&gt;
+
+&lt;h3&gt;正規性&lt;/h3&gt;
+
+&lt;p&gt;確率分布は「すべて足して1」にならなければならない．それを二項分布で確かめる．&lt;/p&gt;
+
+&lt;div&gt;
+\[
+    \sum_{k=0}^n{}_nC_kp^k(1-p)^{n-k} = \{p+(1-p)\}^n = 1
+\]
+&lt;/div&gt;
+
+&lt;p&gt;この計算には二項定理を用いている．&lt;/p&gt;
+
+&lt;h3&gt;期待値と分散&lt;/h3&gt;
+
+&lt;p&gt;二項分布の期待値は&lt;/p&gt;
+
+&lt;div&gt;
+\begin{align}
+    \mathbb{E}(x)
+        &amp;= \sum_{k=0}^n kP(k) \\
+        &amp;= \sum_{k=0}^n k\cdot\frac{n\cdot(n-1)!}{k\cdot(k-1)!(n-k)!}p^k(1-p)^{n-k} \\
+        &amp;= \sum_{k=0}^n k\cdot\frac{n}{k}\cdot{}_{n-1}C_{k-1}p^k(1-p)^{n-k} \\
+        &amp;= np\sum_{k=0}^n {}_{n-1}C_{k-1}p^{k-1}(1-p)^{(n-1)-(k-1)} \\
+        &amp;= np\cdot\{p+(1-p)\}^n \\
+        &amp;= np
+\end{align}
+&lt;/div&gt;
+
+&lt;p&gt;となる．表裏の出る確率がイーブンなコインを10回投げるとだいたい5回(=10・(1/2))表になる直感にそっている．&lt;/p&gt;
+
+&lt;p&gt;分散は&lt;/p&gt;
+
+&lt;div&gt;
+\[
+    \mathrm{Var}(x)=np(1-p)
+\]
+&lt;/div&gt;
+
+&lt;p&gt;である．&lt;/p&gt;
+
+&lt;h3&gt;練習1&lt;/h3&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;二項分布の分散を計算せよ．&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;期待値と似たような計算で確認できる．&lt;/p&gt;
+
+&lt;h2&gt;正規分布と中心極限定理&lt;/h2&gt;
+
+&lt;p&gt;二項分布の試行回数\(n\)を十分大きくしていくと，どうなるだろうか．&lt;/p&gt;
+
+&lt;p&gt;コイントスの例で考える．トスの回数\(n\)を1回から100回まで増やしていく．
+各\(n\)において，同じ試行を10000回行い，表の出た回数をヒストグラムにとってみる．
+これは以下のようなスクリプトで実現できる．&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;scipy.stats&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;binom&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;matplotlib.pyplot&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;plt&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;linspace&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.5&lt;/span&gt;
+    &lt;span class=&quot;c&quot;&gt;# 二項分布の生成&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;xs&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;binom&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rvs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;c&quot;&gt;# キャンバスのクリア&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;clf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+    &lt;span class=&quot;c&quot;&gt;# ヒストグラムの描画（binsはヒストグラムの分割数、あまり気にしなくて良い）&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;hist&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;xs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bins&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;2.&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;xlim&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;suptitle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;n = {}&amp;#39;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;savefig&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;fig{}.png&amp;#39;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;この結果得られたプロットをGIFアニメーションにしたのが下の画像である．&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/ml2015/images/05/binom.gif&quot; alt=&quot;二項分布の近似&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;このように，二項分布の形状が次第に一定のカーブに近づいていく．
+この分布は正規分布と呼ばれ，次のような式で表される．&lt;/p&gt;
+
+&lt;div&gt;
+\[
+    P(x) = \frac{1}{\sqrt{2\pi\sigma^2}}\exp\left(-\frac{(x-\mu)^2}{2\sigma^2}\right)
+\]
+&lt;/div&gt;
+
+&lt;p&gt;\(\mu\)は平均（＝期待値），\(\sigma\)は分散である．&lt;/p&gt;
+
+&lt;p&gt;実際に\(n=100\)のヒストグラムに正規分布を重ねてプロットすると以下のようになる．&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/ml2015/images/05/normal.png&quot; alt=&quot;正規分布&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;二項分布に限らず，&lt;strong&gt;一般的な確率分布のもとで試行を繰り返すと，その分布は次第に正規分布に近づく．&lt;/strong&gt;
+この事実は中心極限定理と呼ばれる．中心極限定理の証明は難しいので割愛する．
+中心極限定理の存在により，大標本の場合にはまず正規分布を仮定してデータ解析することも多く，正規分布は数ある確率分布でも特殊な位置を占めている．&lt;/p&gt;
+
+&lt;h3&gt;練習2&lt;/h3&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;サイコロを振って1〜6の目が出る確率は（イカサマされていないという前提で）すべて等しく1/6である．
+この分布は
+$$ P(x)=\frac{1}{6} $$
+と書け，一様分布という．
+一様分布も二項分布と同様に，正規分布に収束することをスクリプトで確認せよ．&lt;/p&gt;
+&lt;/blockquote&gt;
+</description>
+        <pubDate>Tue, 12 May 2015 02:14:00 +0900</pubDate>
+        <link>http://sig.tsg.ne.jp/ml2015/ml/2015/05/12/probability.html</link>
+        <guid isPermaLink="true">http://sig.tsg.ne.jp/ml2015/ml/2015/05/12/probability.html</guid>
+        
+        
+        <category>ml</category>
+        
+      </item>
     
       <item>
         <title>#04 最適化手法</title>
