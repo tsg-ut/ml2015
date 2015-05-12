@@ -313,6 +313,9 @@
             <span class="k">print</span><span class="p">(</span><span class="s">&quot;x({}) = {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">x</span><span class="p">))</span>
         <span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="n">eta</span> <span class="o">*</span> <span class="n">f_</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 </code></pre></div>
+<p>ちなみに，このスクリプトのようにコメントにUnicode文字を使いたい場合は，ファイルの先頭に<code># -*- coding: utf-8 -*-</code>または<code># coding: utf-8</code>と書く必要がある．
+この1行によって，Python処理系はUTF-8でスクリプトを解釈するようになる．</p>
+
 <h3>練習3</h3>
 
 <p>例2のスクリプトを実際に動かしてみよ．また，学習率，反復回数，初期値ベクトルを変化させると収束先の値がどのように変化するか，いろいろ試してみよ．</p>

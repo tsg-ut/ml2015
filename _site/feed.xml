@@ -6,8 +6,8 @@
 </description>
     <link>http://sig.tsg.ne.jp/ml2015/</link>
     <atom:link href="http://sig.tsg.ne.jp/ml2015/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Wed, 13 May 2015 01:16:34 +0900</pubDate>
-    <lastBuildDate>Wed, 13 May 2015 01:16:34 +0900</lastBuildDate>
+    <pubDate>Wed, 13 May 2015 01:18:48 +0900</pubDate>
+    <lastBuildDate>Wed, 13 May 2015 01:18:48 +0900</lastBuildDate>
     <generator>Jekyll v2.5.3</generator>
     
       <item>
@@ -425,6 +425,9 @@ $$ P(x)=\frac{1}{6} $$
             &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;x({}) = {}&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
         &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;eta&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f_&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;ちなみに，このスクリプトのようにコメントにUnicode文字を使いたい場合は，ファイルの先頭に&lt;code&gt;# -*- coding: utf-8 -*-&lt;/code&gt;または&lt;code&gt;# coding: utf-8&lt;/code&gt;と書く必要がある．
+この1行によって，Python処理系はUTF-8でスクリプトを解釈するようになる．&lt;/p&gt;
+
 &lt;h3&gt;練習3&lt;/h3&gt;
 
 &lt;p&gt;例2のスクリプトを実際に動かしてみよ．また，学習率，反復回数，初期値ベクトルを変化させると収束先の値がどのように変化するか，いろいろ試してみよ．&lt;/p&gt;
