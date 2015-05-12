@@ -37,7 +37,7 @@ categories: ml
 
 ```python
 from scipy.stats import binom
-binom.rvs(20, 0.5, size=10)
+print(binom.rvs(20, 0.5, size=10))
 ```
 
 コイントスの例で言えば，「表裏が出る確率の等しい(p=0.5)コインを20回(=n)投げる」という試行を10回行っている．
