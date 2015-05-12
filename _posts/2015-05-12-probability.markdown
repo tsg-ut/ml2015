@@ -158,3 +158,8 @@ for n in np.linspace(1, 100, 10):
 > と書け，一様分布という．
 > 一様分布も二項分布と同様に，正規分布に収束することをスクリプトで確認せよ．
 
+収束はそれなりに速く，\\(n=10\\)程度でかなり正規分布に近い形になる．
+
+スクリプト例を[uniform.py](https://github.com/tsg-ut/ml2015/blob/master/05/uniform.py)に示す．
+
+[uniform.gif](https://github.com/tsg-ut/ml2015/blob/master/05/uniform.gif)のような結果になれば概ねOKだろう．

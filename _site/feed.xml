@@ -6,8 +6,8 @@
 </description>
     <link>http://sig.tsg.ne.jp/ml2015/</link>
     <atom:link href="http://sig.tsg.ne.jp/ml2015/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Wed, 13 May 2015 01:11:14 +0900</pubDate>
-    <lastBuildDate>Wed, 13 May 2015 01:11:14 +0900</lastBuildDate>
+    <pubDate>Wed, 13 May 2015 01:16:34 +0900</pubDate>
+    <lastBuildDate>Wed, 13 May 2015 01:16:34 +0900</lastBuildDate>
     <generator>Jekyll v2.5.3</generator>
     
       <item>
@@ -159,6 +159,12 @@ $$ P(x)=\frac{1}{6} $$
 と書け，一様分布という．
 一様分布も二項分布と同様に，正規分布に収束することをスクリプトで確認せよ．&lt;/p&gt;
 &lt;/blockquote&gt;
+
+&lt;p&gt;収束はそれなりに速く，\(n=10\)程度でかなり正規分布に近い形になる．&lt;/p&gt;
+
+&lt;p&gt;スクリプト例を&lt;a href=&quot;https://github.com/tsg-ut/ml2015/blob/master/05/uniform.py&quot;&gt;uniform.py&lt;/a&gt;に示す．&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/tsg-ut/ml2015/blob/master/05/uniform.gif&quot;&gt;uniform.gif&lt;/a&gt;のような結果になれば概ねOKだろう．&lt;/p&gt;
 </description>
         <pubDate>Tue, 12 May 2015 02:14:00 +0900</pubDate>
         <link>http://sig.tsg.ne.jp/ml2015/ml/2015/05/12/probability.html</link>
