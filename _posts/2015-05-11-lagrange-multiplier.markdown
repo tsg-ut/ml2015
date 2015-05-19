@@ -101,7 +101,7 @@ categories: ml
 
 という解が得られる．これらの組は最大値を与える変数の候補になっている．
 実際に\\(f(x,y)\\)に代入してみると，\\((x,y)=(\frac{2}{\sqrt{13}},\frac{3}{\sqrt{13}})\\)のときに最大値\\(\sqrt{13}\\)をとり，
-\\((x,y)=(-\frac{2}{\sqrt{13}},-\frac{3}{\sqrt{13}})\\)のときに最小値\\(\sqrt{13}\\)をとることがわかる．
+\\((x,y)=(-\frac{2}{\sqrt{13}},-\frac{3}{\sqrt{13}})\\)のときに最小値\\(-\sqrt{13}\\)をとることがわかる．
 
 実際にグラフをプロットしてみると以下のようになる．
 
@@ -157,11 +157,11 @@ categories: ml
 
 最急降下法は，関数の導関数の値を用いて逐次的に関数値を最大にする解を更新するアルゴリズムである．
 
-関数\\(f(\boldsymbol{x})\\)に対して初期値\\(x^{(0)}\\)を与えて，
+関数\\(f(\boldsymbol{x})\\)に対して初期値\\(x\_0\\)を与えて，
 
 <div>
 \[
-	\boldsymbol{x}^{(n+1)}=\boldsymbol{x}^{(n)}+\eta\frac{\partial f(\boldsymbol{x}^{(n)})}{\partial\boldsymbol{x}}
+	\boldsymbol{x}_{n+1}=\boldsymbol{x}_{n}+\eta\frac{\partial f(\boldsymbol{x}_{n})}{\partial\boldsymbol{x}}
 \]
 </div>
 
@@ -179,7 +179,7 @@ categories: ml
 
 <div>
 \[
-	\boldsymbol{x}_{n+1}=\boldsymbol{x}_n-\eta\frac{\partial f(\boldsymbol{x}^{(n)})}{\partial\boldsymbol{x}}
+	\boldsymbol{x}_{n+1}=\boldsymbol{x}_n-\eta\frac{\partial f(\boldsymbol{x}_{n})}{\partial\boldsymbol{x}}
 \]
 </div>
 
