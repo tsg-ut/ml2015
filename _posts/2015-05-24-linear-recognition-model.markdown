@@ -206,4 +206,78 @@ categories: ml
 </div>
 
 という解が得られる．
+
 ## 簡単な例
+
+初めにインストールしたモジュールの中に``scikit-learn``というモジュールがある．
+これはPython向けの機械学習モジュールで，様々なアルゴリズムが提供されていたり，サンプルデータが提供されている．
+ここではiris(アヤメ)のサンプルデータを用いて，最小二乗学習を行ってみる．
+
+![irisのロード]({{ site.baseurl }}/images/06/load.png)
+
+``sklearn.datasets.load_iris``でirisをロードできる．
+
+<img src="{{ site.baseurl }}/images/06/data.png" style="width: 60%" />
+
+データはこのような4次元データになっている．
+
+<img src="{{ site.baseurl }}/images/06/feature_name.png" style="width: 60%" />
+
+各次元はこのような特徴を表現している．
+
+![target]({{ site.baseurl }}/images/06/target.png)
+
+各データのラベル値はこのようになっている．
+
+<img src="{{ site.baseurl }}/images/06/target_name.png" style="width: 60%" />
+
+ラベル値はそれぞれsetosa, versicolor, virginicaというアヤメの種類と対応している．
+
+現時点では2クラス分類しかできないので，「setosaかそうでないか」を推定するプログラムを書いてみる．
+
+```python
+#!/usr/bin/env python
+# coding: utf-8
+
+import numpy as np
+from sklearn import datasets
+from sklearn import cross_validation
+from sklearn import metrics
+
+iris = datasets.load_iris()
+data = iris.data[0:100]
+target = [1 if t == 1 else -1 for t in iris.target[0:100]]
+
+train_x, test_x, train_y, test_y = cross_validation.train_test_split(data, target, test_size=0.2)
+
+# 最小二乗法で学習
+w = np.linalg.inv(train_x.T.dot(train_x)).dot(train_x.T).dot(train_y)
+
+# 最小二乗法で推定
+pred_y = np.array([1 if w.dot(x) > 0 else -1 for x in test_x])
+
+# テストデータに対する正答率
+print metrics.accuracy_score(test_y, pred_y)
+```
+
+![例]({{ site.baseurl }}/images/06/iris.png)
+
+```python
+train_x, test_x, train_y, test_y = cross_validation.train_test_split(data, target, test_size=0.2)
+```
+
+の行はirisを(学習データ):(テストデータ)=4:1に分割している(test\_size=0.2)．``train_x, train_y``を使って\\(\boldsymbol{w}\\)を推定し，できた識別器に``test_x``をかけて``pred_y``を
+
+```python
+pred_y = np.array([1 if w.dot(x) > 0 else -1 for x in test_x])
+```
+
+で得て，そのうち何%が``test_y``と一致しているかを``sklearn.metrics.accuracy_score``を用いて
+
+```python
+print metrics.accuracy_score(test_y, pred_y)
+```
+
+の行で計算している．
+
+この程度であれば100%の精度を達成することができる．

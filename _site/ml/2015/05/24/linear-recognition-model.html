@@ -269,6 +269,67 @@
 
 <h2>簡単な例</h2>
 
+<p>初めにインストールしたモジュールの中に<code>scikit-learn</code>というモジュールがある．
+これはPython向けの機械学習モジュールで，様々なアルゴリズムが提供されていたり，サンプルデータが提供されている．
+ここではiris(アヤメ)のサンプルデータを用いて，最小二乗学習を行ってみる．</p>
+
+<p><img src="/ml2015/images/06/load.png" alt="irisのロード"></p>
+
+<p><code>sklearn.datasets.load_iris</code>でirisをロードできる．</p>
+
+<p><img src="/ml2015/images/06/data.png" style="width: 60%" /></p>
+
+<p>データはこのような4次元データになっている．</p>
+
+<p><img src="/ml2015/images/06/feature_name.png" style="width: 60%" /></p>
+
+<p>各次元はこのような特徴を表現している．</p>
+
+<p><img src="/ml2015/images/06/target.png" alt="target"></p>
+
+<p>各データのラベル値はこのようになっている．</p>
+
+<p><img src="/ml2015/images/06/target_name.png" style="width: 60%" /></p>
+
+<p>ラベル値はそれぞれsetosa, versicolor, virginicaというアヤメの種類と対応している．</p>
+
+<p>現時点では2クラス分類しかできないので，「setosaかそうでないか」を推定するプログラムを書いてみる．</p>
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="c">#!/usr/bin/env python</span>
+<span class="c"># coding: utf-8</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">datasets</span>
+<span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">cross_validation</span>
+<span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">metrics</span>
+
+<span class="n">iris</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">load_iris</span><span class="p">()</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">iris</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">100</span><span class="p">]</span>
+<span class="n">target</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span> <span class="k">if</span> <span class="n">t</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">else</span> <span class="o">-</span><span class="mi">1</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">iris</span><span class="o">.</span><span class="n">target</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">100</span><span class="p">]]</span>
+
+<span class="n">train_x</span><span class="p">,</span> <span class="n">test_x</span><span class="p">,</span> <span class="n">train_y</span><span class="p">,</span> <span class="n">test_y</span> <span class="o">=</span> <span class="n">cross_validation</span><span class="o">.</span><span class="n">train_test_split</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+
+<span class="c"># 最小二乗法で学習</span>
+<span class="n">w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">train_x</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">train_x</span><span class="p">))</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">train_x</span><span class="o">.</span><span class="n">T</span><span class="p">)</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">train_y</span><span class="p">)</span>
+
+<span class="c"># 最小二乗法で推定</span>
+<span class="n">pred_y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span> <span class="k">if</span> <span class="n">w</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="o">-</span><span class="mi">1</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">test_x</span><span class="p">])</span>
+
+<span class="c"># テストデータに対する正答率</span>
+<span class="k">print</span> <span class="n">metrics</span><span class="o">.</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">test_y</span><span class="p">,</span> <span class="n">pred_y</span><span class="p">)</span>
+</code></pre></div>
+<p><img src="/ml2015/images/06/iris.png" alt="例"></p>
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">train_x</span><span class="p">,</span> <span class="n">test_x</span><span class="p">,</span> <span class="n">train_y</span><span class="p">,</span> <span class="n">test_y</span> <span class="o">=</span> <span class="n">cross_validation</span><span class="o">.</span><span class="n">train_test_split</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+</code></pre></div>
+<p>の行はirisを(学習データ):(テストデータ)=4:1に分割している(test_size=0.2)．<code>train_x, train_y</code>を使って\(\boldsymbol{w}\)を推定し，できた識別器に<code>test_x</code>をかけて<code>pred_y</code>を</p>
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">pred_y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span> <span class="k">if</span> <span class="n">w</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="o">-</span><span class="mi">1</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">test_x</span><span class="p">])</span>
+</code></pre></div>
+<p>で得て，そのうち何%が<code>test_y</code>と一致しているかを<code>sklearn.metrics.accuracy_score</code>を用いて</p>
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">print</span> <span class="n">metrics</span><span class="o">.</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">test_y</span><span class="p">,</span> <span class="n">pred_y</span><span class="p">)</span>
+</code></pre></div>
+<p>の行で計算している．</p>
+
+<p>この程度であれば100%の精度を達成することができる．</p>
+
   </article>
 
 </div>
