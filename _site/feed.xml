@@ -6,9 +6,254 @@
 </description>
     <link>http://sig.tsg.ne.jp/ml2015/</link>
     <atom:link href="http://sig.tsg.ne.jp/ml2015/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 24 May 2015 15:17:01 +0900</pubDate>
-    <lastBuildDate>Sun, 24 May 2015 15:17:01 +0900</lastBuildDate>
+    <pubDate>Mon, 25 May 2015 11:50:19 +0900</pubDate>
+    <lastBuildDate>Mon, 25 May 2015 11:50:19 +0900</lastBuildDate>
     <generator>Jekyll v2.5.3</generator>
+    
+      <item>
+        <title>#07 N-gramによるテキスト分類</title>
+        <description>&lt;h2&gt;N-gramモデル&lt;/h2&gt;
+
+&lt;p&gt;上記の例では単語分割（形態素解析というやつ）ができている前提で話を進めていたが，実際に形態素解析を行うのは（というか環境構築するのが）それなりに面倒なことが多い．
+形態素解析を行いたいのであれば，日本語なら&lt;a href=&quot;http://taku910.github.io/mecab/&quot;&gt;MeCab&lt;/a&gt;を使うのが現状最もよい選択肢であると言える．
+Python向けバインディングもあるので比較的扱いやすい．
+（余談だが，日本語の係り受け解析であれば同じく京大の開発した&lt;a href=&quot;http://taku910.github.io/cabocha/&quot;&gt;Cabocha&lt;/a&gt;が良い．使ってみるととても楽しい．これらの自然言語解析モジュール自体も機械学習を用いている）&lt;/p&gt;
+
+&lt;p&gt;ここでは，自然言語処理を行う上で便利なモデルとして，&lt;strong&gt;N-gram&lt;/strong&gt;を紹介する．&lt;/p&gt;
+
+&lt;p&gt;N-gramとは，「文章のi文字目(iは1〜(文章長-N)まで)から連続するN文字を取り出し，その文章の特徴とする」モデルである．&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/ml2015/images/07/n-gram.001.jpg&quot; alt=&quot;N-gram&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;【Reference】&lt;a href=&quot;http://www.shuiren.org/chuden/teach/n-gram/index-j.html&quot;&gt;N-gramモデルを利用したテキスト分析&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;これだけだと本当に文章の特徴を捉えているのか心配になりそうだが，N-gramだけでもそれなりにテキストの素性を捉えることができることが知られている．
+一つには，文章中の（あまり離れていない）共起関係（ググってください…）を比較的容易に捉えられる点があげられる．
+勿論，これだけシンプル故に欠点もたくさんある．&lt;/p&gt;
+</description>
+        <pubDate>Mon, 25 May 2015 00:00:00 +0900</pubDate>
+        <link>http://sig.tsg.ne.jp/ml2015/ml/2015/05/25/n-gram.html</link>
+        <guid isPermaLink="true">http://sig.tsg.ne.jp/ml2015/ml/2015/05/25/n-gram.html</guid>
+        
+        
+        <category>ml</category>
+        
+      </item>
+    
+      <item>
+        <title>#06 線形識別モデル</title>
+        <description>&lt;p&gt;今回から本格的に機械学習らしい内容に入っていく．&lt;/p&gt;
+
+&lt;p&gt;機械学習で扱う問題のほとんどは識別問題，すなわち与えられたデータの属性を推定する問題であることが多い．&lt;/p&gt;
+
+&lt;p&gt;(例)&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;スパムメール判定（受信したメールがスパムなのかそうでないのか）&lt;/li&gt;
+&lt;li&gt;Googleの言語判定（テキストが何語で書かれているのか）&lt;/li&gt;
+&lt;li&gt;YouTubeのおすすめ動画&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;/ml2015/images/06/spam.png&quot; alt=&quot;スパムフィルタ&quot;&gt;
+↑GMailのスパムフィルタ&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/ml2015/images/06/lang.png&quot; alt=&quot;言語判定&quot;&gt;
+↑Googleの言語判定&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/ml2015/images/06/youtube.png&quot; alt=&quot;おすすめ動画&quot;&gt;
+↑YouTubeのおすすめ動画&lt;/p&gt;
+
+&lt;h2&gt;それは機械学習が必要なのか&lt;/h2&gt;
+
+&lt;p&gt;昨今の機械学習ブームの影響で，とりあえず機械学習を使ってみたいというケースが増えている（僕もそのクチだ）．
+ただ，何でもかんでもとりあえず機械学習で識別させておけばいいわけではない．
+例えば，自動販売機に投入される硬貨の種類を判定するのにわざわざ機械学習を用いる必要はない．
+対象はせいぜい1円玉，5円玉，10円玉，50円玉，100円玉，500円玉の6種類しかないので，rule-basedに記述した方が速い．&lt;/p&gt;
+
+&lt;p&gt;機械学習を用いた方が良いのは，処理すべきデータ規模が人力では扱えないほど大きかったり，ruleが曖昧な場合などである．
+（「スパムメールの基準を書き出せ」と言われたら難しいだろう）&lt;/p&gt;
+
+&lt;p&gt;また，機械学習を用いるにしても，徹頭徹尾全て機械学習に頼りきらなければいけない道理はどこにもない．
+サイボウズ・ラボの中谷秀洋氏に話を伺う機会があったのだが，言語判定をやっていると異言語間で同じ綴りの単語が使われているケース等で，機械学習ではどうしても乗り越えられない壁に当たる時があるのだが，そういう場合は普通にif文一つかませてしまうと精度が上がるそうだ．&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://www.slideshare.net/shuyo/dsirnlp&quot;&gt;言語判定へのいざない - SlideShare&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2&gt;線形識別関数&lt;/h2&gt;
+
+&lt;p&gt;それでは前置きから本題に入ろう．テキスト処理の例を据えながら説明する．
+ここでは，ブログ記事のトピックが統計に関連するのかしないのかを判定するようなプログラムを作ることを考えてみよう．
+まず，記事中に「統計」という言葉が登場していたら機械学習に関連する記事だと判定することにしよう．
+これを式として表すなら，「統計」という単語の登場回数を\(x\)として，&lt;/p&gt;
+
+&lt;div&gt;
+\[
+    f(x)=x-1
+\]
+&lt;/div&gt;
+
+&lt;p&gt;という識別関数を考え，&lt;/p&gt;
+
+&lt;div&gt;
+\begin{align}
+    f(x)\ge 0 &amp;\Rightarrow \mathrm{related}\\
+    f(x)\lt 0 &amp;\Rightarrow \mathrm{not\,related}
+\end{align}
+&lt;/div&gt;
+
+&lt;p&gt;というように書き表せる（自明に見えるかもしれないが丁寧に進める）．&lt;/p&gt;
+
+&lt;p&gt;しかし，「統計」という単語が含まれているからといって，必ずしも統計に関する文章であるとは限らない．
+（例えば&lt;a href=&quot;http://www.benricho.org/weather_ratio/&quot;&gt;このページ&lt;/a&gt;には「統計」という単語が登場するが，どちらかといえば天気に関する文章だ）
+記事の長さは記事ごとによってまちまちなので，記事に出現する全単語数で割った値を用いた方がよいかもしれない（正規化という）．
+また，「統計」という単語が登場しなくても「検定」や「有意」という単語が登場しているなら統計に関係あるかもしれない．&lt;/p&gt;
+
+&lt;p&gt;これを踏まえて，次は「統計」「検定」「有意」という単語の登場回数を記事中の全単語数で割った値をそれぞれ\(x_1,x_2,x_3\)とし，&lt;/p&gt;
+
+&lt;div&gt;
+\[
+    f(x_1,x_2,x_3)=x_1+3x_2+2x_3-r
+\]
+&lt;/div&gt;
+
+&lt;p&gt;という識別関数を考える．relatedとnot relatedの判別基準は先ほどと同様とする．
+3や2といった係数は僕が適当に与えたもので，この場合「検定」や「有意」が登場すると「統計」が登場したときよりもrelatedと判断しやすくなる．&lt;/p&gt;
+
+&lt;p&gt;今ここで考えている識別関数は，記事から\(\{x_i\}_{i=1}^N\)というパラメータを抽出し，それを線形写像（1次関数）で処理している．&lt;/p&gt;
+
+&lt;p&gt;一般化する．&lt;/p&gt;
+
+&lt;p&gt;2クラス問題\(C_1,C_2\)を分類する線形識別関数は次のように書ける．&lt;/p&gt;
+
+&lt;div&gt;
+\[
+    f(\boldsymbol{x})=\boldsymbol{w}^T\boldsymbol{x}+w_0
+\]
+&lt;/div&gt;
+
+&lt;p&gt;識別の基準は&lt;/p&gt;
+
+&lt;div&gt;
+\begin{align}
+    C_1 &amp; \;\mathrm{if}\; f(\boldsymbol{x})\ge 0\\
+    C_2 &amp; \;\mathrm{if}\; f(\boldsymbol{x})\lt 0
+\end{align}
+&lt;/div&gt;
+
+&lt;p&gt;とする．&lt;/p&gt;
+
+&lt;p&gt;\(\boldsymbol{x}\)は入力ベクトル，\(\boldsymbol{w}\)は係数ベクトル，\(w_0\)はバイアス項と呼ばれる．&lt;/p&gt;
+
+&lt;p&gt;ここでバイアス項を\(\boldsymbol{w}\)の第(N+1)要素に追加し，\(\boldsymbol{x}\)の第(N+1)要素に1を追加すると&lt;/p&gt;
+
+&lt;div&gt;
+\[
+    f(\boldsymbol{x})=\boldsymbol{w}^T\boldsymbol{x}
+\]
+&lt;/div&gt;
+
+&lt;p&gt;と書くことができる．
+こちらの方が一般的には扱いやすいので，以降バイアス項は省略する．&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/ml2015/images/06/leastsq.png&quot; alt=&quot;二乗誤差&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;ちなみに，\(\boldsymbol{w}^T\boldsymbol{x}=0\)は\(\boldsymbol{w}\)を法線ベクトルとする超平面の式になる．
+つまり\(\boldsymbol{w}^T\boldsymbol{x}\)はベクトル\(\boldsymbol{x}\)の超平面からの距離になる．&lt;/p&gt;
+
+&lt;h2&gt;学習と推定&lt;/h2&gt;
+
+&lt;p&gt;上記の説明では，人間側が適当に係数をいじっていたが，実際に「検定」を重視したほうがいいのか，「有意」を重視したほうがいいのか，ということはデータを見なければわからない．
+したがって，コンピュータに大量の「あらかじめ統計に関連するかどうかわかっている」データを処理させ，最適な係数を計算によって求めさせる．
+これが機械学習のうち，学習のフェーズになる．&lt;/p&gt;
+
+&lt;p&gt;学習さえしてしまえば推定は簡単で，「統計に関連するかどうか知りたい」記事のデータについて\(f(\boldsymbol{x})\)の値を計算して，上記の識別の基準にしたがって判断すればよい．&lt;/p&gt;
+
+&lt;p&gt;ここで問題になるのは，&lt;u&gt;どのようにしてデータから最適なパラメータを計算するか&lt;/u&gt;ということになる．ここではシンプルな評価関数として二乗誤差を考える．&lt;/p&gt;
+
+&lt;h2&gt;最小二乗誤差基準&lt;/h2&gt;
+
+&lt;p&gt;上の例では識別関数が正のクラスが正の値のときは\(C_1\)，負の値のときは\(C_2\)に分類される．
+ここで行いたいのは，学習データをコンピュータに与えて，最適なパラメータ\(\boldsymbol{w}\)を計算することである．
+これを以下のように行う．&lt;/p&gt;
+
+&lt;div style=&quot;border: solid 1px; padding: 20px; margin: 10px;&quot;&gt;
+学習データに対して，\(C_1\)ならば+1，\(C_2\)ならば-1を返すように\(f(\boldsymbol{x})\)を設計する．
+そのために二乗誤差\((t_i-f(\boldsymbol{x_i}))^2\)を計算し，その総和が最小になるような\(\boldsymbol{w}\)を計算する．
+(x_iはi番目の学習データ．t_iはi番目の学習データのラベル値で，{1,-1})
+&lt;/div&gt;
+
+&lt;p&gt;すなわち，最小化すべきは&lt;/p&gt;
+
+&lt;div&gt;
+\[
+    J(\boldsymbol{w})=\sum_{i=1}^K(t_i-\boldsymbol{w}^T\boldsymbol{x_i})^2
+\]
+&lt;/div&gt;
+
+&lt;p&gt;この式は次のように書きなおすことができる．&lt;/p&gt;
+
+&lt;div&gt;
+\[
+    J(\boldsymbol{w})=\|\boldsymbol{t}-X\boldsymbol{w}\|^2 \tag{6-1}
+\]
+&lt;/div&gt;
+
+&lt;p&gt;ここで\(\boldsymbol{t}=(t_1 t_2 \cdots t_K)^T\)，&lt;/p&gt;
+
+&lt;div&gt;
+\[
+    X = \left(\begin{array}{c}
+        \boldsymbol{x_1}^T \\
+        \boldsymbol{x_2}^T \\
+        : \\
+        \boldsymbol{x_K}^T
+    \end{array}\right)
+\]
+&lt;/div&gt;
+
+&lt;h3&gt;最適解&lt;/h3&gt;
+
+&lt;p&gt;今一度解くべき問題を整理すると，評価関数(6-2)\(J(\boldsymbol{w})\)の最小化である．
+ここでいきなり最急降下法にかける前に，式の上で計算してみる．&lt;/p&gt;
+
+&lt;p&gt;まず\(J(\boldsymbol{w})\)を微分すると&lt;/p&gt;
+
+&lt;div&gt;
+\begin{align}
+    \frac{\partial J}{\partial\boldsymbol{w}}
+    &amp;= \frac{\partial}{\partial\boldsymbol{w}}(\boldsymbol{w}^TX^TX\boldsymbol{w}-\boldsymbol{w}X^T\boldsymbol{t}-\boldsymbol{t}^TX\boldsymbol{w}+\|\boldsymbol{t}\|^2) \\
+    &amp;= 2X^TX\boldsymbol{w}-2X^T\boldsymbol{t} \\
+\end{align}
+&lt;/div&gt;
+
+&lt;p&gt;ここでは制約条件はついていないので，単純に導関数=0とおくと&lt;/p&gt;
+
+&lt;div&gt;
+\[
+    X^TX\boldsymbol{w}=X^T\boldsymbol{t}
+\]
+&lt;/div&gt;
+
+&lt;p&gt;これは&lt;u&gt;正規方程式&lt;/u&gt;と呼ばれている．
+したがって&lt;/p&gt;
+
+&lt;div&gt;
+\[
+    \boldsymbol{w}=(X^TX)^{-1}X^T\boldsymbol{t}
+\]
+&lt;/div&gt;
+
+&lt;p&gt;という解が得られる．&lt;/p&gt;
+
+&lt;h2&gt;簡単な例&lt;/h2&gt;
+</description>
+        <pubDate>Sun, 24 May 2015 00:00:00 +0900</pubDate>
+        <link>http://sig.tsg.ne.jp/ml2015/ml/2015/05/24/linear-recognition-model.html</link>
+        <guid isPermaLink="true">http://sig.tsg.ne.jp/ml2015/ml/2015/05/24/linear-recognition-model.html</guid>
+        
+        
+        <category>ml</category>
+        
+      </item>
     
       <item>
         <title>#05 確率分布の基礎</title>

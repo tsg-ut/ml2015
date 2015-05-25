@@ -6,12 +6,11 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>TSG Machine Learning</title>
-  <meta name="description" content="TSG Machine Learning Substudy Group in 2015
-">
+  <title>#07 N-gramによるテキスト分類</title>
+  <meta name="description" content="N-gramモデル">
 
   <link rel="stylesheet" href="/ml2015/css/main.css">
-  <link rel="canonical" href="http://sig.tsg.ne.jp/ml2015/">
+  <link rel="canonical" href="http://sig.tsg.ne.jp/ml2015/ml/2015/05/25/n-gram.html">
   <link rel="alternate" type="application/rss+xml" title="TSG Machine Learning" href="http://sig.tsg.ne.jp/ml2015/feed.xml" />
   <script type="text/javascript"
       src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
@@ -58,71 +57,34 @@
 
     <div class="page-content">
       <div class="wrapper">
-        <div class="home">
+        <div class="post">
 
-  <h1 class="page-heading">Posts</h1>
+  <header class="post-header">
+    <h1 class="post-title">#07 N-gramによるテキスト分類</h1>
+    <p class="post-meta">May 25, 2015</p>
+  </header>
 
-  <ul class="post-list">
-    
-      <li>
-        <span class="post-meta">May 25, 2015</span>
+  <article class="post-content">
+    <h2>N-gramモデル</h2>
 
-        <h2>
-          <a class="post-link" href="/ml2015/ml/2015/05/25/n-gram.html">#07 N-gramによるテキスト分類</a>
-        </h2>
-      </li>
-    
-      <li>
-        <span class="post-meta">May 24, 2015</span>
+<p>上記の例では単語分割（形態素解析というやつ）ができている前提で話を進めていたが，実際に形態素解析を行うのは（というか環境構築するのが）それなりに面倒なことが多い．
+形態素解析を行いたいのであれば，日本語なら<a href="http://taku910.github.io/mecab/">MeCab</a>を使うのが現状最もよい選択肢であると言える．
+Python向けバインディングもあるので比較的扱いやすい．
+（余談だが，日本語の係り受け解析であれば同じく京大の開発した<a href="http://taku910.github.io/cabocha/">Cabocha</a>が良い．使ってみるととても楽しい．これらの自然言語解析モジュール自体も機械学習を用いている）</p>
 
-        <h2>
-          <a class="post-link" href="/ml2015/ml/2015/05/24/linear-recognition-model.html">#06 線形識別モデル</a>
-        </h2>
-      </li>
-    
-      <li>
-        <span class="post-meta">May 12, 2015</span>
+<p>ここでは，自然言語処理を行う上で便利なモデルとして，<strong>N-gram</strong>を紹介する．</p>
 
-        <h2>
-          <a class="post-link" href="/ml2015/ml/2015/05/12/probability.html">#05 確率分布の基礎</a>
-        </h2>
-      </li>
-    
-      <li>
-        <span class="post-meta">May 11, 2015</span>
+<p>N-gramとは，「文章のi文字目(iは1〜(文章長-N)まで)から連続するN文字を取り出し，その文章の特徴とする」モデルである．</p>
 
-        <h2>
-          <a class="post-link" href="/ml2015/ml/2015/05/11/lagrange-multiplier.html">#04 最適化手法</a>
-        </h2>
-      </li>
-    
-      <li>
-        <span class="post-meta">May 10, 2015</span>
+<p><img src="/ml2015/images/07/n-gram.001.jpg" alt="N-gram"></p>
 
-        <h2>
-          <a class="post-link" href="/ml2015/ml/2015/05/10/multivariate-analysis.html">#03 多変数解析</a>
-        </h2>
-      </li>
-    
-      <li>
-        <span class="post-meta">Apr 26, 2015</span>
+<p>【Reference】<a href="http://www.shuiren.org/chuden/teach/n-gram/index-j.html">N-gramモデルを利用したテキスト分析</a></p>
 
-        <h2>
-          <a class="post-link" href="/ml2015/ml/2015/04/26/environment.html">#02 環境構築</a>
-        </h2>
-      </li>
-    
-      <li>
-        <span class="post-meta">Apr 26, 2015</span>
+<p>これだけだと本当に文章の特徴を捉えているのか心配になりそうだが，N-gramだけでもそれなりにテキストの素性を捉えることができることが知られている．
+一つには，文章中の（あまり離れていない）共起関係（ググってください…）を比較的容易に捉えられる点があげられる．
+勿論，これだけシンプル故に欠点もたくさんある．</p>
 
-        <h2>
-          <a class="post-link" href="/ml2015/ml/2015/04/26/machine-learning-basics.html">#01 機械学習の基礎</a>
-        </h2>
-      </li>
-    
-  </ul>
-
-  <p class="rss-subscribe">subscribe <a href="/ml2015/feed.xml">via RSS</a></p>
+  </article>
 
 </div>
 
