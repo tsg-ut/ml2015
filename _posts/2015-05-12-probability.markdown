@@ -110,6 +110,7 @@ array([12, 11,  9,  9,  7, 10, 10, 10,  9, 11])
 これは以下のようなスクリプトで実現できる．
 
 ```python
+import numpy as np
 from scipy.stats import binom
 import matplotlib.pyplot as plt
 
