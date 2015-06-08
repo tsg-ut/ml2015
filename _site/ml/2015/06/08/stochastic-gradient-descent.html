@@ -6,12 +6,11 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>TSG Machine Learning</title>
-  <meta name="description" content="TSG Machine Learning Substudy Group in 2015
-">
+  <title>#08 確率的勾配降下法</title>
+  <meta name="description" content="#07ではパーセプトロンを紹介した．ここではパーセプトロンを用いた学習を紹介する．">
 
   <link rel="stylesheet" href="/ml2015/css/main.css">
-  <link rel="canonical" href="http://sig.tsg.ne.jp/ml2015/">
+  <link rel="canonical" href="http://sig.tsg.ne.jp/ml2015/ml/2015/06/08/stochastic-gradient-descent.html">
   <link rel="alternate" type="application/rss+xml" title="TSG Machine Learning" href="http://sig.tsg.ne.jp/ml2015/feed.xml" />
   <script type="text/javascript"
       src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
@@ -58,79 +57,37 @@
 
     <div class="page-content">
       <div class="wrapper">
-        <div class="home">
+        <div class="post">
 
-  <h1 class="page-heading">Posts</h1>
+  <header class="post-header">
+    <h1 class="post-title">#08 確率的勾配降下法</h1>
+    <p class="post-meta">Jun 8, 2015</p>
+  </header>
 
-  <ul class="post-list">
-    
-      <li>
-        <span class="post-meta">Jun 8, 2015</span>
+  <article class="post-content">
+    <p>#07ではパーセプトロンを紹介した．
+ここではパーセプトロンを用いた学習を紹介する．</p>
 
-        <h2>
-          <a class="post-link" href="/ml2015/ml/2015/06/08/stochastic-gradient-descent.html">#08 確率的勾配降下法</a>
-        </h2>
-      </li>
-    
-      <li>
-        <span class="post-meta">Jun 8, 2015</span>
+<p>そもそも教師あり学習における学習とは，#06で触れたようにデータセット</p>
 
-        <h2>
-          <a class="post-link" href="/ml2015/ml/2015/06/08/neural-network.html">#07 ニューラルネットワーク</a>
-        </h2>
-      </li>
-    
-      <li>
-        <span class="post-meta">May 24, 2015</span>
+<div>
+\[
+    \mathcal{D}=\{(\boldsymbol{x_1},t_1),\cdots,(\boldsymbol{x_N},t_N)\}
+\]
+</div>
 
-        <h2>
-          <a class="post-link" href="/ml2015/ml/2015/05/24/linear-recognition-model.html">#06 線形識別モデル</a>
-        </h2>
-      </li>
-    
-      <li>
-        <span class="post-meta">May 12, 2015</span>
+<p>が与えられて，各学習データ\((\boldsymbol{x_i},t_i)\)に対して\(z_i\)という出力が得られるとき，<u>誤差関数を最小にするようにパラメータを推定すること</u>であった．
+また，一般的に誤差関数として二乗誤差関数</p>
 
-        <h2>
-          <a class="post-link" href="/ml2015/ml/2015/05/12/probability.html">#05 確率分布の基礎</a>
-        </h2>
-      </li>
-    
-      <li>
-        <span class="post-meta">May 11, 2015</span>
+<div>
+\[
+    E(\boldsymbol{w})=\frac{1}{2}\sum_{i=1}^N|t_i-z_i|^2
+\]
+</div>
 
-        <h2>
-          <a class="post-link" href="/ml2015/ml/2015/05/11/lagrange-multiplier.html">#04 最適化手法</a>
-        </h2>
-      </li>
-    
-      <li>
-        <span class="post-meta">May 10, 2015</span>
+<p>が用いられることが多い．(先頭の1/2は微分したときに係数が消えるようにつけてあるだけ)</p>
 
-        <h2>
-          <a class="post-link" href="/ml2015/ml/2015/05/10/multivariate-analysis.html">#03 多変数解析</a>
-        </h2>
-      </li>
-    
-      <li>
-        <span class="post-meta">Apr 26, 2015</span>
-
-        <h2>
-          <a class="post-link" href="/ml2015/ml/2015/04/26/environment.html">#02 環境構築</a>
-        </h2>
-      </li>
-    
-      <li>
-        <span class="post-meta">Apr 26, 2015</span>
-
-        <h2>
-          <a class="post-link" href="/ml2015/ml/2015/04/26/machine-learning-basics.html">#01 機械学習の基礎</a>
-        </h2>
-      </li>
-    
-  </ul>
-
-  <p class="rss-subscribe">subscribe <a href="/ml2015/feed.xml">via RSS</a></p>
+  </article>
 
 </div>
 
