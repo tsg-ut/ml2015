@@ -126,3 +126,10 @@ SGDにはナイーブな勾配法に比べて以下のような利点があげ�
 
 イメージとしてはこのGIFのように，入力ベクトルの方向にパラメータを修正することを繰り返すことになる
 （このGIFでは固定係数\\(\eta\\)による更新だが，ここでは固定係数ではなく誤差がかかった変動係数である）．
+
+## 多層パーセプトロンのテスト
+
+[ml\_perceptron.py](https://github.com/tsg-ut/ml2015/blob/master/08/ml_perceptron.py)はscikit-learnに含まれるMNIST datasets(手書きの数字)を多層パーセプトロンで分類している．
+自前実装なのでパラメータの初期値の取り方や中間層数の取り方を適当にやってしまっている．
+
+初期値ベクトルの取り方については[Understanding the difficulty of training deep feedforward neural networks](http://jmlr.org/proceedings/papers/v9/glorot10a/glorot10a.pdf)を参照するとよさそう．

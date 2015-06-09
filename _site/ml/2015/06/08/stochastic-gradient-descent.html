@@ -189,6 +189,13 @@
 <p>イメージとしてはこのGIFのように，入力ベクトルの方向にパラメータを修正することを繰り返すことになる
 （このGIFでは固定係数\(\eta\)による更新だが，ここでは固定係数ではなく誤差がかかった変動係数である）．</p>
 
+<h2>多層パーセプトロンのテスト</h2>
+
+<p><a href="https://github.com/tsg-ut/ml2015/blob/master/08/ml_perceptron.py">ml_perceptron.py</a>はscikit-learnに含まれるMNIST datasets(手書きの数字)を多層パーセプトロンで分類している．
+自前実装なのでパラメータの初期値の取り方や中間層数の取り方を適当にやってしまっている．</p>
+
+<p>初期値ベクトルの取り方については<a href="http://jmlr.org/proceedings/papers/v9/glorot10a/glorot10a.pdf">Understanding the difficulty of training deep feedforward neural networks</a>を参照するとよさそう．</p>
+
   </article>
 
 </div>
