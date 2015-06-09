@@ -8,4 +8,4 @@ twitter_username: tsg_ut
 github_username:  tsg-ut
 
 markdown: redcarpet
-exclude: ["README.md"]
+exclude: ["README.md", "script"]
