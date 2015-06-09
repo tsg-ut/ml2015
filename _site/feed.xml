@@ -6,8 +6,8 @@
 </description>
     <link>http://sig.tsg.ne.jp/ml2015/</link>
     <atom:link href="http://sig.tsg.ne.jp/ml2015/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Tue, 09 Jun 2015 09:02:16 +0900</pubDate>
-    <lastBuildDate>Tue, 09 Jun 2015 09:02:16 +0900</lastBuildDate>
+    <pubDate>Tue, 09 Jun 2015 19:25:40 +0900</pubDate>
+    <lastBuildDate>Tue, 09 Jun 2015 19:25:40 +0900</lastBuildDate>
     <generator>Jekyll v2.5.3</generator>
     
       <item>
@@ -111,6 +111,14 @@
     &amp;= (z_n-t_n)\sigma&#39;v_1\frac{\partial\sigma(\boldsymbol{w_1}^{\mathrm{T}}\boldsymbol{x})}{\partial\boldsymbol{w_1}} \\
     &amp;= (z_n-t_n)\sigma&#39;^2v_1\boldsymbol{x}
 \end{align}
+&lt;/div&gt;
+
+&lt;p&gt;ただし\(\sigma\)はロジスティック関数とする．&lt;/p&gt;
+
+&lt;div&gt;
+\[
+    \sigma(x)=\frac{1}{1+\exp(-x)}
+\]
 &lt;/div&gt;
 
 &lt;p&gt;ここで重要なのは，どちらも&lt;/p&gt;

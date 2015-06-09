@@ -1,0 +1,267 @@
+<p>最適化とは簡単に言うと関数の最大値・最小値を求めることである．
+コンピュータサイエンスの応用分野では最適化手法が幅広く用いられている．
+機械学習の例で説明すると，例えばデータを学習して”最適な”パラメータを決定するというのは，結局データを引数として取る評価関数を最大化することに他ならない．</p>
+
+<p>しかし，コンピュータで最大値・最小値を計算するのは思ったほど簡単なことではない．
+例えば人間なら導関数の零点を見つける際は単純に方程式を解くだけだが，コンピュータに方程式をただ投げても適切なアルゴリズムがなければ解は返ってこない．</p>
+
+<p>この節では，以下の2つのアルゴリズムを説明する．</p>
+
+<ol>
+  <li>
+    <p>Lagrangeの未定乗数法</p>
+
+    <p>制約条件付きの最適化問題を解く，数理解析的アルゴリズム．
+ コンピュータが直接的に扱うのは難しいが，様々な最適化アルゴリズムのベースになっている．</p>
+  </li>
+  <li>
+    <p>最急降下法</p>
+
+    <p>関数の最大値・最小値を，その導関数を用いて探索的に求めるアルゴリズム．
+ コンピュータにとって扱いやすく，アルゴリズム自体もシンプル（故に問題点も多い）．</p>
+  </li>
+</ol>
+
+<h2 id="lagrange">Lagrangeの未定乗数法</h2>
+
+<p>1変数関数の制約条件付き最大値・最小値を求める際は，導関数の零点から極値をとる値を求め，実際に極値同士の値を比較して最大値・最小値を求めていた．</p>
+
+<p>多変数関数の場合は，</p>
+
+<div>
+\[
+	\frac{\partial f(\boldsymbol{a})}{\partial x_1} = 0,\cdots,\frac{\partial f(\boldsymbol{a})}{\partial x_n} = 0
+\]
+</div>
+
+<p>だからといって\(f(\boldsymbol{a})\)が極値になっているとは限らない．</p>
+
+<p>例えば\(f(x,y)=x^2+y^3\)のグラフをプロットすると次のようになる．</p>
+
+<p><img src="/images/04/critical_point.png" alt="臨界点" style="width: 60%" /></p>
+
+<p>この関数の\((x,y)=(0,0)\)では，\(x,y\)ともに偏導関数は\(0\)になっているが，極値にはなっていない．
+（極値であるかどうかに関わらず，偏導関数がすべて\(0\)になるような点を停留点，または臨界点という）</p>
+
+<p>1変数の場合でも極値にならない停留点は存在する（例えば\(f(x)=x^3\)の\(x=0\)）が，1変数関数の場合は増減表を書いて確かめることができる．
+しかし多変数関数では増減表が書けない．ここに制約条件が付いてくると更に複雑になる．</p>
+
+<p>このような多変数関数の制約条件付き最大最小問題を解くにはLagrangeの未定乗数法が用いられる．</p>
+
+<h3 id="algorithm">Algorithm</h3>
+
+<p>制約条件\(g(\boldsymbol{x})=0\)の下で多変数関数\(f(x)\)の極値を与える\(\boldsymbol{x}\)は，次のような関数（Lagrange関数という）</p>
+
+<div>
+\[
+	\tilde{f}(\boldsymbol{x},\lambda) = f(\boldsymbol{x})+\lambda g(\boldsymbol{x})
+\]
+</div>
+
+<p>に対して，以下の連立方程式の解として与えられる．</p>
+
+<div>
+\begin{align}
+	\frac{\partial \tilde{f}}{\partial\boldsymbol{x}} &amp;= 0 \\
+	\frac{\partial \tilde{f}}{\partial\lambda} &amp;= 0
+\end{align}
+</div>
+
+<h3 id="section">例1</h3>
+
+<blockquote>
+  <p>maximize \(f(x,y)=2x+3y\) s.t. \(x^2+y^2=1\)</p>
+</blockquote>
+
+<p>次のようなLagrange関数を作る．</p>
+
+<div>
+\[
+	\tilde{f}(x,y,\lambda)=2x+3y+\lambda(x^2+y^2-1)
+\]
+</div>
+
+<p>続いて\(\tilde{f}\)を\(x,y,\lambda\)でそれぞれ偏微分して「=0」とする．</p>
+
+<div>
+\begin{align}
+	\frac{\partial\tilde{f}}{\partial x} &amp;= 2+2\lambda x = 0 \\
+	\frac{\partial\tilde{f}}{\partial y} &amp;= 3+2\lambda y = 0 \\
+	\frac{\partial\tilde{f}}{\partial\lambda} &amp;= x^2+y^2-1 = 0 \\
+\end{align}
+</div>
+
+<p>この方程式から\(\lambda\)を消去すると</p>
+
+<div>
+\[
+	(x,y) = (\pm\frac{2}{\sqrt{13}},\pm\frac{3}{\sqrt{13}})
+\]
+</div>
+
+<p>という解が得られる．これらの組は最大値を与える変数の候補になっている．
+実際に\(f(x,y)\)に代入してみると，\((x,y)=(\frac{2}{\sqrt{13}},\frac{3}{\sqrt{13}})\)のときに最大値\(\sqrt{13}\)をとり，
+\((x,y)=(-\frac{2}{\sqrt{13}},-\frac{3}{\sqrt{13}})\)のときに最小値\(-\sqrt{13}\)をとることがわかる．</p>
+
+<p>実際にグラフをプロットしてみると以下のようになる．</p>
+
+<p><img src="/images/04/lagrange.png" alt="未定乗数法の例" style="width: 60%" /></p>
+
+<h3 id="section-1">練習1</h3>
+
+<blockquote>
+  <p>例1のプロットをPythonを使って作成してみよ．</p>
+</blockquote>
+
+<p><a href="/ml/2015/05/10/multivariate-analysis.html">#03</a>や<a href="http://matplotlib.org/mpl_toolkits/mplot3d/tutorial.html">matplotlibのチュートリアル</a>を参考にするとよい．
+3D空間で線を描画するには<code>Axes3D.plot</code>，点(散布図)を描画するには<code>Axes3D.scatter</code>を用いる．</p>
+
+<p>（スクリプト例: <a href="https://github.com/tsg-ut/ml2015/blob/master/04/ex1.py">ex1.py</a>）</p>
+
+<h3 id="section-2">練習2</h3>
+
+<blockquote>
+  <p>半径1の球に内接する直方体の体積の最大値を求めよ．</p>
+</blockquote>
+
+<p>解答は<a href="https://github.com/tsg-ut/ml2015/blob/master/04/ex2.md">ex2.md</a>に示す．</p>
+
+<h3 id="lagrange-1">Lagrangeの未定乗数法の原理</h3>
+
+<p>厳密な証明は難しく，この分科会の内容から少々逸脱してしまうので，ここでは割愛する．
+イメージを掴みたい人は，<a href="https://github.com/levelfour/machine-learning-2014/wiki/%E7%AC%AC4%E5%9B%9E---Lagrange%E3%81%AE%E6%9C%AA%E5%AE%9A%E4%B9%97%E6%95%B0%E6%B3%95#%E8%A8%BC%E6%98%8E">昨年の分科会の資料</a>を参考にするとよい．</p>
+
+<h3 id="section-3">複数制約条件の場合</h3>
+
+<p>ここでは制約条件が1つの場合のみについて述べたが，制約条件が\(M\)個（\(\{g_m(\boldsymbol{x})=0\}_{m=1}^M\)）ある場合は</p>
+
+<div>
+\[
+	\tilde{f}(\boldsymbol{x},\boldsymbol{\lambda}) = f(\boldsymbol{x})+\sum_{m=1}^M\lambda_mg_m(\boldsymbol{x})
+\]
+</div>
+
+<p>というLagrange関数をつくり，以下の連立方程式を解く．</p>
+
+<div>
+\begin{align}
+	\frac{\partial \tilde{f}}{\partial\boldsymbol{x}} &amp;= 0 \\
+	\frac{\partial \tilde{f}}{\partial\boldsymbol{\lambda}} &amp;= 0
+\end{align}
+</div>
+
+<h3 id="section-4">不等式制約条件の場合</h3>
+
+<p>ここで述べたのは制約条件が等式の場合のみであった．制約条件が不等式になっているケースも実用上は多く登場する．
+その場合は少しだけ複雑になる（Karush-Kuhn-Tucker条件の導入）ので，実際に用いる際に説明する．</p>
+
+<hr />
+
+<h2 id="section-5">最急降下法</h2>
+
+<p>最急降下法は，関数の導関数の値を用いて逐次的に関数値を最大にする解を更新するアルゴリズムである．</p>
+
+<p>関数\(f(\boldsymbol{x})\)に対して初期値\(x_0\)を与えて，</p>
+
+<div>
+\[
+	\boldsymbol{x}_{n+1}=\boldsymbol{x}_{n}+\eta\frac{\partial f(\boldsymbol{x}_{n})}{\partial\boldsymbol{x}}
+\]
+</div>
+
+<p>で\(\boldsymbol{x}\)の値を逐次的に更新し，収束した点が最大になっている．
+導関数の値が0になったら収束だが，実際にちょうど0になる時点まで探索し続けると収束が非常に遅くなるので，導関数値が十分に小さくなったら収束と見なす．
+イメージとしては，関数値が増大する向き（＝導関数が正）に山を登ることになる．</p>
+
+<p>\(\eta(&gt;)0\)は学習率で，収束の仕方を決めるパラメータである（大きいほど収束が速いわけではない）．</p>
+
+<p>最急降下法の更新の過程の様子は以下のアニメーションを参考にしてほしい．</p>
+
+<p><img src="/images/04/descent.gif" alt="最急降下法" /></p>
+
+<p>最急降下法で最小値を求める際は，更新式を以下のように変更すればよい．</p>
+
+<div>
+\[
+	\boldsymbol{x}_{n+1}=\boldsymbol{x}_n-\eta\frac{\partial f(\boldsymbol{x}_{n})}{\partial\boldsymbol{x}}
+\]
+</div>
+
+<h3 id="section-6">最急降下法の問題点</h3>
+
+<h4 id="section-7">初期値依存性</h4>
+
+<p><img src="/images/04/overfit.png" alt="初期値依存性" style="width: 60%" /></p>
+
+<p>上に示す図のように，最急降下法では初期値の取り方によって収束先が変わり得る．
+それは，最急降下法は大域的な最大値を求めているのではなく，局所的最大値（すなわち極大値）を求めているからにすぎない．
+そのため，実際には解析対象となる関数の特性を把握しつつ初期値を選択したり，複数の初期値に対して試行する必要がある．</p>
+
+<h4 id="section-8">収束速度</h4>
+
+<p>最急降下法は原理がシンプルな反面，収束速度が遅いことで知られる．
+学習率\(\eta\)の選び方で収束速度は制御できるが，あまり大きな値にしすぎると見当違いな値に収束することもあり，あまり小さな値にしすぎると収束精度は向上するが収束速度は遅くなるといった問題がある．</p>
+
+<h3 id="section-9">例2</h3>
+
+<blockquote>
+  <p>#03の例1でプロットした下の関数の最大値を最急降下法で求める．</p>
+</blockquote>
+
+<div>
+\[
+	f(\boldsymbol{x}) = \exp\left(-\frac{(x-0.5)^2+(y-0.2)^2}{2}\right)
+\]
+</div>
+
+<p>この関数を微分すると以下のようになる．</p>
+
+<div>
+\[
+	\frac{\partial f}{\partial\boldsymbol{x}}
+	= \left(\begin{array}{c}
+		0.5-x \\
+		0.2-y
+	\end{array}\right) f(\boldsymbol{x})
+\]
+</div>
+
+<p>最大値を求めるPythonコードは以下のように書ける．</p>
+
+<p>```python
+# coding: utf-8
+import numpy as np</p>
+
+<h1 id="section-10">学習率</h1>
+<p>eta = 0.1
+# 反復回数
+N = 200
+# 初期値ベクトル
+ini = np.array([0, 0])</p>
+
+<p>def f(x):
+    return  np.exp(-((x[0]-0.5)<strong>2+(x[1]-0.2)</strong>2)/2)</p>
+
+<p>def f_(x):
+    return np.array([0.5-x[0], 0.2-x[1]]) * f(x)</p>
+
+<p>if <strong>name</strong> == ‘<strong>main</strong>’:
+    x = ini
+    for i in range(N):
+        if i % 10 == 0:
+            print(“x({}) = {}”.format(i, x))
+        x = x + eta * f_(x)
+```</p>
+
+<p>ちなみに，このスクリプトのようにコメントにUnicode文字を使いたい場合は，ファイルの先頭に<code># -*- coding: utf-8 -*-</code>または<code># coding: utf-8</code>と書く必要がある．
+この1行によって，Python処理系はUTF-8でスクリプトを解釈するようになる．</p>
+
+<h3 id="section-11">練習3</h3>
+
+<p>例2のスクリプトを実際に動かしてみよ．また，学習率，反復回数，初期値ベクトルを変化させると収束先の値がどのように変化するか，いろいろ試してみよ．</p>
+
+<h3 id="section-12">練習4</h3>
+
+<p>例2で，収束するまでの反復回数が最も少なくなるような学習率を探索せよ．0から2の間で試せば十分である．</p>
+
+<p><a href="https://github.com/tsg-ut/ml2015/blob/master/04/ex4.py">ex4.py</a>にスクリプト例を示す．</p>

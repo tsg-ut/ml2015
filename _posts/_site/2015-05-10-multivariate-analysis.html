@@ -1,0 +1,101 @@
+<h2 id="section">多変数関数</h2>
+
+<p>1変数関数は\(x\)に対して\(y\)を一意に対応付ける関係のことであった．この関係を\(y=f(x)\)等と書いた．</p>
+
+<p>多変数関数は，\(n\)個の変数\(x_1,x_2,\cdots,x_n\)を\(y\)に対応づける関係のことであり，
+これを\(y=f(x_1,x_2,\cdots,x_n)\)，または\(y=f(\boldsymbol{x})\)と書いたりする．</p>
+
+<div>
+\[
+	\boldsymbol{x} = (x_1 x_2 \cdots x_n)^{\mathrm{T}} \longmapsto f(\boldsymbol{x})
+\]
+</div>
+
+<p>というようにベクトル\(\boldsymbol{x}\)と\(f(\boldsymbol{x})\)の対応付けとして見ることもできる．
+こちらの見方の方が後々微分等で直感的に理解しやすいという利点がある．</p>
+
+<h4 id="section-1">例1</h4>
+<p>多変数関数</p>
+
+<div>
+\[
+	f(\boldsymbol{x}) = \exp\left(-\frac{(x-0.5)^2+(y-0.2)^2}{2}\right)
+\]
+</div>
+
+<p>をプロットする．<code>matplotlib</code>を用いると，以下のようなコードでプロットできる．</p>
+
+<p>```python
+import numpy as np
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D</p>
+
+<p>x, y = np.meshgrid(np.arange(-3,3,0.1), np.arange(-3,3,0.1))
+z = np.exp(-((x-0.5)<strong>2+(y-0.2)</strong>2)/2)</p>
+
+<p>fig = plt.figure()
+ax = Axes3D(fig)
+ax.plot_wireframe(x,y,z)
+plt.xlabel(‘x’)
+plt.ylabel(‘y’)
+plt.show()
+```</p>
+
+<p><img src="/images/03/gaussian.png" alt="例1" style="width: 60%" /></p>
+
+<h2 id="section-2">偏微分</h2>
+
+<p>1変数関数と同様に多変数関数でも微分を行うが，多変数関数では引数が複数個あるので，どの変数で微分するかで導関数が変化する．</p>
+
+<p>関数\(f(x_1,\cdots,x_n)\)の引数のうち\(x_i\)以外を固定（定数と見なす）し，\(x_i\)で微分したときの導関数を</p>
+
+<div>
+\[
+	\frac{\partial f}{\partial x_i}
+\]
+</div>
+
+<p>と書き，偏導関数という．</p>
+
+<h2 id="section-3">ベクトルによる微分</h2>
+
+<p>多変量解析では</p>
+
+<div>
+\[
+	\frac{\partial(\boldsymbol{a}^{\mathrm{T}}\boldsymbol{x})}{\partial\boldsymbol{x}}
+\]
+</div>
+
+<p>のようにベクトルで微分を行う操作が式変形の過程で登場することがある．
+これは以下の略記である．</p>
+
+<div>
+\begin{align}	
+	\frac{\partial(\boldsymbol{a}^{\mathrm{T}}\boldsymbol{x})}{\partial\boldsymbol{x}}
+	&amp;= \frac{\partial(a_1x_1+\cdots+a_nx_n)}{\partial \left(\begin{array}{c} x_1 \\ : \\ x_n \end{array}\right)} \\
+	&amp;= \left(\begin{array}{c} \frac{\partial}{\partial x_1}(a_1x_1+\cdots+a_nx_n) \\ : \\ \frac{\partial}{\partial x_n}(a_1x_1+\cdots+a_nx_n) \end{array}\right) \\
+	&amp;= \left(\begin{array}{c} a_1 \\ : \\ a_n \end{array}\right) \\
+	&amp;= \boldsymbol{a}
+\end{align}
+</div>
+
+<p>このように，ベクトルで微分する場合も結果はスカラーの場合から連想される直感的な結果になる．</p>
+
+<p>2次形式</p>
+
+<div>
+\[
+	\boldsymbol{x}^{\mathrm{T}}\boldsymbol{Bx}=\sum_{i=1}^n\sum_{j=1}^n b_{ij}x_ix_j
+\]
+</div>
+
+<p>の微分も頻出なので，結果のみ示しておく．興味のある人は手を動かして計算してみるとよい．</p>
+
+<div>
+\begin{align}
+	\frac{\partial\boldsymbol{x}^{\mathrm{T}}\boldsymbol{Bx}}{\partial\boldsymbol{x}}
+	&amp;= (\boldsymbol{B}+\boldsymbol{B}^{\mathrm{T}})\boldsymbol{x} \\
+	&amp;= 2\boldsymbol{Bx}^{\mathrm{T}} \; (\boldsymbol{B}:\mathrm{symmetric\,matrix})
+\end{align}
+</div>
