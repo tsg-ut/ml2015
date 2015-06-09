@@ -6,8 +6,8 @@
 </description>
     <link>http://sig.tsg.ne.jp/ml2015/</link>
     <atom:link href="http://sig.tsg.ne.jp/ml2015/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Tue, 09 Jun 2015 01:13:20 +0900</pubDate>
-    <lastBuildDate>Tue, 09 Jun 2015 01:13:20 +0900</lastBuildDate>
+    <pubDate>Tue, 09 Jun 2015 09:02:16 +0900</pubDate>
+    <lastBuildDate>Tue, 09 Jun 2015 09:02:16 +0900</lastBuildDate>
     <generator>Jekyll v2.5.3</generator>
     
       <item>
@@ -87,8 +87,46 @@
 
 &lt;p&gt;&lt;img src=&quot;/ml2015/images/08/perceptron.003.jpg&quot; alt=&quot;多層パーセプトロン&quot;&gt;&lt;/p&gt;
 
-&lt;p&gt;原理的には(8-1)の更新式を用いれば，SGDにより最適パラメータが推定できる．
-しかし，実際には誤差関数(8-2)の微分を計算することになり，この計算が意外に複雑でコストがかかってしまう．&lt;/p&gt;
+&lt;p&gt;原理的には(8-1)の更新式を用いれば，SGDにより最適パラメータが推定できる．&lt;/p&gt;
+
+&lt;p&gt;図のパーセプトロンに対して(8-2)の微分を計算しようとすると，2段目（青い部分）は&lt;/p&gt;
+
+&lt;div&gt;
+\begin{align}
+    \frac{\partial E_n}{\partial\boldsymbol{v}}
+    &amp;= (z_n-t_n)\frac{\partial z_n}{\partial\boldsymbol{v}} \\
+    &amp;= (z_n-t_n)\frac{\partial}{\partial\boldsymbol{v}}(\sigma(\boldsymbol{v}^{\mathrm{T}}\boldsymbol{y})) \\
+    &amp;= (z_n-t_n)\sigma&#39;\boldsymbol{y}
+\end{align}
+&lt;/div&gt;
+
+&lt;p&gt;1段目は（\([x_1, \cdots,x_4]\mapsto y_1\)，すなわち赤い部分にのみ着目すると）&lt;/p&gt;
+
+&lt;div&gt;
+\begin{align}
+    \frac{\partial E_n}{\partial\boldsymbol{w_1}}
+    &amp;= (z_n-t_n)\frac{\partial z_n}{\partial\boldsymbol{w_1}} \\
+    &amp;= (z_n-t_n)\frac{\partial}{\partial\boldsymbol{w_1}}(\sigma(\boldsymbol{v}^{\mathrm{T}}\boldsymbol{y})) \\
+    &amp;= (z_n-t_n)\sigma&#39;v_1\frac{\partial y_1}{\partial\boldsymbol{w_1}} \\
+    &amp;= (z_n-t_n)\sigma&#39;v_1\frac{\partial\sigma(\boldsymbol{w_1}^{\mathrm{T}}\boldsymbol{x})}{\partial\boldsymbol{w_1}} \\
+    &amp;= (z_n-t_n)\sigma&#39;^2v_1\boldsymbol{x}
+\end{align}
+&lt;/div&gt;
+
+&lt;p&gt;ここで重要なのは，どちらも&lt;/p&gt;
+
+&lt;div&gt;
+\[
+    \frac{\partial(\mathit{Error Function})}{\partial(\overrightarrow{\mathit{Param}})}\propto(\mathit{Error})\times(\overrightarrow{\mathit{Input}})
+\]
+&lt;/div&gt;
+
+&lt;p&gt;という形になっているという点である（\(z_n-t_n\)が誤差，\(\boldsymbol{x,y}\)が入力ベクトル）．&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/ml2015/images/08/perceptron.gif&quot; alt=&quot;パーセプトロンの更新&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;イメージとしてはこのGIFのように，入力ベクトルの方向にパラメータを修正することを繰り返すことになる
+（このGIFでは固定係数\(\eta\)による更新だが，ここでは固定係数ではなく誤差がかかった変動係数である）．&lt;/p&gt;
 </description>
         <pubDate>Mon, 08 Jun 2015 00:00:00 +0900</pubDate>
         <link>http://sig.tsg.ne.jp/ml2015/ml/2015/06/08/stochastic-gradient-descent.html</link>

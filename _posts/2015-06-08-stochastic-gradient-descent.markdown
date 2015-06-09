@@ -79,6 +79,42 @@ SGDにはナイーブな勾配法に比べて以下のような利点があげ�
 ![多層パーセプトロン]({{ site.baseurl }}/images/08/perceptron.003.jpg)
 
 原理的には(8-1)の更新式を用いれば，SGDにより最適パラメータが推定できる．
-しかし，実際には誤差関数(8-2)の微分を計算することになり，この計算が意外に複雑でコストがかかってしまう．
 
+図のパーセプトロンに対して(8-2)の微分を計算しようとすると，2段目（青い部分）は
 
+<div>
+\begin{align}
+	\frac{\partial E_n}{\partial\boldsymbol{v}}
+	&= (z_n-t_n)\frac{\partial z_n}{\partial\boldsymbol{v}} \\
+	&= (z_n-t_n)\frac{\partial}{\partial\boldsymbol{v}}(\sigma(\boldsymbol{v}^{\mathrm{T}}\boldsymbol{y})) \\
+	&= (z_n-t_n)\sigma'\boldsymbol{y}
+\end{align}
+</div>
+
+1段目は（\\([x\_1, \cdots,x\_4]\mapsto y\_1\\)，すなわち赤い部分にのみ着目すると）
+
+<div>
+\begin{align}
+	\frac{\partial E_n}{\partial\boldsymbol{w_1}}
+	&= (z_n-t_n)\frac{\partial z_n}{\partial\boldsymbol{w_1}} \\
+	&= (z_n-t_n)\frac{\partial}{\partial\boldsymbol{w_1}}(\sigma(\boldsymbol{v}^{\mathrm{T}}\boldsymbol{y})) \\
+	&= (z_n-t_n)\sigma'v_1\frac{\partial y_1}{\partial\boldsymbol{w_1}} \\
+	&= (z_n-t_n)\sigma'v_1\frac{\partial\sigma(\boldsymbol{w_1}^{\mathrm{T}}\boldsymbol{x})}{\partial\boldsymbol{w_1}} \\
+	&= (z_n-t_n)\sigma'^2v_1\boldsymbol{x}
+\end{align}
+</div>
+
+ここで重要なのは，どちらも
+
+<div>
+\[
+	\frac{\partial(\mathit{Error Function})}{\partial(\overrightarrow{\mathit{Param}})}\propto(\mathit{Error})\times(\overrightarrow{\mathit{Input}})
+\]
+</div>
+
+という形になっているという点である（\\(z\_n-t\_n\\)が誤差，\\(\boldsymbol{x,y}\\)が入力ベクトル）．
+
+![パーセプトロンの更新]({{ site.baseurl }}/images/08/perceptron.gif)
+
+イメージとしてはこのGIFのように，入力ベクトルの方向にパラメータを修正することを繰り返すことになる
+（このGIFでは固定係数\\(\eta\\)による更新だが，ここでは固定係数ではなく誤差がかかった変動係数である）．
