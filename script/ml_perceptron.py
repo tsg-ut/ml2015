@@ -56,7 +56,8 @@ class MultiLayerPerceptron:
             
     def predict(self, x):
         yy = self.v.dot(self.hidden_layer(x))
-        return np.array([1 if y >= 0 else -1 for y in yy])
+        t = np.argmax(yy)
+        return np.array([1 if i == t else -1 for i in range(yy.shape[0])])
 
 if __name__ == "__main__":
     # 数字パターンデータを用意
