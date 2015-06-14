@@ -36,8 +36,8 @@ class Perceptron:
         Y = np.array(data[1])
         self.in_dim  = X.shape[1]     # 入力ベクトルの次元数
         self.out_dim = int(Y.max()+1) # 出力ベクトルの次元数
-        self.w = np.random.normal(0., 1., (self.mid_dim, self.in_dim))
-        self.v = np.random.normal(0., 1., (self.out_dim, self.mid_dim))
+        self.w = np.random.uniform(-4*np.sqrt(6./(self.in_dim+self.mid_dim)), 4*np.sqrt(6./(self.in_dim+self.mid_dim)), (self.mid_dim, self.in_dim))
+        self.v = np.random.uniform(-4*np.sqrt(6./(self.mid_dim+self.out_dim)), 4*np.sqrt(6./(self.mid_dim+self.out_dim)), (self.out_dim, self.mid_dim))
         for i in range(X.shape[0]):
             # 学習データを1つずつ学習する
             self.update(X[i], Y[i])
