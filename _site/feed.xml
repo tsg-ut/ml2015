@@ -6,8 +6,8 @@
 </description>
     <link>http://sig.tsg.ne.jp/ml2015/</link>
     <atom:link href="http://sig.tsg.ne.jp/ml2015/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Tue, 09 Jun 2015 22:42:19 +0900</pubDate>
-    <lastBuildDate>Tue, 09 Jun 2015 22:42:19 +0900</lastBuildDate>
+    <pubDate>Sun, 14 Jun 2015 11:39:28 +0900</pubDate>
+    <lastBuildDate>Sun, 14 Jun 2015 11:39:28 +0900</lastBuildDate>
     <generator>Jekyll v2.5.3</generator>
     
       <item>
@@ -59,7 +59,7 @@
 
 &lt;div&gt;
 \[
-    \boldsymbol{w}^{(k+1)}=\boldsymbol{w}^{(k)}-\eta\frac{\partial}{\partial\boldsymbol{w}}\left(\frac{1}{2}|t_{n_{k+1}}-z_{n_{k+1}}|^2\right) \tag{8-1}
+    \boldsymbol{w}^{(k+1)}=\boldsymbol{w}^{(k)}-\eta\frac{\partial}{\partial\boldsymbol{w}}\left(\frac{1}{2}|t^{(n_{k+1})}-z^{(n_{k+1})}|^2\right) \tag{8-1}
 \]
 &lt;/div&gt;
 
@@ -67,7 +67,7 @@
 
 &lt;div&gt;
 \[
-    E_{n_{k+1}}(\boldsymbol{w})=\frac{1}{2}|t_{n_{k+1}}-z_{n_{k+1}}|^2 \tag{8-2}
+    E^{(n_{k+1})}(\boldsymbol{w})=\frac{1}{2}|t^{(n_{k+1})}-z^{(n_{k+1})}|^2 \tag{8-2}
 \]
 &lt;/div&gt;
 
@@ -87,16 +87,17 @@
 
 &lt;p&gt;&lt;img src=&quot;/ml2015/images/08/perceptron.003.jpg&quot; alt=&quot;多層パーセプトロン&quot;&gt;&lt;/p&gt;
 
-&lt;p&gt;原理的には(8-1)の更新式を用いれば，SGDにより最適パラメータが推定できる．&lt;/p&gt;
+&lt;p&gt;原理的には(8-1)の更新式を用いれば，SGDにより最適パラメータが推定できる．
+今回は1段目はロジスティック関数を活性化関数に用い，2段目では恒等関数\(f(x)=x\)を活性化関数に用いるものとする．&lt;/p&gt;
 
 &lt;p&gt;図のパーセプトロンに対して(8-2)の微分を計算しようとすると，2段目（青い部分）は&lt;/p&gt;
 
 &lt;div&gt;
 \begin{align}
-    \frac{\partial E_n}{\partial\boldsymbol{v}}
-    &amp;= (z_n-t_n)\frac{\partial z_n}{\partial\boldsymbol{v}} \\
-    &amp;= (z_n-t_n)\frac{\partial}{\partial\boldsymbol{v}}(\sigma(\boldsymbol{v}^{\mathrm{T}}\boldsymbol{y})) \\
-    &amp;= (z_n-t_n)\sigma&#39;\boldsymbol{y}
+    \frac{\partial E^{(n)}}{\partial\boldsymbol{v}}
+    &amp;= (z^{(n)}-t^{(n)})\frac{\partial z^{(n)}}{\partial\boldsymbol{v}} \\
+    &amp;= (z^{(n)}-t^{(n)})\frac{\partial}{\partial\boldsymbol{v}}(\boldsymbol{v}^{\mathrm{T}}\boldsymbol{y}) \\
+    &amp;= (z^{(n)}-t^{(n)})\boldsymbol{y}
 \end{align}
 &lt;/div&gt;
 
@@ -104,12 +105,14 @@
 
 &lt;div&gt;
 \begin{align}
-    \frac{\partial E_n}{\partial\boldsymbol{w_1}}
-    &amp;= (z_n-t_n)\frac{\partial z_n}{\partial\boldsymbol{w_1}} \\
-    &amp;= (z_n-t_n)\frac{\partial}{\partial\boldsymbol{w_1}}(\sigma(\boldsymbol{v}^{\mathrm{T}}\boldsymbol{y})) \\
-    &amp;= (z_n-t_n)\sigma&#39;v_1\frac{\partial y_1}{\partial\boldsymbol{w_1}} \\
-    &amp;= (z_n-t_n)\sigma&#39;v_1\frac{\partial\sigma(\boldsymbol{w_1}^{\mathrm{T}}\boldsymbol{x})}{\partial\boldsymbol{w_1}} \\
-    &amp;= (z_n-t_n)\sigma&#39;^2v_1\boldsymbol{x}
+    \frac{\partial E^{(n)}}{\partial\boldsymbol{w_1}}
+    &amp;= (z^{(n)}-t^{(n)})\frac{\partial z^{(n)}}{\partial\boldsymbol{w_1}} \\
+    &amp;= (z^{(n)}-t^{(n)})\frac{\partial}{\partial\boldsymbol{w_1}}(\boldsymbol{v}^{\mathrm{T}}\boldsymbol{y}) \\
+    &amp;= (z^{(n)}-t^{(n)})\boldsymbol{v}\frac{\partial\boldsymbol{y}}{\partial\boldsymbol{w_1}} \\
+    &amp;= (z^{(n)}-t^{(n)})\boldsymbol{v}\frac{\partial}{\partial\boldsymbol{w_1}}(\sigma(\boldsymbol{w_1}^{\mathrm{T}}\boldsymbol{x})) \\
+    &amp;= (z^{(n)}-t^{(n)})\boldsymbol{v}\left(\frac{\partial\sigma(u)}{\partial u}\right)_{u=\boldsymbol{w_1}^{\mathrm{T}}\boldsymbol{x}}\frac{\partial(\boldsymbol{w_1}^{\mathrm{T}}\boldsymbol{x})}{\partial\boldsymbol{w_1}^{\mathrm{T}}} \\
+    &amp;= (z^{(n)}-t^{(n)})\boldsymbol{v}\left(\frac{\partial\sigma(u)}{\partial u}\right)_{u=\boldsymbol{w_1}^{\mathrm{T}}\boldsymbol{x}}\;\;\boldsymbol{x}^{\mathrm{T}} \\
+    &amp;= (z^{(n)}-t^{(n)})\sigma&#39;\boldsymbol{v}\boldsymbol{x}^{\mathrm{T}}
 \end{align}
 &lt;/div&gt;
 
@@ -138,7 +141,7 @@
 
 &lt;h2&gt;多層パーセプトロンのテスト&lt;/h2&gt;
 
-&lt;p&gt;&lt;a href=&quot;https://github.com/tsg-ut/ml2015/blob/master/08/ml_perceptron.py&quot;&gt;ml_perceptron.py&lt;/a&gt;はscikit-learnに含まれるMNIST datasets(手書きの数字)を多層パーセプトロンで分類している．
+&lt;p&gt;&lt;a href=&quot;https://github.com/tsg-ut/ml2015/blob/master/08/digit.py&quot;&gt;digit.py&lt;/a&gt;はscikit-learnに含まれるMNIST datasets(手書きの数字)を多層パーセプトロンで分類している．
 自前実装なのでパラメータの初期値の取り方や中間層数の取り方を適当にやってしまっている．&lt;/p&gt;
 
 &lt;p&gt;初期値ベクトルの取り方については&lt;a href=&quot;http://jmlr.org/proceedings/papers/v9/glorot10a/glorot10a.pdf&quot;&gt;Understanding the difficulty of training deep feedforward neural networks&lt;/a&gt;を参照するとよさそう．&lt;/p&gt;

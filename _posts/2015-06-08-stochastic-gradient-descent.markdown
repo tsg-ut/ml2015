@@ -52,7 +52,7 @@ categories: ml
 
 <div>
 \[
-	\boldsymbol{w}^{(k+1)}=\boldsymbol{w}^{(k)}-\eta\frac{\partial}{\partial\boldsymbol{w}}\left(\frac{1}{2}|t_{n_{k+1}}-z_{n_{k+1}}|^2\right) \tag{8-1}
+	\boldsymbol{w}^{(k+1)}=\boldsymbol{w}^{(k)}-\eta\frac{\partial}{\partial\boldsymbol{w}}\left(\frac{1}{2}|t^{(n_{k+1})}-z^{(n_{k+1})}|^2\right) \tag{8-1}
 \]
 </div>
 
@@ -60,7 +60,7 @@ categories: ml
 
 <div>
 \[
-	E_{n_{k+1}}(\boldsymbol{w})=\frac{1}{2}|t_{n_{k+1}}-z_{n_{k+1}}|^2 \tag{8-2}
+	E^{(n_{k+1})}(\boldsymbol{w})=\frac{1}{2}|t^{(n_{k+1})}-z^{(n_{k+1})}|^2 \tag{8-2}
 \]
 </div>
 
@@ -79,15 +79,16 @@ SGDにはナイーブな勾配法に比べて以下のような利点があげ�
 ![多層パーセプトロン]({{ site.baseurl }}/images/08/perceptron.003.jpg)
 
 原理的には(8-1)の更新式を用いれば，SGDにより最適パラメータが推定できる．
+今回は1段目はロジスティック関数を活性化関数に用い，2段目では恒等関数\\(f(x)=x\\)を活性化関数に用いるものとする．
 
 図のパーセプトロンに対して(8-2)の微分を計算しようとすると，2段目（青い部分）は
 
 <div>
 \begin{align}
-	\frac{\partial E_n}{\partial\boldsymbol{v}}
-	&= (z_n-t_n)\frac{\partial z_n}{\partial\boldsymbol{v}} \\
-	&= (z_n-t_n)\frac{\partial}{\partial\boldsymbol{v}}(\sigma(\boldsymbol{v}^{\mathrm{T}}\boldsymbol{y})) \\
-	&= (z_n-t_n)\sigma'\boldsymbol{y}
+	\frac{\partial E^{(n)}}{\partial\boldsymbol{v}}
+	&= (z^{(n)}-t^{(n)})\frac{\partial z^{(n)}}{\partial\boldsymbol{v}} \\
+	&= (z^{(n)}-t^{(n)})\frac{\partial}{\partial\boldsymbol{v}}(\boldsymbol{v}^{\mathrm{T}}\boldsymbol{y}) \\
+	&= (z^{(n)}-t^{(n)})\boldsymbol{y}
 \end{align}
 </div>
 
@@ -95,12 +96,14 @@ SGDにはナイーブな勾配法に比べて以下のような利点があげ�
 
 <div>
 \begin{align}
-	\frac{\partial E_n}{\partial\boldsymbol{w_1}}
-	&= (z_n-t_n)\frac{\partial z_n}{\partial\boldsymbol{w_1}} \\
-	&= (z_n-t_n)\frac{\partial}{\partial\boldsymbol{w_1}}(\sigma(\boldsymbol{v}^{\mathrm{T}}\boldsymbol{y})) \\
-	&= (z_n-t_n)\sigma'v_1\frac{\partial y_1}{\partial\boldsymbol{w_1}} \\
-	&= (z_n-t_n)\sigma'v_1\frac{\partial\sigma(\boldsymbol{w_1}^{\mathrm{T}}\boldsymbol{x})}{\partial\boldsymbol{w_1}} \\
-	&= (z_n-t_n)\sigma'^2v_1\boldsymbol{x}
+	\frac{\partial E^{(n)}}{\partial\boldsymbol{w_1}}
+	&= (z^{(n)}-t^{(n)})\frac{\partial z^{(n)}}{\partial\boldsymbol{w_1}} \\
+	&= (z^{(n)}-t^{(n)})\frac{\partial}{\partial\boldsymbol{w_1}}(\boldsymbol{v}^{\mathrm{T}}\boldsymbol{y}) \\
+	&= (z^{(n)}-t^{(n)})\boldsymbol{v}\frac{\partial\boldsymbol{y}}{\partial\boldsymbol{w_1}} \\
+	&= (z^{(n)}-t^{(n)})\boldsymbol{v}\frac{\partial}{\partial\boldsymbol{w_1}}(\sigma(\boldsymbol{w_1}^{\mathrm{T}}\boldsymbol{x})) \\
+	&= (z^{(n)}-t^{(n)})\boldsymbol{v}\left(\frac{\partial\sigma(u)}{\partial u}\right)_{u=\boldsymbol{w_1}^{\mathrm{T}}\boldsymbol{x}}\frac{\partial(\boldsymbol{w_1}^{\mathrm{T}}\boldsymbol{x})}{\partial\boldsymbol{w_1}^{\mathrm{T}}} \\
+	&= (z^{(n)}-t^{(n)})\boldsymbol{v}\left(\frac{\partial\sigma(u)}{\partial u}\right)_{u=\boldsymbol{w_1}^{\mathrm{T}}\boldsymbol{x}}\;\;\boldsymbol{x}^{\mathrm{T}} \\
+	&= (z^{(n)}-t^{(n)})\sigma'\boldsymbol{v}\boldsymbol{x}^{\mathrm{T}}
 \end{align}
 </div>
 
@@ -129,7 +132,7 @@ SGDにはナイーブな勾配法に比べて以下のような利点があげ�
 
 ## 多層パーセプトロンのテスト
 
-[ml\_perceptron.py](https://github.com/tsg-ut/ml2015/blob/master/08/ml_perceptron.py)はscikit-learnに含まれるMNIST datasets(手書きの数字)を多層パーセプトロンで分類している．
+[digit.py](https://github.com/tsg-ut/ml2015/blob/master/08/digit.py)はscikit-learnに含まれるMNIST datasets(手書きの数字)を多層パーセプトロンで分類している．
 自前実装なのでパラメータの初期値の取り方や中間層数の取り方を適当にやってしまっている．
 
 初期値ベクトルの取り方については[Understanding the difficulty of training deep feedforward neural networks](http://jmlr.org/proceedings/papers/v9/glorot10a/glorot10a.pdf)を参照するとよさそう．
