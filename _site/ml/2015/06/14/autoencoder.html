@@ -6,12 +6,11 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>TSG Machine Learning</title>
-  <meta name="description" content="TSG Machine Learning Substudy Group in 2015
-">
+  <title>#09 オートエンコーダ</title>
+  <meta name="description" content="オートエンコーダ">
 
   <link rel="stylesheet" href="/ml2015/css/main.css">
-  <link rel="canonical" href="http://sig.tsg.ne.jp/ml2015/">
+  <link rel="canonical" href="http://sig.tsg.ne.jp/ml2015/ml/2015/06/14/autoencoder.html">
   <link rel="alternate" type="application/rss+xml" title="TSG Machine Learning" href="http://sig.tsg.ne.jp/ml2015/feed.xml" />
   <script type="text/javascript"
       src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
@@ -58,87 +57,46 @@
 
     <div class="page-content">
       <div class="wrapper">
-        <div class="home">
+        <div class="post">
 
-  <h1 class="page-heading">Posts</h1>
+  <header class="post-header">
+    <h1 class="post-title">#09 オートエンコーダ</h1>
+    <p class="post-meta">Jun 14, 2015</p>
+  </header>
 
-  <ul class="post-list">
-    
-      <li>
-        <span class="post-meta">Jun 14, 2015</span>
+  <article class="post-content">
+    <h2>オートエンコーダ</h2>
 
-        <h2>
-          <a class="post-link" href="/ml2015/ml/2015/06/14/autoencoder.html">#09 オートエンコーダ</a>
-        </h2>
-      </li>
-    
-      <li>
-        <span class="post-meta">Jun 8, 2015</span>
+<p>#07，#08で扱った多層パーセプトロンは，このような形状をしていた．</p>
 
-        <h2>
-          <a class="post-link" href="/ml2015/ml/2015/06/08/stochastic-gradient-descent.html">#08 確率的勾配降下法</a>
-        </h2>
-      </li>
-    
-      <li>
-        <span class="post-meta">Jun 8, 2015</span>
+<p><img src="/ml2015/images/09/perceptron.001.png" alt="多層パーセプトロン"></p>
 
-        <h2>
-          <a class="post-link" href="/ml2015/ml/2015/06/08/neural-network.html">#07 ニューラルネットワーク</a>
-        </h2>
-      </li>
-    
-      <li>
-        <span class="post-meta">May 24, 2015</span>
+<p>入力ベクトルとして\(\boldsymbol{x}\)を与え，教師ベクトルとして\(\boldsymbol{z}\)を与えて，誤差関数を最小化することで学習を行った．
+（#07での説明では教師信号は\(z\)というスカラーで説明したが，これをベクトルに拡張するのは難しくない）</p>
 
-        <h2>
-          <a class="post-link" href="/ml2015/ml/2015/05/24/linear-recognition-model.html">#06 線形識別モデル</a>
-        </h2>
-      </li>
-    
-      <li>
-        <span class="post-meta">May 12, 2015</span>
+<p>ここで，教師ベクトルを次のようにとってみる．</p>
 
-        <h2>
-          <a class="post-link" href="/ml2015/ml/2015/05/12/probability.html">#05 確率分布の基礎</a>
-        </h2>
-      </li>
-    
-      <li>
-        <span class="post-meta">May 11, 2015</span>
+<p><img src="/ml2015/images/09/perceptron.002.png" alt="オートエンコーダ"></p>
 
-        <h2>
-          <a class="post-link" href="/ml2015/ml/2015/05/11/lagrange-multiplier.html">#04 最適化手法</a>
-        </h2>
-      </li>
-    
-      <li>
-        <span class="post-meta">May 10, 2015</span>
+<p>すなわち，教師ベクトル=入力ベクトルである．
+このパーセプトロンは，入力ベクトルを与えると出力として自分自身を復元することが期待される．</p>
 
-        <h2>
-          <a class="post-link" href="/ml2015/ml/2015/05/10/multivariate-analysis.html">#03 多変数解析</a>
-        </h2>
-      </li>
-    
-      <li>
-        <span class="post-meta">Apr 26, 2015</span>
+<p>しかし，目的としているのは入力を復元することではなく，中間層の出力である．
+中間層のノード数が入力層よりも少ない状態で入力を復元することができれば，より少ない情報量(=低次元)で入力データを表現できていることになる．
+言い換えれば，入力データの冗長性を上手に排除することができる．</p>
 
-        <h2>
-          <a class="post-link" href="/ml2015/ml/2015/04/26/environment.html">#02 環境構築</a>
-        </h2>
-      </li>
-    
-      <li>
-        <span class="post-meta">Apr 26, 2015</span>
+<p><img src="/ml2015/images/09/perceptron.003.png" alt="オートエンコーダの中間層"></p>
 
-        <h2>
-          <a class="post-link" href="/ml2015/ml/2015/04/26/machine-learning-basics.html">#01 機械学習の基礎</a>
-        </h2>
-      </li>
-    
-  </ul>
+<p>このようなパーセプトロンはオートエンコーダ(自己復号化器，AutoEncoder)と呼ばれる．</p>
 
-  <p class="rss-subscribe">subscribe <a href="/ml2015/feed.xml">via RSS</a></p>
+<h2>オートエンコーダと主成分分析の関係</h2>
+
+<p>学習データの次元を削減したいというのは，元々機械学習の分野ではよく行われてきたことである．
+数学的には一般次元で問題を定式化して解析的に解くことはできるが，コンピュータサイエンスの視点から見るとたとえ一般次元で定式化されていても次元が大きすぎると有限時間で計算が終わらないので，次元削減したいというのは自然な考えである．
+（「次元の呪い，The curse of dimensionality」という言葉がよく用いられる）
+オートエンコーダ以外にも線形代数や統計でよく用いられてきた<u>主成分分析(principal component analysis, PCA)</u>という手法を簡単に紹介する．</p>
+
+  </article>
 
 </div>
 

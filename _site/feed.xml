@@ -6,9 +6,51 @@
 </description>
     <link>http://sig.tsg.ne.jp/ml2015/</link>
     <atom:link href="http://sig.tsg.ne.jp/ml2015/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 14 Jun 2015 11:39:28 +0900</pubDate>
-    <lastBuildDate>Sun, 14 Jun 2015 11:39:28 +0900</lastBuildDate>
+    <pubDate>Sun, 14 Jun 2015 23:48:46 +0900</pubDate>
+    <lastBuildDate>Sun, 14 Jun 2015 23:48:46 +0900</lastBuildDate>
     <generator>Jekyll v2.5.3</generator>
+    
+      <item>
+        <title>#09 オートエンコーダ</title>
+        <description>&lt;h2&gt;オートエンコーダ&lt;/h2&gt;
+
+&lt;p&gt;#07，#08で扱った多層パーセプトロンは，このような形状をしていた．&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/ml2015/images/09/perceptron.001.png&quot; alt=&quot;多層パーセプトロン&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;入力ベクトルとして\(\boldsymbol{x}\)を与え，教師ベクトルとして\(\boldsymbol{z}\)を与えて，誤差関数を最小化することで学習を行った．
+（#07での説明では教師信号は\(z\)というスカラーで説明したが，これをベクトルに拡張するのは難しくない）&lt;/p&gt;
+
+&lt;p&gt;ここで，教師ベクトルを次のようにとってみる．&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/ml2015/images/09/perceptron.002.png&quot; alt=&quot;オートエンコーダ&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;すなわち，教師ベクトル=入力ベクトルである．
+このパーセプトロンは，入力ベクトルを与えると出力として自分自身を復元することが期待される．&lt;/p&gt;
+
+&lt;p&gt;しかし，目的としているのは入力を復元することではなく，中間層の出力である．
+中間層のノード数が入力層よりも少ない状態で入力を復元することができれば，より少ない情報量(=低次元)で入力データを表現できていることになる．
+言い換えれば，入力データの冗長性を上手に排除することができる．&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/ml2015/images/09/perceptron.003.png&quot; alt=&quot;オートエンコーダの中間層&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;このようなパーセプトロンはオートエンコーダ(自己復号化器，AutoEncoder)と呼ばれる．&lt;/p&gt;
+
+&lt;h2&gt;オートエンコーダと主成分分析の関係&lt;/h2&gt;
+
+&lt;p&gt;学習データの次元を削減したいというのは，元々機械学習の分野ではよく行われてきたことである．
+数学的には一般次元で問題を定式化して解析的に解くことはできるが，コンピュータサイエンスの視点から見るとたとえ一般次元で定式化されていても次元が大きすぎると有限時間で計算が終わらないので，次元削減したいというのは自然な考えである．
+（「次元の呪い，The curse of dimensionality」という言葉がよく用いられる）
+オートエンコーダ以外にも線形代数や統計でよく用いられてきた&lt;u&gt;主成分分析(principal component analysis, PCA)&lt;/u&gt;という手法を簡単に紹介する．&lt;/p&gt;
+</description>
+        <pubDate>Sun, 14 Jun 2015 00:00:00 +0900</pubDate>
+        <link>http://sig.tsg.ne.jp/ml2015/ml/2015/06/14/autoencoder.html</link>
+        <guid isPermaLink="true">http://sig.tsg.ne.jp/ml2015/ml/2015/06/14/autoencoder.html</guid>
+        
+        
+        <category>ml</category>
+        
+      </item>
     
       <item>
         <title>#08 確率的勾配降下法</title>
