@@ -19,17 +19,18 @@ class MultiLayerPerceptron:
         self.eta = eta
         self.beta = beta
 
-# シグモイド関数
+    # シグモイド関数
     def g(self, x):
-        return 1.0/(1.0+np.exp(-self.beta*x))
+        return np.vectorize(lambda x: 1.0/(1.0+np.exp(-self.beta*x)))(x)
 
-# シグモイド関数の1階導関数
+    # シグモイド関数の1階導関数
     def g_(self, x):
-        return self.beta*self.g(x)*(1-self.g(x))
+        s = self.g(x)
+        return self.beta*s*(1-s)
 
     # 入力ベクトルから中間層の出力を得る
     def hidden_layer(self, x):
-        return np.array([self.g(self.w[m].T.dot(x)) for m in range(self.n_mnodes)])
+        return self.g(np.dot(self.w, x))
 
     def fit(self, x, y):
         data = zip(x, y)
@@ -38,25 +39,23 @@ class MultiLayerPerceptron:
         train_x = np.array(data[0])
         train_y = np.array(data[1])
         for i in range(len(train_x)):
-            p._fit(train_x[i], train_y[i])
+            self._fit(train_x[i], train_y[i])
 
     def _fit(self, x, t):
         z = self.predict(x)
+#        print np.linalg.norm(np.dot(self.v, self.hidden_layer(x))-t)
         # 統一的に扱うためにラベルがスカラーの場合もベクトルで扱う
         if not isinstance(t, np.ndarray):
-            t = np.array([t])
+                t = np.array([t])
         # 最急降下法で係数ベクトルを更新する
         # 計算式は頑張って読んでくださいm(_ _)m
-        self.w = np.array([
-            self.w[m]-self.eta*2*np.dot(z-t,self.v.T[m])*self.g_(np.dot(self.w[m],x))*x 
-            for m in range(self.n_mnodes)])
-        self.v = np.array([
-            self.v[k]-self.eta*2*(z[k]-t[k])*self.hidden_layer(x) 
-            for k in range(self.n_onodes)])
+        self.w -= self.eta * np.array([np.dot(self.v.T[k], z - t) * self.g_(np.dot(self.w[k], x)) * x for k in range(self.n_mnodes)])
+        self.v -= self.eta * np.outer(z - t, self.hidden_layer(x))
 
     def predict(self, x):
         yy = self.v.dot(self.hidden_layer(x))
-        return np.array([1 if y >= 0 else -1 for y in yy])
+        t = np.argmax(yy)
+        return np.array([1 if i == t else -1 for i in range(yy.shape[0])])
 
 if __name__ == "__main__":
     # 数字パターンデータを用意
@@ -64,15 +63,15 @@ if __name__ == "__main__":
     data = digits.data
     # ラベルは10次元ベクトルで、正しいラベルのインデックスのみ1、他の要素は-1
     # 例えば1なら[-1,1,-1,-1,...]
-    target = np.array([[-1 for i in range(10)] for j in range(len(data))])
+    target = np.array([-1*np.ones(10) for j in range(len(data))])
     for i in range(len(data)):
         target[i][digits.target[i]] = 1
 
     # 学習データとテストデータに分割
     train_x, test_x, train_y, test_y = cross_validation.train_test_split(data, target, test_size=0.2)
 
-    p = MultiLayerPerceptron(dim=data[0].shape[0], eta=0.1, beta=0.01, n_mnodes=20, n_onodes=10)
+    p = MultiLayerPerceptron(dim=data[0].shape[0], eta=0.3, beta=0.01, n_mnodes=25, n_onodes=10)
     p.fit(train_x, train_y)
-
+    
     pred_y = np.array([p.predict(x) for x in test_x])
     print metrics.accuracy_score(pred_y, test_y)
