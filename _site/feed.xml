@@ -6,8 +6,8 @@
 </description>
     <link>http://sig.tsg.ne.jp/ml2015/</link>
     <atom:link href="http://sig.tsg.ne.jp/ml2015/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 14 Jun 2015 23:48:46 +0900</pubDate>
-    <lastBuildDate>Sun, 14 Jun 2015 23:48:46 +0900</lastBuildDate>
+    <pubDate>Sun, 14 Jun 2015 23:51:17 +0900</pubDate>
+    <lastBuildDate>Sun, 14 Jun 2015 23:51:17 +0900</lastBuildDate>
     <generator>Jekyll v2.5.3</generator>
     
       <item>
@@ -259,6 +259,10 @@
 &lt;p&gt;&lt;img src=&quot;/ml2015/images/07/perceptron.002.jpg&quot; alt=&quot;多層パーセプトロン&quot;&gt;&lt;/p&gt;
 
 &lt;p&gt;このように部分的に抽出すると，単層パーセプトロンとして見做すことができる．&lt;/p&gt;
+
+&lt;p&gt;これからよく登場するのは2層の多層パーセプトロンになる．
+多層になればなるほど学習時のパラメータの推定が計算量の面から困難になるからである．
+2層のパーセプトロンにおいて，&lt;u&gt;中間層の活性化関数にロジスティック関数，出力層の活性化関数に恒等関数\(f(x)=x\)を用いる．&lt;/u&gt;&lt;/p&gt;
 
 &lt;p&gt;パーセプトロンを多層にすることで一般的に表現能力が上がり，多彩な分類・認識を行うことができる．
 しかし，同時にパラメータ推定を行うのに飛躍的にリソースが増加する．
