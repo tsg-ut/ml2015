@@ -88,31 +88,20 @@ if __name__ == "__main__":
     data_x = data.data
     data_y = data.target
 
-    # AutoEncoderで学習データを次元削減する
-    ae = AutoEncoder(n_dim=16, eta=0.03)
-    ae.fit(data_x)
-    data_x = ae.reduce(data_x)
-
     train_x, test_x, train_y, test_y = cross_validation.train_test_split(data_x, data_y, test_size=0.2)
+    nn = AutoEncoder(n_dim=16, eta=0.03)
+    nn.fit(data_x)
 
-    # Perceptronで教師データを学習する
-    nn = Perceptron(beta=0.35)
-    nn.fit(train_x, train_y)
+    for i in range(3):
+        plt.subplot(3, 3, 1+3*i)
+        plt.imshow(test_x[i].reshape((8, 8)), cmap='Greys', interpolation='nearest')
 
-    # 推定
-    pred_y = [nn.predict(x) for x in test_x]
-    print metrics.accuracy_score(pred_y, test_y)
+        z, m = nn.output(test_x[i])
+        plt.subplot(3, 3, 2+3*i)
+        plt.imshow(m.reshape((4, 4)), cmap='Greys', interpolation='nearest')
 
-#    for i in range(3):
-#        plt.subplot(3, 3, 1+3*i)
-#        plt.imshow(test_x[i].reshape((8, 8)), cmap='Greys', interpolation='nearest')
-#
-#        z, m = nn.output(test_x[i])
-#        plt.subplot(3, 3, 2+3*i)
-#        plt.imshow(m.reshape((n, n)), cmap='Greys', interpolation='nearest')
-#
-#        plt.subplot(3, 3, 3+3*i)
-#        plt.imshow(z.reshape((8, 8)), cmap='Greys', interpolation='nearest')
-#        print test_y[i]
-#
-#    plt.show()
+        plt.subplot(3, 3, 3+3*i)
+        plt.imshow(z.reshape((8, 8)), cmap='Greys', interpolation='nearest')
+        print test_y[i]
+
+    plt.show()
