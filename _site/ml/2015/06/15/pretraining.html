@@ -96,6 +96,61 @@
 
 <h2>コードによる実例</h2>
 
+<h3>オートエンコーダ</h3>
+
+<p><a href="https://github.com/tsg-ut/ml2015/blob/master/10/autoencoder.py">autoencoder.py</a>にコードを示す．</p>
+
+<p>基本的なニューラルネットの実装は#08で示したdigit.pyのPerceptronクラスを流用している．
+AutoEncoderは学習の仕方もほとんどPerceptronと同じなので，Perceptronクラスを継承している（継承しやすいように多少Perceptronクラスは修正した）．</p>
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">class</span> <span class="nc">AutoEncoder</span><span class="p">(</span><span class="n">Perceptron</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_dim</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">eta</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">beta</span><span class="o">=</span><span class="mf">0.01</span><span class="p">):</span>
+        <span class="n">Perceptron</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nb_mnodes</span><span class="o">=</span><span class="n">n_dim</span><span class="p">,</span> <span class="n">eta</span><span class="o">=</span><span class="n">eta</span><span class="p">,</span> <span class="n">beta</span><span class="o">=</span><span class="n">beta</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="c"># 入力信号を教師信号として学習</span>
+        <span class="n">Perceptron</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">reduce</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="c"># 中間層出力を得る</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">s</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">w</span><span class="o">.</span><span class="n">T</span><span class="p">))</span>
+</code></pre></div>
+<p>これがAutoEncoderクラスの実装である．
+ほとんどPerceptronクラスと同じなのだが，学習を行うメソッド<code>AutoEncoder.fit</code>だけ，教師信号として入力自身を与えるように変更している．</p>
+
+<p>このautoencoder.pyを実行すると，次のようなウインドウが現れる．</p>
+
+<p><img src="/ml2015/images/10/encode.png" alt="エンコード結果"></p>
+
+<p>左から順に，</p>
+
+<ul>
+<li>1列目: 入力ベクトル</li>
+<li>2列目: オートエンコーダの中間層の出力</li>
+<li>3列目: 出力ベクトル</li>
+</ul>
+
+<p>となっている．元の入力画像は8×8の64次元で，中間層では一旦16次元まで落としてそれを4×4にconvertして表示している．
+それを出力層にかけると入力画像に近い画像が得られる．</p>
+
+<p>ちなみに，上から順にそれぞれ9，4，3である．</p>
+
+<h3>事前学習</h3>
+
+<p><a href="https://github.com/tsg-ut/ml2015/blob/master/10/digit.py">digit.py</a>にコードを示す．</p>
+
+<p>このコードは，上のautoencoder.pyに更に修正を加えたものになっている．
+重要な変更箇所は以下のとおり．</p>
+<div class="highlight"><pre><code class="language-python" data-lang="python">    <span class="k">def</span> <span class="nf">pretrain</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="c"># 事前学習</span>
+        <span class="n">ae</span> <span class="o">=</span> <span class="n">AutoEncoder</span><span class="p">(</span><span class="n">n_dim</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">mid_dim</span><span class="p">,</span> <span class="n">eta</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">eta</span><span class="o">*</span><span class="mf">0.01</span><span class="p">)</span>
+        <span class="n">ae</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">w</span> <span class="o">=</span> <span class="n">ae</span><span class="o">.</span><span class="n">weight</span><span class="p">()</span>
+</code></pre></div>
+<p>このメソッドが事前学習を行っている．事前学習自体はautoencoder.pyで定義したAutoEncoderクラスに投げている．
+事前学習でできた重みベクトル\(\boldsymbol{w}\)を<code>AutoEncoder.weight()</code>で取得し，Perceptronクラスの重みの初期値に設定している．</p>
+
+<p>この新しいPerceptronクラスで数字認識を行うと，90%程度の精度を出すことができる．</p>
+
   </article>
 
 </div>
