@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <title>#10 事前学習</title>
-  <meta name="description" content="">
+  <meta name="description" content="事前学習">
 
   <link rel="stylesheet" href="/ml2015/css/main.css">
   <link rel="canonical" href="http://sig.tsg.ne.jp/ml2015/ml/2015/06/15/pretraining.html">
@@ -65,7 +65,37 @@
   </header>
 
   <article class="post-content">
-    
+    <h2>事前学習</h2>
+
+<p>#07，#08のパーセプトロンの問題点の一つとして，初期値をランダムにとっていたことが挙げられる．
+度々になるが，勾配法でランダムな初期値からスタートすると，局所解にトラップされてしまう可能性がある．</p>
+
+<p>この問題の解決策として2006年にGeoffery Hintonによって提案されたのが，オートエンコーダである．
+着想は，初期値をランダムに取る代わりに<u>最適な初期値を推定する</u>ことにある．
+つまり，初期値を選択する操作自体を一つの推定問題として捉えるのである．</p>
+
+<p><img src="/ml2015/images/10/pretraining1.png" alt="事前学習"></p>
+
+<p>まずはこの図のように最小の層をオートエンコーダとして見立てて，学習を行う．
+このときのオートエンコーダの重みの初期値はランダムにとる．
+学習はパーセプトロンと同様にSGD等を用いて行う．</p>
+
+<p>そして，1層目のパラメータの初期値が推定された状態で，残りの層も含めて教師あり学習を行う．
+残りの層の初期値はランダムにとる．
+これまでのパーセプトロンとの違いは，1層目がオートエンコーダの自己学習を利用して自らパラメータの最適な初期値を学習しているという点である．
+このようにオートエンコーダを用いてパーセプトロンの重みの初期値を予め推定しておくことを<strong>事前学習(pre-training)</strong>という．</p>
+
+<p><img src="/ml2015/images/10/pretraining2.png" alt="事前学習2"></p>
+
+<p>Hintonが初めてオートエンコーダを発表した時は，2000→1000→500→30と3段のオートエンコーダを重ねて，元通りの画像を復元するように学習できた例を示している．
+上の例でははじめの1層だけだったが，一般に各層の重みをそれぞれオートエンコーダとみなして事前学習を行うことができる．</p>
+
+<p>【参考】<a href="http://www.cs.toronto.edu/%7Ehinton/science.pdf">Reducing the Dimensionality of Data with Neural Networks</a></p>
+
+<p>ちなみに，なぜオートエンコーダを用いるとよい初期値が得られるのか，という点についてはまだ理論的によくわかっていない．</p>
+
+<h2>コードによる実例</h2>
+
   </article>
 
 </div>
