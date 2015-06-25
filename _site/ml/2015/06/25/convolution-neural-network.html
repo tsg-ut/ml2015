@@ -6,12 +6,11 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>TSG Machine Learning</title>
-  <meta name="description" content="TSG Machine Learning Substudy Group in 2015
-">
+  <title>#11 畳込みニューラルネット</title>
+  <meta name="description" content="Deep Neural Networkになると学習を収束させるのが計算量の面から困難になってくる．その1つの解決策として提示したのが，#10で扱ったオートエンコーダである．コンセプトとしては，最適な初期値を与えれば計算がうまくいくということにある．そのためにオートエンコーダを用いて事前学習を行うことによってパーセ...">
 
   <link rel="stylesheet" href="/ml2015/css/main.css">
-  <link rel="canonical" href="http://sig.tsg.ne.jp/ml2015/">
+  <link rel="canonical" href="http://sig.tsg.ne.jp/ml2015/ml/2015/06/25/convolution-neural-network.html">
   <link rel="alternate" type="application/rss+xml" title="TSG Machine Learning" href="http://sig.tsg.ne.jp/ml2015/feed.xml" />
   <script type="text/javascript"
       src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
@@ -58,103 +57,46 @@
 
     <div class="page-content">
       <div class="wrapper">
-        <div class="home">
+        <div class="post">
 
-  <h1 class="page-heading">Posts</h1>
+  <header class="post-header">
+    <h1 class="post-title">#11 畳込みニューラルネット</h1>
+    <p class="post-meta">Jun 25, 2015</p>
+  </header>
 
-  <ul class="post-list">
-    
-      <li>
-        <span class="post-meta">Jun 25, 2015</span>
+  <article class="post-content">
+    <p>Deep Neural Networkになると学習を収束させるのが計算量の面から困難になってくる．
+その1つの解決策として提示したのが，#10で扱ったオートエンコーダである．
+コンセプトとしては，<u>最適な初期値を与えれば計算がうまくいく</u>ということにある．
+そのためにオートエンコーダを用いて事前学習を行うことによってパーセプトロンに初期値を与えた．
+#10のサンプルコードでは2層のパーセプトロンをオートエンコーダで事前学習させたが，これを更に多層にすればDeep Neural Networkになる．</p>
 
-        <h2>
-          <a class="post-link" href="/ml2015/ml/2015/06/25/convolution-neural-network.html">#11 畳込みニューラルネット</a>
-        </h2>
-      </li>
-    
-      <li>
-        <span class="post-meta">Jun 15, 2015</span>
+<p>この節では，Deep Neural Networkの学習を収束させる別のアプローチとして，<u>ノード間結合数(パラメータの次元数)を減らして計算量を減らす</u>ことを考える．
+このようなニューラルネットワークを<strong>畳込みニューラルネット(Convolution Neural Network, CNN)</strong>という．</p>
 
-        <h2>
-          <a class="post-link" href="/ml2015/ml/2015/06/15/pretraining.html">#10 事前学習</a>
-        </h2>
-      </li>
-    
-      <li>
-        <span class="post-meta">Jun 14, 2015</span>
+<h2>畳込みニューラルネット</h2>
 
-        <h2>
-          <a class="post-link" href="/ml2015/ml/2015/06/14/autoencoder.html">#09 オートエンコーダ</a>
-        </h2>
-      </li>
-    
-      <li>
-        <span class="post-meta">Jun 8, 2015</span>
+<p><img src="/ml2015/images/11/cnn1.png" alt="全結合"></p>
 
-        <h2>
-          <a class="post-link" href="/ml2015/ml/2015/06/08/stochastic-gradient-descent.html">#08 確率的勾配降下法</a>
-        </h2>
-      </li>
-    
-      <li>
-        <span class="post-meta">Jun 8, 2015</span>
+<p>これまで扱ってきたニューラルネットは，すべてノード間が全結合したニューラルネットであった．
+このように全結合していると，当然すべての結合に相当するパラメータの推定を行わなければならない．
+しかし，学習精度を上げるためには必ずしも全パラメータが必須というわけではない（現実のデータは疎(sparse)な構造を持つことが多い）．</p>
 
-        <h2>
-          <a class="post-link" href="/ml2015/ml/2015/06/08/neural-network.html">#07 ニューラルネットワーク</a>
-        </h2>
-      </li>
-    
-      <li>
-        <span class="post-meta">May 24, 2015</span>
+<p><img src="/ml2015/images/11/cnn2.png" alt="畳込み"></p>
 
-        <h2>
-          <a class="post-link" href="/ml2015/ml/2015/05/24/linear-recognition-model.html">#06 線形識別モデル</a>
-        </h2>
-      </li>
-    
-      <li>
-        <span class="post-meta">May 12, 2015</span>
+<p>そこで，このようにノード間結合を減らすことを考える．
+このようにすれば，推定すべきパラメータ数が減少し，ある程度計算量爆発を抑えることができる．</p>
 
-        <h2>
-          <a class="post-link" href="/ml2015/ml/2015/05/12/probability.html">#05 確率分布の基礎</a>
-        </h2>
-      </li>
-    
-      <li>
-        <span class="post-meta">May 11, 2015</span>
+<p>CNNは脳の受容野の仕組みを模したものである．
+一層目の入力画像に対して，中間層は位置敏感性を持ち（つまり、各々の中間層ノードは入力層の特定の部位に反応する），出力層は中間層に比べて位置に鈍感である．</p>
 
-        <h2>
-          <a class="post-link" href="/ml2015/ml/2015/05/11/lagrange-multiplier.html">#04 最適化手法</a>
-        </h2>
-      </li>
-    
-      <li>
-        <span class="post-meta">May 10, 2015</span>
+<p><img src="/ml2015/images/11/cnn3.png" alt="畳込みとプーリング"></p>
 
-        <h2>
-          <a class="post-link" href="/ml2015/ml/2015/05/10/multivariate-analysis.html">#03 多変数解析</a>
-        </h2>
-      </li>
-    
-      <li>
-        <span class="post-meta">Apr 26, 2015</span>
+<p>前者を<strong>畳込み</strong>，後者を<strong>プーリング</strong>という．</p>
 
-        <h2>
-          <a class="post-link" href="/ml2015/ml/2015/04/26/environment.html">#02 環境構築</a>
-        </h2>
-      </li>
-    
-      <li>
-        <span class="post-meta">Apr 26, 2015</span>
+<p>CNNは畳込みとプーリングという2種類の演算に対応する層を交互に重ねたニューラルネットワークである．</p>
 
-        <h2>
-          <a class="post-link" href="/ml2015/ml/2015/04/26/machine-learning-basics.html">#01 機械学習の基礎</a>
-        </h2>
-      </li>
-    
-  </ul>
-
-  <p class="rss-subscribe">subscribe <a href="/ml2015/feed.xml">via RSS</a></p>
+  </article>
 
 </div>
 
