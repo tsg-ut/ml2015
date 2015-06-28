@@ -12,7 +12,7 @@ def flatten(l):
     return list(chain.from_iterable(l))
 
 class Perceptron:
-    def __init__(self, nb_nodes=[30], eta=0.3, beta=0.01):
+    def __init__(self, nb_nodes=[30], eta=1e-2, beta=1e-2, r=1e-2):
         np.seterr(over='ignore')
         np.seterr(divide='raise')
         self.w = []         # パラメータ
@@ -20,17 +20,41 @@ class Perceptron:
         self.nb_batch = 1   # ミニバッチの大きさ
         self.eta = eta      # 勾配法の更新率
         self.b   = beta     # シグモイド関数の傾斜パラメータ
+        self.r   = r        # 正規化パラメータ
         # 各層の活性化関数
-        self.s  = [self.sigm  if i < len(self.dims)-2 else self.ident  for i in range(len(self.dims)-1)]
-        self.sp = [self.sigmp if i < len(self.dims)-2 else self.identp for i in range(len(self.dims)-1)]
+        self.s  = [self.sigm(self.b)  if i < len(self.dims)-2 else self.ident  for i in range(len(self.dims)-1)]
+        self.sp = [self.sigmp(self.b) if i < len(self.dims)-2 else self.identp for i in range(len(self.dims)-1)]
 
     # シグモイド関数
-    def sigm (self, x): return np.vectorize(lambda x: 1./(1+np.exp(-self.b*x)))(x)
-    def sigmp(self, x): s = self.sigm(x); return self.b*s*(1-s)
+    def sigm (self, b):
+        def f(x):
+            return np.vectorize(lambda x: 1./(1+np.exp(-b*x)))(x)
+        return f
+    def sigmp(self, b):
+        def f(x):
+            s = self.sigm(b)(x)
+            return b*s*(1-s)
+        return f
+
+    # tanh
+    def tanh (self, b):
+        def f(x):
+            return np.tanh(b*x)
+        return f
+    def tanhp(self, b):
+        def f(x):
+            return b*(1-np.tanh(b*x)**2)
+        return f
 
     # ReLU
-    def relu (self, x): return np.vectorize(lambda x: np.log(1+np.exp(x)))(x)
-    def relup(self, x): return np.vectorize(lambda x: 1./(1+np.exp(-x)))(x)
+    def relu (self, b):
+        def f(x):
+            return np.vectorize(lambda x: np.log(1+np.exp(b*x)))(x)
+        return f
+    def relup(self, b):
+        def f(x):
+            return np.vectorize(lambda x: b/(1+np.exp(-b*x)))(x)
+        return f
 
     # 恒等関数
     def ident (self, x): return x
@@ -46,7 +70,7 @@ class Perceptron:
     def pretrain(self, x):
         # 事前学習
         for i in range(len(self.w)):
-            ae = AutoEncoder(n_dim=self.dims[i+1], eta=self.eta*0.01*10**(-i))
+            ae = AutoEncoder(n_dim=self.dims[i+1], eta=self.eta, beta=self.b)
             ae.fit(x)
             self.w[i] = ae.weight()
             if i < len(self.w) - 1:
@@ -104,9 +128,9 @@ class Perceptron:
 
         for i in range(len(self.w)):
             if i == 0:
-                self.w[i] -= self.eta * np.dot(delta[i], x.T) / nb_batches
+                self.w[i] -= self.eta * (np.dot(delta[i], x.T) / nb_batches + self.r * self.w[i])
             else:
-                self.w[i] -= self.eta * np.dot(delta[i], z[i-1].T) / nb_batches
+                self.w[i] -= self.eta * (np.dot(delta[i], z[i-1].T) / nb_batches + self.r * self.w[i])
 
     def forward(self, x):
         # 順伝播計算
@@ -126,7 +150,7 @@ class Perceptron:
         return np.argmin(error)
 
 class AutoEncoder(Perceptron):
-    def __init__(self, n_dim, eta=0.3, beta=0.01):
+    def __init__(self, n_dim, eta=1e-2, beta=1e-2):
         Perceptron.__init__(self, nb_nodes=[n_dim], eta=eta, beta=beta)
 
     def fit(self, x):
@@ -149,7 +173,7 @@ if __name__ == "__main__":
     train_x, test_x, train_y, test_y = cross_validation.train_test_split(data_x, data_y, test_size=0.2)
 
     # Perceptronで教師データを学習する
-    nn = Perceptron(nb_nodes=[16])
+    nn = Perceptron(nb_nodes=[48], beta=6e-2, eta=2.5e-2)
     nn.fit(train_x, train_y, pretraining=True)
 
     # 推定

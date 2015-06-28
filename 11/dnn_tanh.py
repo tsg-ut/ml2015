@@ -22,20 +22,39 @@ class Perceptron:
         self.b   = beta     # シグモイド関数の傾斜パラメータ
         self.r   = r        # 正規化パラメータ
         # 各層の活性化関数
-        self.s  = [self.tanh  if i < len(self.dims)-2 else self.ident  for i in range(len(self.dims)-1)]
-        self.sp = [self.tanhp if i < len(self.dims)-2 else self.identp for i in range(len(self.dims)-1)]
+        self.s  = [self.tanh(self.b)  if i < len(self.dims)-2 else self.ident  for i in range(len(self.dims)-1)]
+        self.sp = [self.tanhp(self.b) if i < len(self.dims)-2 else self.identp for i in range(len(self.dims)-1)]
 
     # シグモイド関数
-    def sigm (self, x): return np.vectorize(lambda x: 1./(1+np.exp(-self.b*x)))(x)
-    def sigmp(self, x): s = self.sigm(x); return self.b*s*(1-s)
+    def sigm (self, b):
+        def f(x):
+            return np.vectorize(lambda x: 1./(1+np.exp(-b*x)))(x)
+        return f
+    def sigmp(self, b):
+        def f(x):
+            s = self.sigm(b)(x)
+            return b*s*(1-s)
+        return f
 
     # tanh
-    def tanh (self, x): return np.tanh(self.b*x)
-    def tanhp(self, x): return self.b*(1-np.tanh(self.b*x)**2)
+    def tanh (self, b):
+        def f(x):
+            return np.tanh(b*x)
+        return f
+    def tanhp(self, b):
+        def f(x):
+            return b*(1-np.tanh(b*x)**2)
+        return f
 
     # ReLU
-    def relu (self, x): return np.vectorize(lambda x: np.log(1+np.exp(x)))(x)
-    def relup(self, x): return np.vectorize(lambda x: 1./(1+np.exp(-x)))(x)
+    def relu (self, b):
+        def f(x):
+            return np.vectorize(lambda x: np.log(1+np.exp(b*x)))(x)
+        return f
+    def relup(self, b):
+        def f(x):
+            return np.vectorize(lambda x: b/(1+np.exp(-b*x)))(x)
+        return f
 
     # 恒等関数
     def ident (self, x): return x
@@ -154,7 +173,7 @@ if __name__ == "__main__":
     train_x, test_x, train_y, test_y = cross_validation.train_test_split(data_x, data_y, test_size=0.2)
 
     # Perceptronで教師データを学習する
-    nn = Perceptron(nb_nodes=[48], beta=1.75e-2)
+    nn = Perceptron(nb_nodes=[48], beta=1.75e-2, eta=2e-2)
     nn.fit(train_x, train_y, pretraining=True)
 
     # 推定
