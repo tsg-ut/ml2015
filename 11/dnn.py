@@ -7,19 +7,22 @@ from sklearn import datasets
 from sklearn import metrics
 import matplotlib.pyplot as plt
 
+def flatten(l):
+    from itertools import chain
+    return list(chain.from_iterable(l))
+
 class Perceptron:
     def __init__(self, nb_nodes=[30], eta=0.3, beta=0.01):
-        from itertools import chain
         np.seterr(over='ignore')
         np.seterr(divide='raise')
         self.w = []         # パラメータ
-        self.dims = list(chain.from_iterable([[None], nb_nodes, [None]])) # 各層の次元数
+        self.dims = flatten([[None], nb_nodes, [None]]) # 各層の次元数
         self.nb_batch = 1   # ミニバッチの大きさ
         self.eta = eta      # 勾配法の更新率
         self.b   = beta     # シグモイド関数の傾斜パラメータ
         # 各層の活性化関数
-        self.s  = [self.sigm  if i < len(self.dims)-2 else self.ident  for i in range(len(self.dims))]
-        self.sp = [self.sigmp if i < len(self.dims)-2 else self.identp for i in range(len(self.dims))]
+        self.s  = [self.sigm  if i < len(self.dims)-2 else self.ident  for i in range(len(self.dims)-1)]
+        self.sp = [self.sigmp if i < len(self.dims)-2 else self.identp for i in range(len(self.dims)-1)]
 
     # シグモイド関数
     def sigm (self, x): return np.vectorize(lambda x: 1./(1+np.exp(-self.b*x)))(x)
