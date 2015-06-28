@@ -25,6 +25,10 @@ class Perceptron:
     def sigm (self, x): return np.vectorize(lambda x: 1./(1+np.exp(-self.b*x)))(x)
     def sigmp(self, x): s = self.sigm(x); return self.b*s*(1-s)
 
+    # ReLU
+    def relu (self, x): return np.vectorize(lambda x: np.log(1+np.exp(x)))(x)
+    def relup(self, x): return np.vectorize(lambda x: 1./(1+np.exp(-x)))(x)
+
     # 恒等関数
     def ident (self, x): return x
     def identp(self, x): return 1
