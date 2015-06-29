@@ -1,7 +1,7 @@
 ---
 layout: post
-title:  "#11 畳込みニューラルネット"
-date:   2015-06-25
+title:  "#12 畳込みニューラルネット"
+date:   2015-06-30
 categories: ml
 ---
 
