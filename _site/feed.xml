@@ -6,8 +6,8 @@
 </description>
     <link>http://sig.tsg.ne.jp/ml2015/</link>
     <atom:link href="http://sig.tsg.ne.jp/ml2015/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 29 Jun 2015 18:55:01 +0900</pubDate>
-    <lastBuildDate>Mon, 29 Jun 2015 18:55:01 +0900</lastBuildDate>
+    <pubDate>Mon, 29 Jun 2015 23:40:13 +0900</pubDate>
+    <lastBuildDate>Mon, 29 Jun 2015 23:40:13 +0900</lastBuildDate>
     <generator>Jekyll v2.5.3</generator>
     
       <item>
@@ -23,13 +23,13 @@
 
 &lt;h2&gt;畳込みニューラルネット&lt;/h2&gt;
 
-&lt;p&gt;&lt;img src=&quot;/ml2015/images/11/cnn1.png&quot; alt=&quot;全結合&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/ml2015/images/12/cnn1.png&quot; alt=&quot;全結合&quot;&gt;&lt;/p&gt;
 
 &lt;p&gt;これまで扱ってきたニューラルネットは，すべてノード間が全結合したニューラルネットであった．
 このように全結合していると，当然すべての結合に相当するパラメータの推定を行わなければならない．
 しかし，学習精度を上げるためには必ずしも全パラメータが必須というわけではない（現実のデータは疎(sparse)な構造を持つことが多い）．&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/ml2015/images/11/cnn2.png&quot; alt=&quot;畳込み&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/ml2015/images/12/cnn2.png&quot; alt=&quot;畳込み&quot;&gt;&lt;/p&gt;
 
 &lt;p&gt;そこで，このようにノード間結合を減らすことを考える．
 このようにすれば，推定すべきパラメータ数が減少し，ある程度計算量爆発を抑えることができる．&lt;/p&gt;
@@ -37,7 +37,7 @@
 &lt;p&gt;CNNは脳の受容野の仕組みを模したものである．
 一層目の入力画像に対して，中間層は位置敏感性を持ち（つまり、各々の中間層ノードは入力層の特定の部位に反応する），出力層は中間層に比べて位置に鈍感である．&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/ml2015/images/11/cnn3.png&quot; alt=&quot;畳込みとプーリング&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/ml2015/images/12/cnn3.png&quot; alt=&quot;畳込みとプーリング&quot;&gt;&lt;/p&gt;
 
 &lt;p&gt;前者を&lt;strong&gt;畳込み&lt;/strong&gt;，後者を&lt;strong&gt;プーリング&lt;/strong&gt;という．&lt;/p&gt;
 
@@ -54,7 +54,142 @@
     
       <item>
         <title>#11 学習のテクニック</title>
-        <description></description>
+        <description>&lt;p&gt;パーセプトロンの層数を増やせば多彩な表現力が得られ，Deep Learningの基本的な考え方は多層のパーセプトロンをどのように上手に収束させるかということにある．
+#10ではオートエンコーダを用いた事前学習によって，良いパラメータに収束しやすい初期値を得ることを考えた．
+この節では，ニューラルネットワークに依らない，学習における一般的なテクニックをいくつか紹介する．&lt;/p&gt;
+
+&lt;h2&gt;機械学習における問題点&lt;/h2&gt;
+
+&lt;h3&gt;過学習・過適合&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;/ml2015/images/11/overfit.png&quot; alt=&quot;過学習&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;上図は\(y=\sin(x)\)の形状に分布するデータ列を表現するのに，それぞれ1, 3, 5, 10, 20, 50次元の多項式でフィッティングした結果である．&lt;/p&gt;
+
+&lt;p&gt;1次関数は線形なので，正弦曲線状にフィッティングするには表現力が不足している．
+3次関数くらいになるとフィッティングに十分な表現力を持つことがわかる．
+しかし，あまりに次元が大きくなりすぎるとデータ列を忠実に通るような曲線になるようにフィッティングされてしまうので，正弦曲線から離れてギザギザになってしまう．20次元や50次元の結果はそれが顕著で，これは望むべき結果ではない．
+このようにあまりに忠実に元データを再現している状態を&lt;strong&gt;過学習(過適合, overfitting)&lt;/strong&gt;という．&lt;/p&gt;
+
+&lt;p&gt;一般に，&lt;u&gt;統計モデルの表現力(=パラメータ数)とその尤もらしさは常にtrade-offの関係&lt;/u&gt;にある．&lt;/p&gt;
+
+&lt;h3&gt;計算の難しさ&lt;/h3&gt;
+
+&lt;p&gt;機械学習は，学習データを使ってモデルのパラメータを計算決定することである．
+一般的にパラメータを増やせば表現力が上がり，学習データ量を増やせば学習精度は向上するが，計算量が飛躍的に向上する（前者は特に「次元の呪い」と呼ばれる問題である）．&lt;/p&gt;
+
+&lt;p&gt;また，何度も触れている通り，勾配法(#04参照)を用いてパラメータ更新をする際には初期値の選び方が問題になる．
+初期値によっては局所解にトラップしてしまうし，最悪の場合計算が収束しない場合もある．&lt;/p&gt;
+
+&lt;p&gt;勾配法以外でも，オンライン学習でパラメータを更新する回数が多くなればなるほどパラメータがオーバーフロー・アンダーフローする問題は依然存在する．&lt;/p&gt;
+
+&lt;h2&gt;様々な解決策&lt;/h2&gt;
+
+&lt;h3&gt;正規化(Normalization)&lt;/h3&gt;
+
+&lt;p&gt;例えば顔画像認識をする際に，撮影した顔画像写真の光源の当たり方が写真によって違っていた場合，学習に悪影響をおよぼす可能性がある．
+文字認識をする際に，人によって文字の形が正方形に近かったり縦長の長方形に近かったりすることがあるが，これもアスペクト比を統一するのが望ましい．
+このように学習に関係ないデータ間の差異を，学習に影響を及ぼさないように取り除くことを&lt;strong&gt;正規化&lt;/strong&gt;という．&lt;/p&gt;
+
+&lt;p&gt;Web上の情報では正規化を後述の正則化と取り違えているものもあるので注意を要する．&lt;/p&gt;
+
+&lt;p&gt;【参考】&lt;a href=&quot;http://kivantium.hateblo.jp/entry/2014/11/25/230658&quot;&gt;ご注文は機械学習ですか？ - kivantiumの活動日記&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3&gt;早期終了(early stopping)&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;/ml2015/images/11/error.png&quot; alt=&quot;誤差の推移&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;SGDを用いて学習をするとき，ある一定量以上のデータを学習すると学習がそれ以上あまり進まなくなってくる．
+上図はオンライン学習で1データずつ学習した時の，横軸に既に学習したデータ数，縦軸にその時点での推定誤差をプロットしている．
+この場合，500データ以上になると誤差があまり変わらなくなるので，このあたりで学習を打ち切ることで高速に学習を終えることができる．&lt;/p&gt;
+
+&lt;p&gt;なお，これは手書き数字(digits)認識のエラー推移である．&lt;/p&gt;
+
+&lt;h3&gt;グリッドサーチ&lt;/h3&gt;
+
+&lt;p&gt;機械学習のモデルには様々なパラメータがある．
+例えば，本分科会で扱っている多層パーセプトロンでも&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;各層のノード数&lt;/li&gt;
+&lt;li&gt;活性化関数(シグモイド関数, tanh等)の傾斜パラメータ&lt;/li&gt;
+&lt;li&gt;学習率&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;といったパラメータがある．このパラメータによって学習の収束がうまくいくかどうか，そして学習自体の精度が決まってくるため，&lt;u&gt;パラメータチューニング&lt;/u&gt;は重要な作業になる．&lt;/p&gt;
+
+&lt;p&gt;パラメータチューニングで一般的に用いられるのが&lt;strong&gt;グリッドサーチ&lt;/strong&gt;という手法である．&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/ml2015/images/11/grid_search.png&quot; alt=&quot;グリッドサーチ&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;上図は手書き数字認識を2層のパーセプトロンで行った時のグリッドサーチの結果であり，横軸は中間層のノード数，縦軸は活性化関数としてとったシグモイド関数の傾斜パラメータ\(\beta\)の，推定精度のコンターマップである．
+グリッドサーチという名前は付いているが，やっていることは単純で，チューニングしたいパラメータをある範囲の中で変化させながら学習器を作り，精度を測定するだけである．
+単純ではあるが，上図からわかるようにきちんとパラメータチューニングをするかしないかで，同じアルゴリズムでも精度が大分変わってしまう．&lt;/p&gt;
+
+&lt;p&gt;このソースコードは&lt;a href=&quot;https://github.com/tsg-ut/ml2015/blob/master/11/grid_search.py&quot;&gt;grid_search.py&lt;/a&gt;に示した．&lt;/p&gt;
+
+&lt;h3&gt;次元削減(次元圧縮)&lt;/h3&gt;
+
+&lt;p&gt;元の学習データの次元数が大きすぎる場合は，特徴抽出したり，次元削減をして計算量を減らすことを考えるとよい．&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/ml2015/images/01/feature_extraction.png&quot; alt=&quot;特徴抽出&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;特徴抽出は，元のデータの特徴を捉えて必要な情報だけを抽出する手法である．
+上の画像は#01で提示したもので，元画像は400x400=16000画素あるが，勿論16000画素あっても不必要な情報が多く学習に時間がかかりすぎてしまう．
+20x20のセルに落としこむことによって，学習精度を保ちつつ(必要な特徴を残しつつ)次元数を元の2.5%まで落とすことができる．&lt;/p&gt;
+
+&lt;p&gt;次元削減には様々なアルゴリズムがある．この分科会では既に#09で&lt;u&gt;オートエンコーダ&lt;/u&gt;と&lt;u&gt;主成分分析&lt;/u&gt;を取り上げている．
+他にもSVMで用いられるカーネル主成分分析等があるが，詳細についてはこれ以上は詳しく述べない．&lt;/p&gt;
+
+&lt;h3&gt;正則化(Regularization)&lt;/h3&gt;
+
+&lt;p&gt;過学習の原因はモデルの自由度(パラメータ数)が大きいことに起因する．だからといって，自由度を下げるとモデルの表現力が低下してしまい，必要な情報をうまく表すことができない．
+そこで，パラメータになんらかの制約を加えることを考える．
+これまで考えていた誤差関数は&lt;/p&gt;
+
+&lt;div&gt;
+\[
+    E(\boldsymbol{w})=\frac{1}{2}||\boldsymbol{y}-\boldsymbol{t}||^2
+\]
+&lt;/div&gt;
+
+&lt;p&gt;の形をしたものであった．この右辺に&lt;strong&gt;正則化項&lt;/strong&gt;を加える．&lt;/p&gt;
+
+&lt;div&gt;
+\[
+    E(\boldsymbol{w})=\frac{1}{2}||\boldsymbol{y}-\boldsymbol{t}||^2+\lambda||\boldsymbol{w}||^p
+\]
+&lt;/div&gt;
+
+&lt;p&gt;ただし\(\lambda &amp;gt; 0\)である．このように正則化項を導入すると，誤差関数を最小化することで同時に\(||\boldsymbol{w}||\)が小さい値に制限される．
+このような手法を&lt;strong&gt;正則化&lt;/strong&gt;という．特に&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;p=1 → Lasso正則化(L1正則化)&lt;/li&gt;
+&lt;li&gt;p=2 → Ridge正則化(L2正則化)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;と呼ばれる．L1正則化はパラメータの一部が0に近づくので特徴選択の役割も同時に果たすのだが，解析的に書き下せないためL2正則化が用いられることも多い．
+\(\lambda\)は正則化の度合を決めるパラメータである．&lt;/p&gt;
+
+&lt;p&gt;ちなみに，LassoとRidgeを混合したElasticNetという正則化手法もある．&lt;/p&gt;
+
+&lt;div&gt;
+\[
+    E(\boldsymbol{w})=\frac{1}{2}||\boldsymbol{y}-\boldsymbol{t}||^2+\lambda\{\alpha||\boldsymbol{w}||+(1-\alpha)||\boldsymbol{w}||^2\}
+\]
+&lt;/div&gt;
+
+&lt;h2&gt;参考&lt;/h2&gt;
+
+&lt;p&gt;多層パーセプトロンのパラメータの選択については公式のドキュメントが参考になる．&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://deeplearning.net/tutorial/mlp.html#tips-and-tricks-for-training-mlps&quot;&gt;Multilayer Perceptron - DeepLearning 0.1 Documentation&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;この辺りの機械学習の周辺テクニックについては下記のスライドが参考になる．&lt;/p&gt;
+
+&lt;p&gt;&lt;iframe src=&quot;//www.slideshare.net/slideshow/embed_code/key/bK9wnTG51FHn5x&quot; width=&quot;425&quot; height=&quot;355&quot; frameborder=&quot;0&quot; marginwidth=&quot;0&quot; marginheight=&quot;0&quot; scrolling=&quot;no&quot; style=&quot;border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;&quot; allowfullscreen&gt; &lt;/iframe&gt; &lt;div style=&quot;margin-bottom:5px&quot;&gt; &lt;strong&gt; &lt;a href=&quot;//www.slideshare.net/canard0328/ss-44288984&quot; title=&quot;機械学習によるデータ分析まわりのお話&quot; target=&quot;_blank&quot;&gt;機械学習によるデータ分析まわりのお話&lt;/a&gt; &lt;/strong&gt; from &lt;strong&gt;&lt;a href=&quot;//www.slideshare.net/canard0328&quot; target=&quot;_blank&quot;&gt;canard0328 &lt;/a&gt;&lt;/strong&gt; &lt;/div&gt;&lt;/p&gt;
+</description>
         <pubDate>Mon, 29 Jun 2015 00:00:00 +0900</pubDate>
         <link>http://sig.tsg.ne.jp/ml2015/ml/2015/06/29/techniques-of-learning.html</link>
         <guid isPermaLink="true">http://sig.tsg.ne.jp/ml2015/ml/2015/06/29/techniques-of-learning.html</guid>
